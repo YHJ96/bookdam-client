@@ -1,0 +1,27 @@
+{
+  "root": true,
+  "ignorePatterns": ["node_modules/*", "dist"],
+  "env": {
+    "browser": true,
+    "node": true
+  },
+
+  /* Basic Options */
+  "plugins": ["prettier"],
+  "extends": ["next/core-web-vitals", "plugin:prettier/recommended"],
+  "rules": {
+    "no-console": ["warn", { "allow": ["info", "warn", "error"] }]
+  },
+
+  /* Test Overrides */
+  "overrides": [
+    /* https://github.com/vitest-dev/eslint-plugin-vitest/tree/main/docs/rules (vitest) */
+    {
+      "files": ["src/**/*.spec.ts", "src/**/*.spec.tsx"],
+      "plugins": ["vitest"],
+      "extends": ["plugin:vitest/recommended"]
+    },
+    /* https://github.com/cypress-io/eslint-plugin-cypress/tree/master/docs/rules (cypress) */
+    { "files": ["cypress/**/*.cy.ts"], "plugins": ["cypress"], "extends": ["plugin:cypress/recommended"] }
+  ]
+}

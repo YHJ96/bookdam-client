@@ -1,0 +1,43 @@
+{
+  "compilerOptions": {
+    /* Basic Compiler Options */
+    "target": "ESNext",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+
+    /* Module Configuration */
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+
+    /* JSX Configuration */
+    "jsx": "preserve",
+
+    /* Performance Optimization */
+    "incremental": true,
+
+    /* Plugin Settings */
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
+
+    /* Path Aliases */
+    "paths": {
+      "@/*": ["./src/*"]
+    },
+
+    /* Type Definitions */
+    "types": ["vitest/globals", "cypress", "@testing-library/cypress"]
+  },
+
+  /* Files */
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "exclude": ["node_modules"]
+}
