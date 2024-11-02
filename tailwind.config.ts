@@ -6,11 +6,12 @@ const rem0_200: Record<number, string> = { ...Array.from(Array(201)).map((_, i) 
 const rem0_500: Record<number, string> = { ...Array.from(Array(501)).map((_, i) => `${i / 16}rem`) };
 
 const config: Config = {
+  darkMode: ['class'],
   content: [
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
     './src/views/**/*.{js,ts,jsx,tsx,mdx}',
-    './src/templates/**/*.{js,ts,jsx,tsx,mdx}',
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
+    './src/features/**/*.{js,ts,jsx,tsx,mdx}',
     './src/shared/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
@@ -22,12 +23,17 @@ const config: Config = {
       gap: rem0_100,
       minHeight: rem0_200,
       minWidth: rem0_200,
-      width: rem0_500,
+      width: rem0_200,
       height: rem0_500,
       colors: {},
+      borderRadius: {
+        lg: 'var(--radius)',
+        md: 'calc(var(--radius) - 2px)',
+        sm: 'calc(var(--radius) - 4px)',
+      },
     },
   },
-  plugins: [],
+  plugins: [require('tailwindcss-animate')],
 };
 
 export default config;
