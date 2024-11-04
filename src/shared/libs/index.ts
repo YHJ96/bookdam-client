@@ -1,3 +1,4 @@
+import { font } from './font';
 import { queryClient } from './queryClient';
 
-export { queryClient };
+export { font, queryClient };
