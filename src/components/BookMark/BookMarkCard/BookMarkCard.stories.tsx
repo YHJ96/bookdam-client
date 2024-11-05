@@ -9,6 +9,7 @@ const meta = {
   title: 'BookMark/Card',
   component: BookMarkCard,
   parameters: {
+    darkMode: { stylePreview: true },
     layout: 'centered',
     docs: {
       description: {
