@@ -41,8 +41,10 @@
     "@storybook/addon-onboarding": "^8.3.5",
     "@storybook/blocks": "^8.3.5",
     "@storybook/nextjs": "^8.3.5",
+    "@storybook/preview-api": "^8.4.2",
     "@storybook/react": "^8.3.5",
     "@storybook/test": "^8.3.5",
+    "@storybook/theming": "^8.4.1",
     "@testing-library/cypress": "^10.0.2",
     "@testing-library/jest-dom": "^6.5.0",
     "@testing-library/react": "^16.0.1",
@@ -65,6 +67,7 @@
     "prettier-plugin-tailwindcss": "^0.6.8",
     "start-server-and-test": "^2.0.8",
     "storybook": "^8.3.5",
+    "storybook-dark-mode": "^4.0.2",
     "tailwindcss": "^3.4.1",
     "typescript": "^5",
     "vitest": "^2.1.2"
