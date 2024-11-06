@@ -9,6 +9,7 @@ const config: StorybookConfig = {
     '@storybook/addon-interactions',
     '@storybook/theming',
     '@storybook/preview-api',
+    '@storybook/addon-viewport',
     'storybook-dark-mode',
   ],
   framework: {
