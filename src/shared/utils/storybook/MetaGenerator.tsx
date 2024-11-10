@@ -36,7 +36,12 @@ class MetaGenerator<T extends React.FunctionComponent<any>> {
   }
 
   setRender(css: React.CSSProperties) {
-    this.meta.render = (args) => React.createElement('div', { children: this.component(args), style: css });
+    const Component = this.component;
+    this.meta.render = (args: React.ComponentProps<T>) => (
+      <div style={css}>
+        <Component {...args} />
+      </div>
+    );
     return this;
   }
 

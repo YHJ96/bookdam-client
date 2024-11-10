@@ -39,7 +39,12 @@ class StoryGenerator<T extends React.FunctionComponent<any>> {
   }
 
   setRender(css: React.CSSProperties) {
-    this.story.render = (args) => React.createElement('div', { children: this.component(args), style: css });
+    const Component = this.component;
+    this.story.render = (args: React.ComponentProps<T>) => (
+      <div style={css}>
+        <Component {...args} />
+      </div>
+    );
     return this;
   }
 

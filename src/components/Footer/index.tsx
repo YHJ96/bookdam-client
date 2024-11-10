@@ -2,7 +2,6 @@ import { Github, Mail } from 'lucide-react';
 
 import { Button } from '@/shared/ui';
 
-// Dark
 export default function Footer() {
   return (
     <footer className="w-full border-b border-t border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-800">
