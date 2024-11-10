@@ -7,7 +7,7 @@ export default function Footer() {
   return (
     <footer className="w-full border-b border-t border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-800">
       <div className="flex flex-col items-center justify-between gap-8 py-12 sm:flex-row sm:px-20">
-        <div className="flex items-center space-x-16">
+        <nav className="flex items-center space-x-16">
           <Button variant="ghost" size="icon" asChild>
             <a
               className="text-gray-600 hover:text-gray-900 dark:hover:bg-neutral-800"
@@ -25,7 +25,7 @@ export default function Footer() {
               <span className="sr-only">Email</span>
             </a>
           </Button>
-        </div>
+        </nav>
         <p className="text-xs text-gray-600 sm:text-sm">@Created by YHJ96</p>
       </div>
     </footer>
