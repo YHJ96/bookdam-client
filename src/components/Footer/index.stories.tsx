@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta } from '@storybook/react';
 
 import { MetaGenerator, StoryGenerator } from '@/shared/utils/storybook';
 
@@ -6,7 +6,7 @@ import Footer from './index';
 
 const generator = new MetaGenerator(Footer)
   .setDocsDescription(
-    '웹 하단의 푸터 UI를 제공합니다. 깃허브 링크를 클릭하면 코드가 있는 리파지토리로 이동합니다. \n 메일을 클릭하면 메일로 이동합니다.',
+    '웹 하단의 푸터 UI를 제공합니다. 깃허브 링크를 클릭하면 코드가 있는 리파지토리로 이동합니다. 메일을 클릭하면 메일로 이동합니다.',
   )
   .setRender({ width: 720 })
   .setDisableStories(true)
