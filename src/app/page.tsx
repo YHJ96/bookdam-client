@@ -1,7 +1,3 @@
-import React from 'react';
+import { Home } from '@/views';
 
-function App() {
-  return <div />;
-}
-
-export default App;
+export default Home;

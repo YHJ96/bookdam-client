@@ -6,7 +6,7 @@ type HideProps = {
 };
 
 function Hide({ condition, component }: HideProps) {
-  return condition ? component : null;
+  return condition ? null : component;
 }
 
 export default Hide;

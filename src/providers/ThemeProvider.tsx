@@ -8,7 +8,7 @@ type ThemeProviderProps = {
 
 export default function ThemeProvider({ children }: ThemeProviderProps) {
   return (
-    <NextThemesProvider attribute="class" defaultTheme="system" enableSystem={false} disableTransitionOnChange={true}>
+    <NextThemesProvider attribute="class" defaultTheme="system" enableSystem={true} disableTransitionOnChange={true}>
       {children}
     </NextThemesProvider>
   );
