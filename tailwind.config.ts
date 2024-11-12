@@ -1,10 +1,5 @@
 import type { Config } from 'tailwindcss';
 
-const rem0_10: Record<number, string> = { ...Array.from(Array(11)).map((_, i) => `${i / 16}rem`) };
-const rem0_100: Record<number, string> = { ...Array.from(Array(101)).map((_, i) => `${i / 16}rem`) };
-const rem0_200: Record<number, string> = { ...Array.from(Array(201)).map((_, i) => `${i / 16}rem`) };
-const rem0_500: Record<number, string> = { ...Array.from(Array(501)).map((_, i) => `${i / 16}rem`) };
-
 const config: Config = {
   darkMode: ['class'],
   content: [
@@ -16,20 +11,25 @@ const config: Config = {
   ],
   theme: {
     extend: {
-      borderWidth: rem0_10,
-      fontSize: rem0_100,
-      lineHeight: rem0_100,
-      spacing: rem0_200,
-      gap: rem0_100,
-      minHeight: rem0_200,
-      minWidth: rem0_200,
-      width: rem0_200,
-      height: rem0_500,
-      colors: {},
+      colors: {
+        sidebar: {
+          'DEFAULT': 'hsl(var(--sidebar-background))',
+          'foreground': 'hsl(var(--sidebar-foreground))',
+          'primary': 'hsl(var(--sidebar-primary))',
+          'primary-foreground': 'hsl(var(--sidebar-primary-foreground))',
+          'accent': 'hsl(var(--sidebar-accent))',
+          'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
+          'border': 'hsl(var(--sidebar-border))',
+          'ring': 'hsl(var(--sidebar-ring))',
+        },
+      },
       borderRadius: {
         lg: 'var(--radius)',
         md: 'calc(var(--radius) - 2px)',
         sm: 'calc(var(--radius) - 4px)',
+      },
+      borderColor: {
+        bg: 'hsl(var(--border))',
       },
     },
   },

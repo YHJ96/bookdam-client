@@ -1,11 +1,16 @@
 import React, { useState } from 'react';
 
+import { usePathname } from 'next/navigation';
+
 import { User } from 'lucide-react';
 
+import { PATHS_TO_ARRAY } from '@/shared/constants';
 import { Button } from '@/shared/ui';
 import { IfElse } from '@/shared/utils/react';
 
 function Header() {
+  const currentPath = PATHS_TO_ARRAY.find((path) => path.title === usePathname());
+
   const [isLogin, setIsLogin] = useState(false);
 
   const login = () => setIsLogin(true);

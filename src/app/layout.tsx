@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 
 import { QueryProvider, ThemeProvider } from '@/providers';
 import { font } from '@/shared/libs';
+import { Layout } from '@/views';
 
 import './globals.css';
 
@@ -20,7 +21,9 @@ function RootLayout({ children }: RooRootLayoutProps) {
     <html lang="ko" suppressHydrationWarning>
       <body className={font.className}>
         <ThemeProvider>
-          <QueryProvider>{children}</QueryProvider>
+          <QueryProvider>
+            <Layout>{children}</Layout>
+          </QueryProvider>
         </ThemeProvider>
       </body>
     </html>
