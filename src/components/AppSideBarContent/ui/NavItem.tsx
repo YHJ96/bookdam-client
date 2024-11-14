@@ -5,15 +5,16 @@ import { usePathname } from 'next/navigation';
 
 import type { LucideIcon } from 'lucide-react';
 
-import { SidebarMenuButton, SidebarMenuItem } from '@/shared/ui';
+import { SidebarMenuButton, SidebarMenuItem, useSidebar } from '@/shared/ui';
 
 type NavItemProps = { title: string; icon: LucideIcon; url: string };
 
 function NavItem({ icon: Icon, title, url }: NavItemProps) {
   const isPath = usePathname() === url;
+  const { setOpenMobile } = useSidebar();
 
   return (
-    <SidebarMenuItem>
+    <SidebarMenuItem onClick={() => setOpenMobile(false)}>
       <Link href={url}>
         <SidebarMenuButton tooltip={title} isActive={isPath}>
           <Icon />

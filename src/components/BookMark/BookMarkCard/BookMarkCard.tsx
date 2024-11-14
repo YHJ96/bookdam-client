@@ -39,7 +39,7 @@ function BookMarkCard({ title, description, url, theme }: BookMarkCardProps) {
         )}
       >
         <div className="flex h-full">
-          <div className={cn('h-full w-100 flex-shrink-0', currentStyle.iconBackground)}>
+          <div className={cn('w-100 h-full flex-shrink-0', currentStyle.iconBackground)}>
             <svg width="100" height="150" viewBox="0 0 100 150" xmlns="http://www.w3.org/2000/svg">
               <rect width="100" height="150" fill={currentStyle.iconFill} />
               <text

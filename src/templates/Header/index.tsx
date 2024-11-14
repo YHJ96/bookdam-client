@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React, { HTMLAttributes, ReactElement, useState } from 'react';
 
 import { usePathname } from 'next/navigation';
 
-import { Download } from 'lucide-react';
+import { Download, Menu } from 'lucide-react';
 
 import { PATHS_TO_ARRAY } from '@/shared/constants';
-import { Button } from '@/shared/ui';
+import { Button, SidebarTrigger } from '@/shared/ui';
 import { Hide } from '@/shared/utils/react';
 
 function Header() {
@@ -16,7 +16,16 @@ function Header() {
 
   return (
     <header className="flex h-12 w-full items-center justify-between border-b border-gray-200 bg-white px-4 py-1.5 dark:border-[#303030] dark:bg-[#151515]">
-      <h2 className="text-base font-bold text-gray-800 dark:text-gray-300">{currentPath?.title}</h2>
+      <section className="flex items-center gap-1">
+        <SidebarTrigger>
+          <Button className="sm:hidden" variant="ghost" size="icon">
+            <Menu />
+          </Button>
+        </SidebarTrigger>
+
+        <h2 className="text-base font-bold text-gray-800 dark:text-gray-300">{currentPath?.title}</h2>
+      </section>
+
       <div className="flex gap-2">
         <Button variant="outline" size="sm">
           <Download />
