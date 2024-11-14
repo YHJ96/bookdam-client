@@ -4,12 +4,12 @@ import { Button } from '@/shared/ui';
 
 export default function Footer() {
   return (
-    <footer className="w-full border-t border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-800">
-      <div className="flex flex-col items-center justify-between gap-8 py-12 sm:flex-row sm:px-20">
-        <nav className="flex items-center space-x-16">
+    <footer className="w-full border-t border-gray-200 bg-white dark:border-[#303030] dark:bg-[#151515]">
+      <div className="flex flex-col items-center justify-between gap-2 py-3 sm:flex-row sm:px-5">
+        <nav className="flex items-center space-x-4">
           <Button variant="ghost" size="icon" asChild>
             <a
-              className="text-gray-600 hover:text-gray-900 dark:hover:bg-neutral-800"
+              className="text-gray-600 hover:text-gray-900"
               href="https://github.com/YHJ96"
               target="_blank"
               rel="noopener noreferrer"

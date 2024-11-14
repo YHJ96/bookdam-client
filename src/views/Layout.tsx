@@ -2,8 +2,10 @@
 
 import React from 'react';
 
+import FloatingButton from '@/components/FloatingButton';
+
 import { SidebarInset, SidebarProvider } from '@/shared/ui';
-import { AppSideBar, Header } from '@/templates';
+import { AppSideBar, Footer, Header } from '@/templates';
 
 type LayoutProps = {
   children: React.ReactNode;
@@ -14,9 +16,13 @@ function Layout({ children }: LayoutProps) {
     <SidebarProvider>
       <AppSideBar />
       <SidebarInset>
-        <Header />
-        <div className="p-2">{children}</div>
+        <div className="flex min-h-screen flex-col dark:text-sidebar-foreground">
+          <Header />
+          <div className="flex-1 p-2">{children}</div>
+          <Footer />
+        </div>
       </SidebarInset>
+      <FloatingButton />
     </SidebarProvider>
   );
 }
