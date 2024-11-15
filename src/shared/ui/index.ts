@@ -10,8 +10,10 @@ import {
   DialogHeader,
   DialogOverlay,
   DialogPortal,
+  DialogProvider,
   DialogTitle,
   DialogTrigger,
+  useDialog,
 } from './Dialog';
 import { Input } from './Input';
 import { Label } from './Label';
@@ -77,8 +79,10 @@ export {
   DialogHeader,
   DialogOverlay,
   DialogPortal,
+  DialogProvider,
   DialogTitle,
   DialogTrigger,
+  useDialog,
   /* Button */
   Button,
   /* Tag */

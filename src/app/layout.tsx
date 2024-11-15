@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 
 import { QueryProvider, ThemeProvider } from '@/providers';
 import { font } from '@/shared/libs';
+import { DialogProvider } from '@/shared/ui';
 import { Layout } from '@/views';
 
 import './globals.css';
@@ -22,7 +23,9 @@ function RootLayout({ children }: RooRootLayoutProps) {
       <body className={font.className}>
         <ThemeProvider>
           <QueryProvider>
-            <Layout>{children}</Layout>
+            <DialogProvider>
+              <Layout>{children}</Layout>
+            </DialogProvider>
           </QueryProvider>
         </ThemeProvider>
       </body>
