@@ -1,9 +1,7 @@
 import React from 'react';
 
-import Modal from '@/components/Modal';
-
 function Home() {
-  return <Modal />;
+  return <div />;
 }
 
 export default Home;

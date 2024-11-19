@@ -15,7 +15,7 @@ function Header() {
   const login = () => setIsLogin(true);
 
   return (
-    <header className="flex h-12 w-full items-center justify-between border-b border-gray-200 bg-white px-4 py-1.5 dark:border-[#303030] dark:bg-[#151515]">
+    <header className="border-primary flex h-12 w-full items-center justify-between border-b px-4 py-1.5">
       <section className="flex items-center gap-1">
         <SidebarTrigger>
           <Button className="sm:hidden" variant="ghost" size="icon">

@@ -5,11 +5,11 @@ import React from 'react';
 import DialogContext from './DialogContext';
 import useDialogContoller from './useDialogContoller';
 
-interface ModalProviderProps {
+interface DialogProviderProps {
   children: React.ReactNode;
 }
 
-function DialogProvider({ children }: ModalProviderProps) {
+function DialogProvider({ children }: DialogProviderProps) {
   const controller = useDialogContoller();
   const context = controller.top();
 
