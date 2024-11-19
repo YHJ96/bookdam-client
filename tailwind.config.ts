@@ -29,6 +29,7 @@ const config: Config = {
         sm: 'calc(var(--radius) - 4px)',
       },
       borderColor: {
+        primary: 'hsl(var(--border))',
         bg: 'hsl(var(--border))',
       },
     },

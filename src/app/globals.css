@@ -4,6 +4,8 @@
 @layer base {
   :root {
     --radius: 0.5rem;
+
+    --border: 220, 16%, 92%;
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
     --sidebar-primary: 240 5.9% 10%;
@@ -15,7 +17,7 @@
   }
 
   .dark {
-    --border: 240 3.7% 15.9%;
+    --border: 0, 0%, 19%;
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
     --sidebar-primary: 224.3 76.3% 48%;
