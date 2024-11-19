@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { useIsMobile } from '@/shared/hooks/use-mobile';
+import { useIsMobile } from '@/shared/hooks';
 import { TooltipProvider } from '@/shared/ui';
 
 import SidebarContext from './SidebarContext';
@@ -18,9 +18,10 @@ interface SidebarProviderProps {
 const style = { '--sidebar-width': SIDEBAR_WIDTH, '--sidebar-width-icon': SIDEBAR_WIDTH_ICON } as React.CSSProperties;
 
 function SidebarProvider({ children }: SidebarProviderProps) {
-  const isMobile = useIsMobile();
   const [openMobile, setOpenMobile] = useState(false);
   const [open, setOpen] = useState(true);
+
+  const isMobile = useIsMobile();
   const toggleSidebar = () => (isMobile ? setOpenMobile((prev) => !prev) : setOpen((prev) => !prev));
   const state = open ? 'expanded' : 'collapsed';
 

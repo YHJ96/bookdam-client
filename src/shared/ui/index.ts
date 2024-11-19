@@ -13,8 +13,8 @@ import {
   DialogProvider,
   DialogTitle,
   DialogTrigger,
-  useDialog,
 } from './Dialog';
+import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage, useFormField } from './Form';
 import { Input } from './Input';
 import { Label } from './Label';
 import { Popover, PopoverContent, PopoverTrigger } from './Popover';
@@ -48,7 +48,6 @@ import {
 } from './Sidebar';
 import { Skeleton } from './Skeleton';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from './Tabs';
-import { Tag } from './Tag';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from './Tooltip';
 
 export {
@@ -71,11 +70,8 @@ export {
   DialogProvider,
   DialogTitle,
   DialogTrigger,
-  useDialog,
   /* Button */
   Button,
-  /* Tag */
-  Tag,
   /* Label */
   Label,
   /* Input */
@@ -127,4 +123,12 @@ export {
   TabsContent,
   TabsList,
   TabsTrigger,
+  /* Form */
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
 };

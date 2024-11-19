@@ -2,8 +2,7 @@
 
 import React from 'react';
 
-import FloatingButton from '@/components/FloatingButton';
-
+import { FloatingButton } from '@/components';
 import { SidebarInset, SidebarProvider } from '@/shared/ui';
 import { AppSideBar, Footer, Header } from '@/templates';
 
@@ -22,7 +21,7 @@ function Layout({ children }: LayoutProps) {
           <Footer />
         </div>
       </SidebarInset>
-      <FloatingButton />
+      <FloatingButton animationDisable={false} />
     </SidebarProvider>
   );
 }

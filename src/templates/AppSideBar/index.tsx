@@ -2,8 +2,9 @@
 
 import * as React from 'react';
 
-import { AppSideBarContent, AppSideBarFooter } from '@/components';
 import { Sidebar, SidebarRail } from '@/shared/ui';
+
+import { AppSideBarContent, AppSideBarFooter } from './ui';
 
 function AppSideBar() {
   return (
