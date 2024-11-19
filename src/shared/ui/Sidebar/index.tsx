@@ -6,16 +6,7 @@ import { Slot } from '@radix-ui/react-slot';
 import { VariantProps, cva } from 'class-variance-authority';
 import { PanelLeft } from 'lucide-react';
 
-import {
-  Button,
-  Sheet,
-  SheetContent,
-  SheetDescription,
-  SheetTitle,
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from '@/shared/ui';
+import { Button, Sheet, SheetContent, SheetTitle, Tooltip, TooltipContent, TooltipTrigger } from '@/shared/ui';
 import { cn } from '@/shared/utils';
 
 import SidebarProvider from './SidebarProvider';
@@ -50,7 +41,7 @@ const Sidebar = React.forwardRef<
           data-sidebar="sidebar"
           data-mobile="true"
           aria-describedby={undefined}
-          className="border-primary w-[--sidebar-width] bg-sidebar p-0 text-sidebar-foreground [&>button]:hidden"
+          className="w-[--sidebar-width] border-primary bg-sidebar p-0 text-sidebar-foreground [&>button]:hidden"
           style={
             {
               '--sidebar-width': '18rem',
@@ -90,7 +81,7 @@ const Sidebar = React.forwardRef<
       />
       <div
         className={cn(
-          'border-primary fixed inset-y-0 z-10 hidden h-svh w-[--sidebar-width] transition-[left,right,width] duration-200 ease-linear md:flex',
+          'fixed inset-y-0 z-10 hidden h-svh w-[--sidebar-width] border-primary transition-[left,right,width] duration-200 ease-linear md:flex',
           side === 'left'
             ? 'left-0 group-data-[collapsible=offcanvas]:left-[calc(var(--sidebar-width)*-1)]'
             : 'right-0 group-data-[collapsible=offcanvas]:right-[calc(var(--sidebar-width)*-1)]',

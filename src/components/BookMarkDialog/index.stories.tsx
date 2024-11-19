@@ -1,12 +1,12 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import BookMarkModal from './index';
+import BookMarkDialog from './index';
 
-type Story = StoryObj<typeof BookMarkModal>;
+type Story = StoryObj<typeof BookMarkDialog>;
 
 const meta = {
   title: 'Modal/BookMark',
-  component: BookMarkModal,
+  component: BookMarkDialog,
   parameters: {
     layout: 'centered',
     docs: {
@@ -24,7 +24,7 @@ const meta = {
       </div>
     ),
   ],
-} satisfies Meta<typeof BookMarkModal>;
+} satisfies Meta<typeof BookMarkDialog>;
 
 export const Default: Story = {
   args: {},

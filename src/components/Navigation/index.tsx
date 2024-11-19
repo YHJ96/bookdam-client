@@ -5,11 +5,12 @@ import { usePathname } from 'next/navigation';
 
 import type { LucideIcon } from 'lucide-react';
 
-import { SidebarMenuButton, SidebarMenuItem, useSidebar } from '@/shared/ui';
+import { useSidebar } from '@/shared/hooks';
+import { SidebarMenuButton, SidebarMenuItem } from '@/shared/ui';
 
-type NavItemProps = { title: string; icon: LucideIcon; url: string };
+type NavigationProps = { title: string; icon: LucideIcon; url: string };
 
-function NavItem({ icon: Icon, title, url }: NavItemProps) {
+function Navigation({ icon: Icon, title, url }: NavigationProps) {
   const isPath = usePathname() === url;
   const { setOpenMobile } = useSidebar();
 
@@ -25,4 +26,4 @@ function NavItem({ icon: Icon, title, url }: NavItemProps) {
   );
 }
 
-export default NavItem;
+export default Navigation;
