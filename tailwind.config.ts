@@ -30,7 +30,6 @@ const config: Config = {
       },
       borderColor: {
         primary: 'hsl(var(--border))',
-        bg: 'hsl(var(--border))',
       },
     },
   },

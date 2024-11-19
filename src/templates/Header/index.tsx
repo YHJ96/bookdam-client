@@ -5,7 +5,8 @@ import { usePathname } from 'next/navigation';
 import { Download, Menu } from 'lucide-react';
 
 import { PATHS_TO_ARRAY } from '@/shared/constants';
-import { Button, SidebarTrigger } from '@/shared/ui';
+import { Button } from '@/shared/ui';
+import { useSidebar } from '@/shared/ui';
 import { Hide } from '@/shared/utils/react';
 
 function Header() {
@@ -13,15 +14,14 @@ function Header() {
   const currentPath = PATHS_TO_ARRAY.find((path) => path.url === _path);
   const [isLogin, setIsLogin] = useState(false);
   const login = () => setIsLogin(true);
+  const { toggleSidebar } = useSidebar();
 
   return (
     <header className="border-primary flex w-full items-center justify-between border-b px-4 py-2.5">
-      <section className="flex items-center gap-1">
-        {/* <SidebarTrigger>
-          <Button className="md:hidden" variant="ghost" size="icon">
-            <Menu />
-          </Button>
-        </SidebarTrigger> */}
+      <section className="flex items-center gap-1.5">
+        <Button className="h-6 w-6 md:hidden" variant="ghost" size="icon" onClick={toggleSidebar}>
+          <Menu />
+        </Button>
 
         <h2 className="font-bold">{currentPath?.title}</h2>
       </section>
