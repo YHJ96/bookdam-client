@@ -3,8 +3,10 @@
 @tailwind utilities;
 @layer base {
   :root {
+    /* Basic */
     --radius: 0.5rem;
 
+    /* Theme */
     --border: 220, 16%, 92%;
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
