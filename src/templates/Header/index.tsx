@@ -15,15 +15,15 @@ function Header() {
   const login = () => setIsLogin(true);
 
   return (
-    <header className="border-primary flex h-12 w-full items-center justify-between border-b px-4 py-1.5">
+    <header className="border-primary flex w-full items-center justify-between border-b px-4 py-2.5">
       <section className="flex items-center gap-1">
-        <SidebarTrigger>
-          <Button className="sm:hidden" variant="ghost" size="icon">
+        {/* <SidebarTrigger>
+          <Button className="md:hidden" variant="ghost" size="icon">
             <Menu />
           </Button>
-        </SidebarTrigger>
+        </SidebarTrigger> */}
 
-        <h2 className="text-base font-bold text-gray-800 dark:text-gray-300">{currentPath?.title}</h2>
+        <h2 className="font-bold">{currentPath?.title}</h2>
       </section>
 
       <div className="flex gap-2">
