@@ -8,18 +8,24 @@ import SidebarContext from './SidebarContext';
 const SIDEBAR_COOKIE_NAME = 'sidebar:state';
 const SIDEBAR_COOKIE_MAX_AGE = 60 * 60 * 24 * 7;
 const SIDEBAR_WIDTH = '16rem';
-const SIDEBAR_WIDTH_MOBILE = '18rem';
 const SIDEBAR_WIDTH_ICON = '3rem';
 
 interface SidebarProviderProps {
+  defaultOpen: boolean;
   children: React.ReactNode;
 }
 
 const style = { '--sidebar-width': SIDEBAR_WIDTH, '--sidebar-width-icon': SIDEBAR_WIDTH_ICON } as React.CSSProperties;
 
-function SidebarProvider({ children }: SidebarProviderProps) {
+function SidebarProvider({ children, defaultOpen }: SidebarProviderProps) {
   const [openMobile, setOpenMobile] = useState(false);
-  const [open, setOpen] = useState(true);
+  const [open, _setOpen] = useState(defaultOpen);
+
+  const setOpen = (value: boolean | ((value: boolean) => boolean)) => {
+    const openState = typeof value === 'function' ? value(open) : value;
+    _setOpen(openState);
+    document.cookie = `${SIDEBAR_COOKIE_NAME}=${openState}; path=/; max-age=${SIDEBAR_COOKIE_MAX_AGE}`;
+  };
 
   const isMobile = useIsMobile();
   const toggleSidebar = () => (isMobile ? setOpenMobile((prev) => !prev) : setOpen((prev) => !prev));

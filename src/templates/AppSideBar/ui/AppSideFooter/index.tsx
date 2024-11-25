@@ -1,21 +1,7 @@
-'use client';
-
 import * as React from 'react';
 
-import { ChevronsUpDown, LogOut } from 'lucide-react';
-
 import { UserPopover } from '@/components';
-import {
-  Button,
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-  Separator,
-  SidebarFooter,
-  SidebarMenu,
-  SidebarMenuButton,
-  SidebarMenuItem,
-} from '@/shared/ui';
+import { SidebarFooter, SidebarMenu, SidebarMenuItem } from '@/shared/ui';
 
 function AppSideBarFooter() {
   return (

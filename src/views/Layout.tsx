@@ -1,6 +1,6 @@
-'use client';
-
 import React from 'react';
+
+import { cookies } from 'next/headers';
 
 import { FloatingButton } from '@/components';
 import { SidebarInset, SidebarProvider } from '@/shared/ui';
@@ -10,9 +10,12 @@ type LayoutProps = {
   children: React.ReactNode;
 };
 
-function Layout({ children }: LayoutProps) {
+async function Layout({ children }: LayoutProps) {
+  const cookieStore = await cookies();
+  const defaultOpen = cookieStore.get('sidebar:state')?.value === 'true';
+
   return (
-    <SidebarProvider>
+    <SidebarProvider defaultOpen={defaultOpen}>
       <AppSideBar />
       <SidebarInset>
         <div className="flex min-h-screen flex-col dark:text-sidebar-foreground">
