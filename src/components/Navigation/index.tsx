@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react';
 
 import Link from 'next/link';
@@ -14,8 +16,10 @@ function Navigation({ icon: Icon, title, url }: NavigationProps) {
   const isPath = usePathname() === url;
   const { setOpenMobile } = useSidebar();
 
+  const handleOnClick = () => setOpenMobile(false);
+
   return (
-    <SidebarMenuItem onClick={() => setOpenMobile(false)}>
+    <SidebarMenuItem onClick={handleOnClick}>
       <Link href={url}>
         <SidebarMenuButton tooltip={title} isActive={isPath}>
           <Icon />
