@@ -15,6 +15,7 @@ import {
   DialogTrigger,
 } from './Dialog';
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage, useFormField } from './Form';
+import { Image } from './Image';
 import { Input } from './Input';
 import { Label } from './Label';
 import { Popover, PopoverContent, PopoverTrigger } from './Popover';
@@ -131,4 +132,6 @@ export {
   FormItem,
   FormLabel,
   FormMessage,
+  /* Image */
+  Image,
 };
