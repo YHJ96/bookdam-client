@@ -6,6 +6,8 @@ import { ExternalLink } from 'lucide-react';
 
 import { Card, CardContent, Image } from '@/shared/ui';
 
+import BookMarkDropdown from '../BookMarkDropdown';
+
 type BookMarkListProps = {
   title: string;
   description: string;
@@ -13,10 +15,13 @@ type BookMarkListProps = {
   imageUrl: string;
 };
 
-function BookMarkList({ title, description, url, imageUrl }: BookMarkListProps) {
+function BookMark({ title, description, url, imageUrl }: BookMarkListProps) {
   return (
-    <a href={url} target="_blank" rel="noopener noreferrer">
-      <Card>
+    <Card className="group relative">
+      <div className="absolute right-2 top-2 z-10">
+        <BookMarkDropdown />
+      </div>
+      <a href={url} target="_blank" rel="noopener noreferrer">
         <CardContent className="flex items-center p-4">
           <div className="mr-4 h-16 w-16 flex-shrink-0 overflow-hidden rounded-md">
             <Image src={imageUrl} alt={title} width={60} height={60} />
@@ -30,9 +35,9 @@ function BookMarkList({ title, description, url, imageUrl }: BookMarkListProps) 
             </div>
           </div>
         </CardContent>
-      </Card>
-    </a>
+      </a>
+    </Card>
   );
 }
 
-export default BookMarkList;
+export default BookMark;
