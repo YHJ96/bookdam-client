@@ -1,7 +1,8 @@
 'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
 
+import { useRouter } from 'next/navigation';
 import { usePathname } from 'next/navigation';
 
 import { Download, Menu } from 'lucide-react';
@@ -12,11 +13,12 @@ import { useSidebar } from '@/shared/ui';
 import { Hide } from '@/shared/utils/react';
 
 function Header() {
-  const _path = usePathname();
-  const currentPath = PATHS_TO_ARRAY.find((path) => path.url === _path);
-  const [isLogin, setIsLogin] = useState(false);
-  const login = () => setIsLogin(true);
+  const router = useRouter();
   const { toggleSidebar } = useSidebar();
+  const path = usePathname();
+
+  const currentPath = PATHS_TO_ARRAY.find(({ url }) => url === path);
+  const handleLoginButtonOnClick = () => router.push('/login');
 
   return (
     <header className="flex w-full items-center justify-between border-b border-primary px-4 py-2.5">
@@ -34,9 +36,9 @@ function Header() {
           <span>엑셀 다운로드</span>
         </Button>
         <Hide
-          condition={isLogin}
+          condition={false}
           component={
-            <Button variant="outline" size="sm" onClick={login}>
+            <Button variant="outline" size="sm" onClick={handleLoginButtonOnClick}>
               로그인
             </Button>
           }
