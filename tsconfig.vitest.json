@@ -6,6 +6,6 @@
     "composite": true,
     "types": ["vitest/globals"]
   },
-  "include": ["src", "setupTests.ts"],
+  "include": ["src", "setupTests.ts", "env.d.ts"],
   "exclude": ["**/*.stories.tsx"]
 }
