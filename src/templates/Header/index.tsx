@@ -7,12 +7,14 @@ import { usePathname } from 'next/navigation';
 
 import { Download, Menu } from 'lucide-react';
 
+import { useUser } from '@/entities';
 import { PATHS_TO_ARRAY } from '@/shared/constants';
 import { Button } from '@/shared/ui';
 import { useSidebar } from '@/shared/ui';
 import { Hide } from '@/shared/utils/react';
 
 function Header() {
+  const { isSession } = useUser();
   const router = useRouter();
   const { toggleSidebar } = useSidebar();
   const path = usePathname();
@@ -36,7 +38,7 @@ function Header() {
           <span>엑셀 다운로드</span>
         </Button>
         <Hide
-          condition={false}
+          condition={isSession}
           component={
             <Button variant="outline" size="sm" onClick={handleLoginButtonOnClick}>
               로그인
