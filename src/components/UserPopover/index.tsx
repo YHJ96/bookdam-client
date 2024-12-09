@@ -7,18 +7,24 @@ import { ChevronsUpDown, LogOut } from 'lucide-react';
 import { ThemeTabs, UserAvatar } from '@/components';
 import { Button, Popover, PopoverContent, PopoverTrigger, Separator, SidebarMenuButton } from '@/shared/ui';
 
-function UserPopover() {
+type UserPopoverProps = {
+  name: string;
+  avatar: string;
+  email: string;
+};
+
+function UserPopover({ name, avatar, email }: UserPopoverProps) {
   return (
     <Popover>
       <PopoverTrigger asChild>
         <SidebarMenuButton size="lg">
-          <UserAvatar name="YHJ96" email="9668788@naver.com" avatarSrc="https://github.com/yhj96.png" />
+          <UserAvatar name={name} email={email} avatarSrc={avatar} />
           <ChevronsUpDown className="ml-auto size-4" />
         </SidebarMenuButton>
       </PopoverTrigger>
       <PopoverContent className="flex flex-col gap-2">
         <div className="flex items-center gap-2">
-          <UserAvatar name="YHJ96" email="9668788@naver.com" avatarSrc="https://github.com/yhj96.png" />
+          <UserAvatar name={name} email={email} avatarSrc={avatar} />
         </div>
         <Separator />
         <Button variant="ghost" className="h6 justify-start px-2.5 py-1.5 text-sm">

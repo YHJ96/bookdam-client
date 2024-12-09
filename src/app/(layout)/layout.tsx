@@ -27,7 +27,7 @@ function getSession() {
     const jwt = jwtDecode(accessToken);
     const user = decrypt(jwt.ec);
 
-    return user;
+    return { ...user };
   } catch {
     return undefined;
   }
