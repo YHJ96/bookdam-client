@@ -1,23 +1,29 @@
 'use client';
 
-import { useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
-type SessionUser = {
+import { api } from '@/shared/libs';
+
+export type User = {
   name: string;
   email: string;
   avatar: string;
 };
 
-type User = {
-  isSession: boolean;
-  name: string;
-  email: string;
-  avatar: string;
+const removeCookies = async () => await api.post('/auth/logout');
+
+export const useUser = () => {
+  const { data, ...rest } = useQuery<User>({ queryKey: ['user'], staleTime: Infinity });
+
+  return { user: data ?? null, ...rest };
 };
 
-export const useUser = (): User => {
+export const useLogout = () => {
   const queryClient = useQueryClient();
-  const state = queryClient.getQueryData<SessionUser>(['user']);
-  if (state === undefined) return { isSession: false, name: '', email: '', avatar: '' };
-  return { isSession: true, ...state };
+  const { mutate } = useMutation({
+    mutationFn: removeCookies,
+    onSuccess: () => queryClient.setQueryData(['user'], null),
+  });
+
+  return mutate;
 };

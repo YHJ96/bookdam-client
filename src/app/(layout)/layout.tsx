@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { cookies } from 'next/headers';
 
 import { HydrationBoundary, QueryClient, dehydrate } from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 import { QueryProvider, ThemeProvider } from '@/providers';
 import { font } from '@/shared/libs';
@@ -29,7 +30,7 @@ function getSession() {
 
     return { ...user };
   } catch {
-    return undefined;
+    return null;
   }
 }
 
@@ -37,7 +38,7 @@ function getSession() {
 async function RootLayout({ children }: RooRootLayoutProps) {
   const queryClient = new QueryClient();
 
-  await queryClient.prefetchQuery({ queryKey: ['user'], queryFn: getSession });
+  if (getSession()) await queryClient.prefetchQuery({ queryKey: ['user'], queryFn: getSession });
 
   const dehydratedState = dehydrate(queryClient);
 
@@ -51,6 +52,7 @@ async function RootLayout({ children }: RooRootLayoutProps) {
                 <Layout>{children}</Layout>
               </HydrationBoundary>
             </DialogProvider>
+            <ReactQueryDevtools />
           </QueryProvider>
         </ThemeProvider>
       </body>
