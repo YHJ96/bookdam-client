@@ -22,23 +22,19 @@ type RooRootLayoutProps = {
 };
 
 function getSession() {
-  try {
-    const cookie = cookies();
-    const accessToken = cookie.get('access')?.value ?? '';
-    const jwt = jwtDecode(accessToken);
-    const user = decrypt(jwt.ec);
-
-    return { ...user };
-  } catch {
-    return null;
-  }
+  const cookie = cookies();
+  const accessToken = cookie.get('access')?.value ?? '';
+  const jwt = jwtDecode(accessToken);
+  if (!(jwt && 'ec' in jwt)) return null;
+  return decrypt(jwt.ec);
 }
 
 /* https://github.com/pacocoursey/next-themes/blob/bf0c5a45eaf6fb2b336a6b93840e4ec572bc08c8/next-themes/README.md?plain=1#L95C1-L96C1 */
 async function RootLayout({ children }: RooRootLayoutProps) {
   const queryClient = new QueryClient();
+  const session = getSession();
 
-  if (getSession()) await queryClient.prefetchQuery({ queryKey: ['user'], queryFn: getSession });
+  if (session) await queryClient.prefetchQuery({ queryKey: ['user'], queryFn: getSession });
 
   const dehydratedState = dehydrate(queryClient);
 

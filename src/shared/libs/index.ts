@@ -1,5 +1,2 @@
-import { api } from './api';
-import { font } from './font';
-import { queryClient } from './queryClient';
-
-export { font, queryClient, api };
+export { api, nextApi } from './api';
+export { font } from './font';
