@@ -5,6 +5,7 @@ import * as React from 'react';
 import { ChevronsUpDown, LogOut } from 'lucide-react';
 
 import { ThemeTabs, UserAvatar } from '@/components';
+import { useLogout } from '@/entities';
 import { Button, Popover, PopoverContent, PopoverTrigger, Separator, SidebarMenuButton } from '@/shared/ui';
 
 type UserPopoverProps = {
@@ -14,6 +15,8 @@ type UserPopoverProps = {
 };
 
 function UserPopover({ name, avatar, email }: UserPopoverProps) {
+  const logout = useLogout();
+
   return (
     <Popover>
       <PopoverTrigger asChild>
@@ -27,9 +30,9 @@ function UserPopover({ name, avatar, email }: UserPopoverProps) {
           <UserAvatar name={name} email={email} avatarSrc={avatar} />
         </div>
         <Separator />
-        <Button variant="ghost" className="h6 justify-start px-2.5 py-1.5 text-sm">
+        <Button variant="ghost" className="h6 justify-start px-2.5 py-1.5 text-sm" onClick={() => logout()}>
           <LogOut className="h-4 w-4" />
-          <span>Sign Out</span>
+          <span>로그아웃</span>
         </Button>
         <Separator />
         <div>

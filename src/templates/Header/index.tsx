@@ -14,7 +14,7 @@ import { useSidebar } from '@/shared/ui';
 import { Hide } from '@/shared/utils/react';
 
 function Header() {
-  const { isSession } = useUser();
+  const { user } = useUser();
   const router = useRouter();
   const { toggleSidebar } = useSidebar();
   const path = usePathname();
@@ -37,8 +37,9 @@ function Header() {
           <Download />
           <span>엑셀 다운로드</span>
         </Button>
+
         <Hide
-          condition={isSession}
+          condition={user !== null}
           component={
             <Button variant="outline" size="sm" onClick={handleLoginButtonOnClick}>
               로그인
