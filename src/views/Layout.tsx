@@ -11,7 +11,7 @@ type LayoutProps = {
 };
 
 async function Layout({ children }: LayoutProps) {
-  const cookieStore = cookies();
+  const cookieStore = await cookies();
   const defaultOpen = cookieStore.get('sidebar:state')?.value === 'true';
 
   return (

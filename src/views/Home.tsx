@@ -3,28 +3,22 @@
 import React from 'react';
 
 import { BookMark } from '@/components';
+import { useBookmark } from '@/entities';
 
 function Home() {
+  const { bookmarks } = useBookmark();
+
   return (
     <div className="grid grid-cols-1 gap-2 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
-      <BookMark
-        title="북마크 제목"
-        description="북마크 내용"
-        imageUrl="https://github.com/yhj96.png"
-        url="http://localhost:3000"
-      />
-      <BookMark
-        title="북마크 제목"
-        description="북마크 내용"
-        imageUrl="https://github.com/yhj96.png"
-        url="http://localhost:3000"
-      />
-      <BookMark
-        title="북마크 제목"
-        description="북마크 내용"
-        imageUrl="https://github.com/yhj96.png"
-        url="http://localhost:3000"
-      />
+      {bookmarks?.map((bookmark) => (
+        <BookMark
+          key={bookmark.id}
+          title={bookmark.title}
+          description={bookmark.description}
+          imageUrl={bookmark.image}
+          url={bookmark.url}
+        />
+      ))}
     </div>
   );
 }

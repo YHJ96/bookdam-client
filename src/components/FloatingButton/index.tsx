@@ -5,6 +5,7 @@ import React from 'react';
 import { Bookmark } from 'lucide-react';
 
 import { BookMarkDialog } from '@/components';
+import { useCreateBookmark } from '@/entities/';
 import { useDialog } from '@/shared/hooks';
 import { Button } from '@/shared/ui';
 import { Hide } from '@/shared/utils/react';
@@ -14,20 +15,23 @@ type FloatingButtonProps = {
 };
 
 function FloatingButton({ animationDisable }: FloatingButtonProps) {
+  const createBookmark = useCreateBookmark();
   const open = useDialog();
 
   const handleOnClick = async () => {
-    await open(BookMarkDialog, {
+    const { url } = await open(BookMarkDialog, {
       title: '북마크 추가',
       description: '새로운 북마크의 정보를 입력해주세요.',
     });
+
+    createBookmark(url);
   };
 
   return (
     <>
       <Button
         variant="transparent"
-        className="fixed bottom-6 right-6 h-12 w-12 transform rounded-full bg-blue-700 shadow-lg transition-all duration-300 ease-in-out hover:scale-110 dark:bg-blue-600 md:bottom-10 md:right-6 [&_svg]:size-4"
+        className="fixed bottom-6 right-6 z-50 h-12 w-12 transform rounded-full bg-blue-700 shadow-lg transition-all duration-300 ease-in-out hover:scale-110 dark:bg-blue-600 md:bottom-10 md:right-6 [&_svg]:size-4"
         onClick={handleOnClick}
       >
         <Bookmark className="text-blue-200" />

@@ -38,12 +38,12 @@ const formSchema = z.object({
 interface BookMarkDialogProps {
   title: string;
   description: string;
-  resolve: (value: unknown) => void;
+  resolve: (value: { url: string }) => void;
 }
 
 /* [TODO] 레이아웃 시프트 현상 수정*/
 /* Schema 폴더 정리 */
-function BookMarkDialog({ title, description }: BookMarkDialogProps) {
+function BookMarkDialog({ title, description, resolve }: BookMarkDialogProps) {
   const open = useDialog();
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -56,7 +56,9 @@ function BookMarkDialog({ title, description }: BookMarkDialogProps) {
   });
 
   const handleOnSumbit = async () => {
-    await open(ConfirmDialog, { title: '북마크 추가', description: '북마크를 추가하시겠습니까?' });
+    const isConfirm = await open(ConfirmDialog, { title: '북마크 추가', description: '북마크를 추가하시겠습니까?' });
+    if (!isConfirm) return;
+    resolve({ url: form.getValues().url });
   };
 
   return (
