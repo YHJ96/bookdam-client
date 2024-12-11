@@ -22,7 +22,10 @@ export const useLogout = () => {
   const queryClient = useQueryClient();
   const { mutate } = useMutation({
     mutationFn: removeCookies,
-    onSuccess: () => queryClient.setQueryData(['user'], null),
+    onSuccess: () => {
+      queryClient.setQueryData(['user'], null);
+      queryClient.setQueryData(['bookmark'], null);
+    },
   });
 
   return mutate;
