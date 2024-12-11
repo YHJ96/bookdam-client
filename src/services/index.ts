@@ -1,0 +1,1 @@
+export { useBookmarkService } from './bookmark';

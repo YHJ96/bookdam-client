@@ -1,1 +1,1 @@
-export {};
+export { useBookmarkStore } from './bookmark';

@@ -5,8 +5,8 @@ import React from 'react';
 import { Bookmark } from 'lucide-react';
 
 import { BookMarkDialog } from '@/components';
-import { useCreateBookmark } from '@/entities/';
-import { useDialog } from '@/shared/hooks';
+import { useBookmarkService } from '@/services';
+import { useDialog, useRole } from '@/shared/hooks';
 import { Button } from '@/shared/ui';
 import { Hide } from '@/shared/utils/react';
 
@@ -15,16 +15,17 @@ type FloatingButtonProps = {
 };
 
 function FloatingButton({ animationDisable }: FloatingButtonProps) {
-  const createBookmark = useCreateBookmark();
   const open = useDialog();
+  const role = useRole();
+  const { createBookmark } = useBookmarkService(role);
 
   const handleOnClick = async () => {
-    const { url } = await open(BookMarkDialog, {
+    const bookmark = await open(BookMarkDialog, {
       title: '북마크 추가',
       description: '새로운 북마크의 정보를 입력해주세요.',
     });
 
-    createBookmark(url);
+    createBookmark(bookmark);
   };
 
   return (
