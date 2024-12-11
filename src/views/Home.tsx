@@ -3,10 +3,12 @@
 import React from 'react';
 
 import { BookMark } from '@/components';
-import { useBookmark } from '@/entities';
+import { useBookmarkService } from '@/services/bookmark';
+import { useRole } from '@/shared/hooks';
 
 function Home() {
-  const { bookmarks } = useBookmark();
+  const role = useRole();
+  const { bookmarks } = useBookmarkService(role);
 
   return (
     <div className="grid grid-cols-1 gap-2 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
