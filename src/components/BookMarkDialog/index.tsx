@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import { useState } from 'react';
 
 import { Plus } from 'lucide-react';
 
@@ -8,6 +8,7 @@ import { ConfirmDialog } from '@/components';
 import { useBookmarkForm } from '@/entities';
 import { useDialog } from '@/shared/hooks';
 import {
+  Badge,
   Button,
   Dialog,
   DialogContent,
@@ -21,6 +22,7 @@ import {
   FormLabel,
   FormMessage,
   Input,
+  Label,
 } from '@/shared/ui';
 import { cn } from '@/shared/utils';
 
@@ -30,7 +32,6 @@ interface BookMarkDialogProps {
   resolve: (value: { title: string; description: string; url: string }) => void;
 }
 
-/* [TODO] 레이아웃 시프트 현상 수정*/
 function BookMarkDialog({ title, description, resolve }: BookMarkDialogProps) {
   const open = useDialog();
   const form = useBookmarkForm();
@@ -58,9 +59,8 @@ function BookMarkDialog({ title, description, resolve }: BookMarkDialogProps) {
                 <FormItem className="space-y-2">
                   <FormLabel>제목</FormLabel>
                   <FormControl>
-                    <Input placeholder="북마크 제목" {...field} />
+                    <Input placeholder="제목을 작성하지 않으면 페이지의 제목이 들어갑니다." {...field} />
                   </FormControl>
-                  <FormMessage />
                 </FormItem>
               )}
             />
@@ -72,9 +72,8 @@ function BookMarkDialog({ title, description, resolve }: BookMarkDialogProps) {
                 <FormItem className="space-y-2">
                   <FormLabel>내용</FormLabel>
                   <FormControl>
-                    <Input placeholder="북마크 내용" {...field} />
+                    <Input placeholder="제목을 작성하지 않으면 페이지의 내용이 들어갑니다." {...field} />
                   </FormControl>
-                  <FormMessage />
                 </FormItem>
               )}
             />
@@ -83,25 +82,25 @@ function BookMarkDialog({ title, description, resolve }: BookMarkDialogProps) {
               control={form.control}
               name="url"
               render={({ field }) => (
-                <FormItem className="space-y-2">
+                <FormItem className="relative space-y-2 pb-6">
                   <FormLabel>URL</FormLabel>
                   <FormControl>
                     <Input placeholder="https://example.com" {...field} />
                   </FormControl>
-                  <FormMessage />
+                  <FormMessage className="absolute bottom-0 left-0" />
                 </FormItem>
               )}
             />
 
-            {/* <div className="space-y-2">
-            <Label>태그</Label>
-            <div className="flex space-x-2">
-              <Input placeholder="태그 추가" />
-              <Button type="button" size="icon">
-                <Plus className="h-4 w-4" />
-              </Button>
+            <div className="space-y-2">
+              <Label>태그</Label>
+              <div className="flex space-x-2">
+                <Input placeholder="태그 추가" />
+                <Button type="button" size="icon">
+                  <Plus className="h-4 w-4" />
+                </Button>
+              </div>
             </div>
-          </div> */}
 
             <div className="h-4" />
 
