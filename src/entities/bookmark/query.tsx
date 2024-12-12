@@ -1,7 +1,7 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
 
 import { createBookmark, createOgTag, getBookmark, revalidateBookmark } from './api';
-import { Bookmark } from './type';
+import { Bookmark, CreateBookmark } from './type';
 
 export const useBookmark = () => {
   const { data, ...rest } = useQuery<Bookmark[]>({ queryKey: ['bookmark'], queryFn: getBookmark, staleTime: Infinity });
@@ -21,7 +21,9 @@ export const useCreateBookmark = () => {
 };
 
 export const useCreateOgTag = () => {
-  const { mutate } = useMutation({ mutationFn: createOgTag, onSuccess: () => {} });
+  const { mutate } = useMutation<Omit<Bookmark, 'id'>, Error, CreateBookmark>({
+    mutationFn: createOgTag,
+  });
 
   return mutate;
 };

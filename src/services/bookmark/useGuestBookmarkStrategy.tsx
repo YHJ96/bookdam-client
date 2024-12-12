@@ -1,14 +1,20 @@
-import { CreateBookmark } from '@/entities';
+import { CreateBookmark, useCreateBookmark, useCreateOgTag } from '@/entities';
 import { useBookmarkStore } from '@/store';
 
 import { BookmarkService } from './';
 
 function useGuestBookmarkStrategy(): BookmarkService {
+  const createOgTag = useCreateOgTag();
   const { bookmarks, createBookmark: _createBookmark } = useBookmarkStore();
 
-  const createBookmark = (bookmark: CreateBookmark) => {
+  const createBookmark = async (bookmark: CreateBookmark) => {
     const id = Math.floor(Math.random() * 1000000);
-    _createBookmark({ ...bookmark, id, image: '' });
+
+    createOgTag(bookmark, {
+      onSuccess: (data) => {
+        _createBookmark({ ...data, id });
+      },
+    });
   };
 
   return { bookmarks, createBookmark };

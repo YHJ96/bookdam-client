@@ -13,11 +13,11 @@ export const getBookmark = async () => {
 };
 
 export const createBookmark = async (bookmark: CreateBookmark) => {
-  const response = await api.post('/bookmark', { bookmark });
+  const response = await api.post('/bookmark', { ...bookmark });
   return response.data;
 };
 
-export const createOgTag = async (url: string) => {
-  const response = await api.post('/og', { url });
+export const createOgTag = async (bookmark: CreateBookmark) => {
+  const response = await api.post('bookmark/og', { ...bookmark });
   return response.data;
 };
