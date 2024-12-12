@@ -4,7 +4,11 @@ import { createBookmark, createOgTag, getBookmark, revalidateBookmark } from './
 import { Bookmark, CreateBookmark } from './type';
 
 export const useBookmark = () => {
-  const { data, ...rest } = useQuery<Bookmark[]>({ queryKey: ['bookmark'], queryFn: getBookmark, staleTime: Infinity });
+  const { data, ...rest } = useQuery<Bookmark[]>({
+    queryKey: ['bookmark'],
+    queryFn: getBookmark,
+    staleTime: Infinity,
+  });
 
   return { bookmarks: data ?? null, ...rest };
 };

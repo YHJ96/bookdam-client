@@ -23,10 +23,15 @@ export default async function Page() {
   const access = cookie.get('access')?.value ?? '';
   const refresh = cookie.get('refresh')?.value ?? '';
 
-  await queryClient.prefetchQuery({
-    queryKey: ['bookmark'],
-    queryFn: unstable_cache(getBookmark(access, refresh), [access, refresh], { revalidate: 10000, tags: ['bookmark'] }),
-  });
+  if (access !== '') {
+    await queryClient.prefetchQuery({
+      queryKey: ['bookmark'],
+      queryFn: unstable_cache(getBookmark(access, refresh), [''], {
+        revalidate: 3600,
+        tags: ['bookmark'],
+      }),
+    });
+  }
 
   const dehydratedState = dehydrate(queryClient);
 
