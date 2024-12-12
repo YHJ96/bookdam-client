@@ -1,4 +1,5 @@
 import { Avatar, AvatarFallback, AvatarImage } from './Avatar';
+import { Badge } from './Badge';
 import { Button } from './Button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from './Card';
 import {
@@ -167,4 +168,6 @@ export {
   DropdownMenuSubContent,
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
+  /* Badge */
+  Badge,
 };

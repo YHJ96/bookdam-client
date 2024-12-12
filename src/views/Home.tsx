@@ -5,6 +5,7 @@ import React from 'react';
 import { BookMark, BookMarkEmpty } from '@/components';
 import { useBookmarkService } from '@/services/bookmark';
 import { useRole } from '@/shared/hooks';
+import { Badge } from '@/shared/ui';
 import { IfElse } from '@/shared/utils/react';
 
 function Home() {
