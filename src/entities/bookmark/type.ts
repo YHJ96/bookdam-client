@@ -4,6 +4,7 @@ export type Bookmark = {
   description: string;
   url: string;
   image: string;
+  tags: string[];
 };
 
 export type CreateBookmark = Omit<Bookmark, 'id' | 'image'>;

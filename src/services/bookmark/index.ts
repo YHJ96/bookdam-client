@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/rules-of-hooks */
 import { Bookmark, CreateBookmark } from '@/entities';
 
 import useAdminBookmarkStrategy from './useAdminBookmarkStrategy';
@@ -12,11 +11,14 @@ export interface BookmarkService {
 }
 
 export function useBookmarkService(role: Role) {
+  const useAdminBookmark = useAdminBookmarkStrategy();
+  const useGuestBookmark = useGuestBookmarkStrategy();
+
   switch (role) {
     case 'user':
-      return useAdminBookmarkStrategy();
+      return useAdminBookmark;
     case 'guest':
-      return useGuestBookmarkStrategy();
+      return useGuestBookmark;
     default:
       throw new Error(`Unknown role: ${role}`);
   }

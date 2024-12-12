@@ -25,7 +25,7 @@ function FloatingButton({ animationDisable }: FloatingButtonProps) {
       description: '새로운 북마크의 정보를 입력해주세요.',
     });
 
-    createBookmark(bookmark);
+    createBookmark({ ...bookmark, tags: [] });
   };
 
   return (
