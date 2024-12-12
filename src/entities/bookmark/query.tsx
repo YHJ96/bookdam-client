@@ -10,7 +10,7 @@ export const useBookmark = () => {
     staleTime: Infinity,
   });
 
-  return { bookmarks: data ?? null, ...rest };
+  return { bookmarks: data ?? [], ...rest };
 };
 
 export const useCreateBookmark = () => {

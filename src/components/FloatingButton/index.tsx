@@ -10,14 +10,10 @@ import { useDialog, useRole } from '@/shared/hooks';
 import { Button } from '@/shared/ui';
 import { Hide } from '@/shared/utils/react';
 
-type FloatingButtonProps = {
-  animationDisable: boolean;
-};
-
-function FloatingButton({ animationDisable }: FloatingButtonProps) {
+function FloatingButton() {
   const open = useDialog();
   const role = useRole();
-  const { createBookmark } = useBookmarkService(role);
+  const { createBookmark, bookmarks } = useBookmarkService(role);
 
   const handleOnClick = async () => {
     const bookmark = await open(BookMarkDialog, {
@@ -38,7 +34,7 @@ function FloatingButton({ animationDisable }: FloatingButtonProps) {
         <Bookmark className="text-blue-200" />
         <span className="sr-only">BookMark Add</span>
         <Hide
-          condition={animationDisable}
+          condition={Boolean(bookmarks.length)}
           component={
             <div className="fixed h-12 w-12 animate-ping rounded-full bg-blue-700 opacity-75 dark:bg-blue-600" />
           }
