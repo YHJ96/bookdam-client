@@ -6,7 +6,7 @@ import useGuestBookmarkStrategy from './useGuestBookmarkStrategy';
 type Role = 'guest' | 'user';
 
 export interface BookmarkService {
-  bookmarks: Bookmark[] | null;
+  bookmarks: Bookmark[];
   createBookmark: (bookmark: CreateBookmark) => void;
   removeBookmark: (id: number) => void;
 }

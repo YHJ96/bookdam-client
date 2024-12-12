@@ -22,6 +22,9 @@ const config: Config = {
           'border': 'hsl(var(--sidebar-border))',
           'ring': 'hsl(var(--sidebar-ring))',
         },
+        muted: {
+          foreground: 'hsl(var(--muted-foreground))',
+        },
       },
       borderRadius: {
         lg: 'var(--radius)',
