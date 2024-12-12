@@ -5,7 +5,7 @@ import { BookmarkService } from './';
 
 function useGuestBookmarkStrategy(): BookmarkService {
   const createOgTag = useCreateOgTag();
-  const { bookmarks, createBookmark: _createBookmark } = useBookmarkStore();
+  const { bookmarks, createBookmark: _createBookmark, removeBookmark } = useBookmarkStore();
 
   const createBookmark = async (bookmark: CreateBookmark) => {
     const id = Math.floor(Math.random() * 1000000);
@@ -17,7 +17,7 @@ function useGuestBookmarkStrategy(): BookmarkService {
     });
   };
 
-  return { bookmarks, createBookmark };
+  return { bookmarks, createBookmark, removeBookmark };
 }
 
 export default useGuestBookmarkStrategy;

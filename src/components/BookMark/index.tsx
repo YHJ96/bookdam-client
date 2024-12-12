@@ -9,17 +9,18 @@ import { Card, CardContent, Image } from '@/shared/ui';
 import BookMarkDropdown from '../BookMarkDropdown';
 
 type BookMarkListProps = {
+  id: number;
   title: string;
   description: string;
   url: string;
   imageUrl: string;
 };
 
-function BookMark({ title, description, url, imageUrl }: BookMarkListProps) {
+function BookMark({ id, title, description, url, imageUrl }: BookMarkListProps) {
   return (
     <Card className="group relative pr-4">
       <div className="absolute right-2 top-2 z-10">
-        <BookMarkDropdown />
+        <BookMarkDropdown id={id} />
       </div>
       <a href={url} target="_blank" rel="noopener noreferrer">
         <CardContent className="flex items-center p-4">

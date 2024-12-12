@@ -4,8 +4,9 @@ import { PersistOptions, createJSONStorage, persist } from 'zustand/middleware';
 import type { Bookmark } from '@/entities';
 
 type BookmarkStore = {
-  bookmarks: Bookmark[];
+  bookmarks: Bookmark[] | null;
   createBookmark: (bookmark: Bookmark) => void;
+  removeBookmark: (id: number) => void;
   reset: () => void;
 };
 
@@ -21,12 +22,13 @@ const options: BookmarkStorePersistOptions = {
 };
 
 const createBookmarkStore: CreateBookmarkStore = (set) => ({
-  bookmarks: [],
+  bookmarks: null,
   createBookmark: (bookmark) =>
     set((state) => ({
-      bookmarks: [...state.bookmarks, bookmark],
+      bookmarks: [...(state.bookmarks ?? []), bookmark],
     })),
-  reset: () => set({ bookmarks: [] }),
+  removeBookmark: (id) => set((state) => ({ bookmarks: state.bookmarks?.filter((bookmark) => bookmark.id !== id) })),
+  reset: () => set({ bookmarks: null }),
 });
 
 export const useBookmarkStore = create(persist<BookmarkStore>(createBookmarkStore, options));
