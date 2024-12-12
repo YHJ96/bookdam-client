@@ -3,10 +3,17 @@ import React from 'react';
 import { MoreHorizontal } from 'lucide-react';
 
 import { ConfirmDialog } from '@/components';
-import { useDialog } from '@/shared/hooks';
+import { useBookmarkService } from '@/services';
+import { useDialog, useRole } from '@/shared/hooks';
 import { Button, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/shared/ui';
 
-function BookMarkDropdown() {
+type BookmarkDropdown = {
+  id: number;
+};
+
+function BookMarkDropdown({ id }: BookmarkDropdown) {
+  const role = useRole();
+  const { removeBookmark } = useBookmarkService(role);
   const open = useDialog();
 
   const handleUpdateOnSelect = async () => {
@@ -14,10 +21,13 @@ function BookMarkDropdown() {
   };
 
   const handleRemoveOnSelect = async () => {
-    await open(ConfirmDialog, {
+    const isConfirm = await open(ConfirmDialog, {
       title: '북마크 삭제',
       description: '정말로 북마크를 삭제하시겠습니까? (휴지통으로 이동합니다.)',
     });
+
+    if (!isConfirm) return;
+    removeBookmark(id);
   };
 
   return (

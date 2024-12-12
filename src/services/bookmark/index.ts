@@ -8,6 +8,7 @@ type Role = 'guest' | 'user';
 export interface BookmarkService {
   bookmarks: Bookmark[] | null;
   createBookmark: (bookmark: CreateBookmark) => void;
+  removeBookmark: (id: number) => void;
 }
 
 export function useBookmarkService(role: Role) {

@@ -15,6 +15,7 @@ function Home() {
       {bookmarks?.map((bookmark) => (
         <BookMark
           key={bookmark.id}
+          id={bookmark.id}
           title={bookmark.title}
           description={bookmark.description}
           imageUrl={bookmark.image}

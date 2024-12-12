@@ -21,3 +21,8 @@ export const createOgTag = async (bookmark: CreateBookmark) => {
   const response = await api.post('bookmark/og', { ...bookmark });
   return response.data;
 };
+
+export const removeBookmark = async (id: number) => {
+  const response = await api.delete(`/bookmark/${id}`);
+  return response.data;
+};
