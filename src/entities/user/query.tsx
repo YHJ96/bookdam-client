@@ -18,7 +18,6 @@ export const useLogout = () => {
     onSuccess: () => {
       queryClient.setQueryData(['user'], null);
       queryClient.setQueryData(['bookmark'], null);
-      revalidateBookmark();
     },
   });
 
