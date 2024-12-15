@@ -1,6 +1,6 @@
 import { api, nextApi } from '@/shared/libs';
 
-import { CreateBookmark } from './type';
+import { CreateBookmark, UpdateBookmark } from './type';
 
 export const revalidateBookmark = async () => {
   const response = await nextApi.post('/bookmark');
@@ -24,5 +24,10 @@ export const createOgTag = async (bookmark: CreateBookmark) => {
 
 export const removeBookmark = async (id: number) => {
   const response = await api.delete(`/bookmark/${id}`);
+  return response.data;
+};
+
+export const updateBookmark = async (bookmark: UpdateBookmark) => {
+  const response = await api.patch(`/bookmark/${bookmark.id}`, { ...bookmark });
   return response.data;
 };

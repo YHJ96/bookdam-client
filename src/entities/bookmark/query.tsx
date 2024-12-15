@@ -1,7 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
-import { createBookmark, createOgTag, getBookmark, removeBookmark, revalidateBookmark } from './api';
-import { Bookmark, CreateBookmark } from './type';
+import { createBookmark, createOgTag, getBookmark, removeBookmark, revalidateBookmark, updateBookmark } from './api';
+import { Bookmark, CreateBookmark, UpdateBookmark } from './type';
 
 export const useBookmark = () => {
   const { data, ...rest } = useQuery<Bookmark[]>({
@@ -49,6 +49,27 @@ export const useRemoveBookmark = () => {
         if (!prev) return;
         return prev.filter((bookmark) => bookmark.id !== id);
       });
+
+      revalidateBookmark();
+    },
+  });
+
+  return mutate;
+};
+
+export const useUpdateBookmark = () => {
+  const queryClient = useQueryClient();
+
+  const { mutate } = useMutation<Bookmark, Error, UpdateBookmark>({
+    mutationFn: updateBookmark,
+    onSuccess: (bookmark) => {
+      const bookmarks = queryClient.getQueryData<Bookmark[]>(['bookmark']);
+      if (bookmarks === undefined) return;
+      const idx = bookmarks.findIndex((_bookmark) => bookmark.id === _bookmark.id);
+      if (idx === -1) return;
+      bookmarks[idx] = bookmark;
+      queryClient.setQueryData(['bookmark'], bookmarks);
+
       revalidateBookmark();
     },
   });

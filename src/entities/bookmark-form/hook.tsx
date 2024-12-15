@@ -5,14 +5,20 @@ import z from 'zod';
 
 import { formSchema } from './schema';
 
-export const useBookmarkForm = () => {
+type UseBookmarkFormProps = {
+  title?: string;
+  description?: string;
+  url?: string;
+};
+
+export const useBookmarkForm = ({ title, description, url }: UseBookmarkFormProps = {}) => {
   return useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     mode: 'onChange',
     defaultValues: {
-      title: '',
-      description: '',
-      url: '',
+      title: title ?? '',
+      description: description ?? '',
+      url: url ?? '',
     },
   });
 };

@@ -1,6 +1,7 @@
 import BookMark from './BookMark';
 import BookMarkDialog from './BookMarkDialog';
 import BookMarkEmpty from './BookMarkEmpty';
+import BookmarkUpdateDialog from './BookMarkUpdateDialog';
 import ConfirmDialog from './ConfirmDialog';
 import FloatingButton from './FloatingButton';
 import Navigation from './Navigation';
@@ -18,4 +19,5 @@ export {
   Navigation,
   BookMark,
   BookMarkEmpty,
+  BookmarkUpdateDialog,
 };

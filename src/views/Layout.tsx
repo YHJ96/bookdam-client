@@ -24,7 +24,7 @@ async function Layout({ children }: LayoutProps) {
           <Footer />
         </div>
       </SidebarInset>
-      <FloatingButton animationDisable={false} />
+      <FloatingButton />
     </SidebarProvider>
   );
 }

@@ -26,16 +26,17 @@ import {
 } from '@/shared/ui';
 import { cn } from '@/shared/utils';
 
-interface BookMarkDialogProps {
+interface BookMarkUpdateDialog {
   title: string;
   description: string;
+  bookmark: { title: string; description: string; url: string; tags: string[] };
   resolve: (value: { title: string; description: string; url: string; tags: string[] }) => void;
 }
 
-function BookMarkDialog({ title, description, resolve }: BookMarkDialogProps) {
-  const [tags, setTags] = useState<string[]>([]);
+function BookMarkUpdateDialog({ title, description, bookmark, resolve }: BookMarkUpdateDialog) {
+  const [tags, setTags] = useState<string[]>(bookmark.tags);
   const open = useDialog();
-  const form = useBookmarkForm();
+  const form = useBookmarkForm(bookmark);
   const inputRef = useRef<HTMLInputElement>(null);
 
   const addTags = (tag: string) => {
@@ -65,7 +66,7 @@ function BookMarkDialog({ title, description, resolve }: BookMarkDialogProps) {
   };
 
   const handleOnSumbit = async () => {
-    const isConfirm = await open(ConfirmDialog, { title: '북마크 추가', description: '북마크를 추가하시겠습니까?' });
+    const isConfirm = await open(ConfirmDialog, { title: '북마크 수정', description: '북마크를 수정하시겠습니까?' });
     if (!isConfirm) return;
     resolve({ ...form.getValues(), tags });
   };
@@ -113,7 +114,7 @@ function BookMarkDialog({ title, description, resolve }: BookMarkDialogProps) {
                 <FormItem className="relative space-y-2 pb-6">
                   <FormLabel>URL</FormLabel>
                   <FormControl>
-                    <Input placeholder="https://example.com" {...field} />
+                    <Input placeholder="https://example.com" disabled={true} {...field} />
                   </FormControl>
                   <FormMessage className="absolute bottom-0 left-0" />
                 </FormItem>
@@ -150,4 +151,4 @@ function BookMarkDialog({ title, description, resolve }: BookMarkDialogProps) {
   );
 }
 
-export default BookMarkDialog;
+export default BookMarkUpdateDialog;
