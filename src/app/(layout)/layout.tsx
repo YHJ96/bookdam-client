@@ -3,7 +3,7 @@ import { unstable_cache } from 'next/cache';
 
 import { HydrationBoundary, QueryClient, dehydrate } from '@tanstack/react-query';
 
-import { getBookmark } from '@/entities/bookmark/api';
+import { getBookmarksApi } from '@/entities/bookmark/api';
 import { QueryProvider, ThemeProvider } from '@/providers';
 import { font } from '@/shared/libs';
 import { DialogProvider } from '@/shared/ui';
@@ -32,7 +32,7 @@ async function RootLayout({ children }: RooRootLayoutProps) {
     await queryClient.prefetchQuery({
       queryKey: ['bookmark'],
       queryFn: unstable_cache(
-        cookieWrapper(session.accessToken, session.refreshToken, getBookmark),
+        cookieWrapper(session.accessToken, session.refreshToken, getBookmarksApi),
         ['bookmark', session.id],
         {
           revalidate: 3600,
