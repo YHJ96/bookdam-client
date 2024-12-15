@@ -1,6 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
-import { revalidateBookmark } from '@/entities/bookmark/api';
+import { revalidate } from '@/entities/bookmark/api';
 
 import { removeCookies } from './api';
 import { User } from './type';

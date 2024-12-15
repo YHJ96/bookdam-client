@@ -1,6 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
-import { createBookmark, createOgTag, getBookmark, removeBookmark, revalidateBookmark, updateBookmark } from './api';
+import { createBookmark, createOgTag, getBookmark, removeBookmark, revalidate, updateBookmark } from './api';
 import { Bookmark, CreateBookmark, UpdateBookmark } from './type';
 
 export const useBookmark = () => {
@@ -24,7 +24,7 @@ export const useCreateBookmark = () => {
         return [...prev, data];
       });
 
-      revalidateBookmark();
+      revalidate(['bookmark']);
     },
   });
 
@@ -50,7 +50,7 @@ export const useRemoveBookmark = () => {
         return prev.filter((bookmark) => bookmark.id !== id);
       });
 
-      revalidateBookmark();
+      revalidate(['bookmark', 'trash']);
     },
   });
 
@@ -70,7 +70,7 @@ export const useUpdateBookmark = () => {
       bookmarks[idx] = bookmark;
       queryClient.setQueryData(['bookmark'], bookmarks);
 
-      revalidateBookmark();
+      revalidate(['bookmark']);
     },
   });
 

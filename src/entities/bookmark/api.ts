@@ -2,8 +2,8 @@ import { api, nextApi } from '@/shared/libs';
 
 import { CreateBookmark, UpdateBookmark } from './type';
 
-export const revalidateBookmark = async () => {
-  const response = await nextApi.post('/bookmark');
+export const revalidate = async (tags: Array<'bookmark' | 'trash'>) => {
+  const response = await nextApi.post('/revalidate', { tags });
   return response.data;
 };
 
