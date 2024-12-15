@@ -2,7 +2,7 @@ import { unstable_cache } from 'next/cache';
 
 import { HydrationBoundary, QueryClient, dehydrate } from '@tanstack/react-query';
 
-import { getTrashBookmark } from '@/entities/trash-bookmark/api';
+import { getTrashBookmarksApi } from '@/entities/trash-bookmark/api';
 import { cookieWrapper, getSession } from '@/shared/utils/server';
 import { Remove } from '@/views';
 
@@ -14,7 +14,7 @@ export default async function Page() {
     await queryClient.prefetchQuery({
       queryKey: ['trash'],
       queryFn: unstable_cache(
-        cookieWrapper(session.accessToken, session.refreshToken, getTrashBookmark),
+        cookieWrapper(session.accessToken, session.refreshToken, getTrashBookmarksApi),
         ['trash', session.id],
         { revalidate: 3600, tags: ['trash'] },
       ),

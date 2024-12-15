@@ -2,7 +2,7 @@ import { StateCreator, StoreApi, create } from 'zustand';
 import { PersistOptions, createJSONStorage, persist } from 'zustand/middleware';
 
 import type { Bookmark } from '@/entities';
-import { UpdateBookmark } from '@/entities/bookmark';
+import { UpdateBookmark, bookmarkSchema } from '@/entities/bookmark';
 
 import { useTrashBookmarkStore } from './trash-bookmark';
 
@@ -23,7 +23,10 @@ const options: BookmarkStorePersistOptions = {
   name: 'bookmark',
   storage: createJSONStorage(() => localStorage),
   onRehydrateStorage: () => (state) => {
-    useBookmarkStore.setState({ bookmarks: state?.bookmarks });
+    const { success } = bookmarkSchema.safeParse(state?.bookmarks);
+    if (success) return;
+    localStorage.clear();
+    state?.reset();
   },
 };
 

@@ -10,40 +10,44 @@ import {
 } from './api';
 import { Bookmark, CreateBookmark, UpdateBookmark } from './type';
 
-const getBookmarks = () => {
+export const useBookmarkUtils = () => {
   const queryClient = useQueryClient();
-  const bookmarks = queryClient.getQueryData<Bookmark[]>(['bookmark']);
-  return bookmarks ?? [];
-};
 
-const setBookmarks = (bookmarks: Bookmark[]) => {
-  const queryClient = useQueryClient();
-  queryClient.setQueryData<Bookmark[]>(['bookmark'], bookmarks);
-};
+  const getBookmarks = () => {
+    const bookmarks = queryClient.getQueryData<Bookmark[]>(['bookmark']);
+    return bookmarks ?? [];
+  };
 
-const findBookmarkIndexById = (id: number) => {
-  const idx = getBookmarks().findIndex((_bookmark) => _bookmark.id === id);
-  return idx;
-};
+  const setBookmarks = (bookmarks: Bookmark[]) => {
+    queryClient.setQueryData<Bookmark[]>(['bookmark'], bookmarks);
+  };
 
-const addBookmark = (bookmark: Bookmark) => {
-  const bookmarks = getBookmarks();
-  bookmarks.push(bookmark);
-  setBookmarks(bookmarks);
-};
+  const findBookmarkIndexById = (id: number) => {
+    const idx = getBookmarks().findIndex((_bookmark) => _bookmark.id === id);
+    return idx;
+  };
 
-const removeBookmark = (id: number) => {
-  const bookmarks = getBookmarks();
-  const filterBookmarks = bookmarks.filter((_bookmarks) => _bookmarks.id !== id);
-  setBookmarks(filterBookmarks);
-};
+  const addBookmark = (bookmark: Bookmark) => {
+    const bookmarks = getBookmarks();
+    bookmarks.push(bookmark);
+    setBookmarks(bookmarks);
+  };
 
-const updateBookmark = (bookmark: Bookmark) => {
-  const idx = findBookmarkIndexById(bookmark.id);
-  if (idx === -1) return;
-  const bookmarks = getBookmarks();
-  bookmarks[idx] = { ...bookmarks[idx], ...bookmark };
-  setBookmarks(bookmarks);
+  const removeBookmark = (id: number) => {
+    const bookmarks = getBookmarks();
+    const filterBookmarks = bookmarks.filter((_bookmarks) => _bookmarks.id !== id);
+    setBookmarks(filterBookmarks);
+  };
+
+  const updateBookmark = (bookmark: Bookmark) => {
+    const idx = findBookmarkIndexById(bookmark.id);
+    if (idx === -1) return;
+    const bookmarks = getBookmarks();
+    bookmarks[idx] = { ...bookmarks[idx], ...bookmark };
+    setBookmarks(bookmarks);
+  };
+
+  return { getBookmarks, setBookmarks, addBookmark, removeBookmark, updateBookmark };
 };
 
 export const useBookmark = () => {
@@ -57,6 +61,8 @@ export const useBookmark = () => {
 };
 
 export const useCreateBookmark = () => {
+  const { addBookmark } = useBookmarkUtils();
+
   const { mutate } = useMutation<Bookmark, Error, Bookmark>({
     mutationFn: createBookmarkApi,
     onSuccess: (bookmark) => {
@@ -77,6 +83,8 @@ export const useCreateOgTag = () => {
 };
 
 export const useRemoveBookmark = () => {
+  const { removeBookmark } = useBookmarkUtils();
+
   const { mutate } = useMutation<Bookmark, Error, number>({
     mutationFn: removeBookmarkApi,
     onSuccess: ({ id }) => {
@@ -89,6 +97,8 @@ export const useRemoveBookmark = () => {
 };
 
 export const useUpdateBookmark = () => {
+  const { updateBookmark } = useBookmarkUtils();
+
   const { mutate } = useMutation<Bookmark, Error, UpdateBookmark>({
     mutationFn: updateBookmarkApi,
     onSuccess: (bookmark) => {
