@@ -1,5 +1,5 @@
 import { CreateBookmark, useBookmark, useCreateBookmark, useRemoveBookmark, useUpdateBookmark } from '@/entities';
-import { UpdateBookmark } from '@/entities/bookmark';
+import { Bookmark, UpdateBookmark } from '@/entities/bookmark';
 
 import { BookmarkService } from './';
 
@@ -9,7 +9,7 @@ function useAdminBookmarkStrategy(): BookmarkService {
   const _removeBookmark = useRemoveBookmark();
   const _updateBookmark = useUpdateBookmark();
 
-  const createBookmark = (bookmark: CreateBookmark) => _createBookmark(bookmark);
+  const createBookmark = (bookmark: Bookmark) => _createBookmark(bookmark);
 
   const removeBookmark = (id: number) => _removeBookmark(id);
 

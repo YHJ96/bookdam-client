@@ -4,6 +4,8 @@ import { PersistOptions, createJSONStorage, persist } from 'zustand/middleware';
 import type { Bookmark } from '@/entities';
 import { UpdateBookmark } from '@/entities/bookmark';
 
+import { useTrashBookmarkStore } from './trash-bookmark';
+
 type BookmarkStore = {
   bookmarks: Bookmark[];
   createBookmark: (bookmark: Bookmark) => void;
@@ -18,7 +20,7 @@ type Setter = StoreApi<BookmarkStore>['setState'];
 type Getter = StoreApi<BookmarkStore>['getState'];
 
 const options: BookmarkStorePersistOptions = {
-  name: 'bookmarks',
+  name: 'bookmark',
   storage: createJSONStorage(() => localStorage),
   onRehydrateStorage: () => (state) => {
     useBookmarkStore.setState({ bookmarks: state?.bookmarks });
@@ -47,8 +49,13 @@ const updateBookmark = (set: Setter, get: Getter, bookmark: UpdateBookmark) => {
 
 const removeBookmark = (set: Setter, get: Getter, id: number) => {
   const bookmarks = get().bookmarks;
+  const idx = findBookmarkIndexById(get, id);
   const filterBookmarks = bookmarks.filter((_bookmark) => _bookmark.id !== id);
   set({ bookmarks: filterBookmarks });
+
+  const trashBookmarks = useTrashBookmarkStore.getState().bookmarks;
+  trashBookmarks.push(bookmarks[idx]);
+  useTrashBookmarkStore.setState({ bookmarks: trashBookmarks });
 };
 
 const createBookmarkStore: CreateBookmarkStore = (set, get) => ({
