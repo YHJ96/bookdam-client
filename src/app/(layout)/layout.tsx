@@ -31,10 +31,14 @@ async function RootLayout({ children }: RooRootLayoutProps) {
 
     await queryClient.prefetchQuery({
       queryKey: ['bookmark'],
-      queryFn: unstable_cache(cookieWrapper(session.accessToken, session.refreshToken, getBookmark), [session.id], {
-        revalidate: 3600,
-        tags: ['bookmark'],
-      }),
+      queryFn: unstable_cache(
+        cookieWrapper(session.accessToken, session.refreshToken, getBookmark),
+        ['bookmark', session.id],
+        {
+          revalidate: 3600,
+          tags: ['bookmark'],
+        },
+      ),
     });
   }
 
