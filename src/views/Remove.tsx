@@ -2,16 +2,16 @@
 
 import React from 'react';
 
-import { BookMark } from '@/components';
+import TrashBookmark from '@/components/TrashBookmark';
+
 import { useTrashBookmark } from '@/entities/trash-bookmark';
-import { useTrashBookmarkStore } from '@/store/trash-bookmark';
 
 function Remove() {
-  const { bookmarks } = useTrashBookmarkStore();
+  const { bookmarks } = useTrashBookmark();
   return (
-    <div>
+    <div className="grid grid-cols-1 gap-2 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
       {bookmarks.map((bookmark) => (
-        <BookMark
+        <TrashBookmark
           key={bookmark.id}
           id={bookmark.id}
           title={bookmark.title}
