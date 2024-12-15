@@ -4,9 +4,10 @@ import React from 'react';
 
 import { BookMark } from '@/components';
 import { useTrashBookmark } from '@/entities/trash-bookmark';
+import { useTrashBookmarkStore } from '@/store/trash-bookmark';
 
 function Remove() {
-  const { bookmarks } = useTrashBookmark();
+  const { bookmarks } = useTrashBookmarkStore();
   return (
     <div>
       {bookmarks.map((bookmark) => (

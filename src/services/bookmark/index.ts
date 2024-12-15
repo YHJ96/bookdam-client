@@ -8,7 +8,7 @@ type Role = 'guest' | 'user';
 
 export interface BookmarkService {
   bookmarks: Bookmark[];
-  createBookmark: (bookmark: CreateBookmark) => void;
+  createBookmark: (bookmark: Bookmark) => void;
   updateBookmark: (bookmark: UpdateBookmark) => void;
   removeBookmark: (id: number) => void;
 }
@@ -23,6 +23,6 @@ export function useBookmarkService(role: Role) {
     case 'guest':
       return useGuestBookmark;
     default:
-      throw new Error(`Unknown role: ${role}`);
+      throw new Error(`해당 역할이 없습니다. : ${role}`);
   }
 }
