@@ -7,27 +7,27 @@ export const revalidate = async (tags: Array<'bookmark' | 'trash'>) => {
   return response.data;
 };
 
-export const getBookmark = async () => {
+export const getBookmarksApi = async () => {
   const response = await api.get('/bookmark');
   return response.data;
 };
 
-export const createBookmark = async (bookmark: CreateBookmark) => {
+export const createBookmarkApi = async (bookmark: CreateBookmark) => {
   const response = await api.post('/bookmark', { ...bookmark });
   return response.data;
 };
 
-export const createOgTag = async (bookmark: CreateBookmark) => {
+export const createOgTagApi = async (bookmark: CreateBookmark) => {
   const response = await api.post('bookmark/og', { ...bookmark });
   return response.data;
 };
 
-export const removeBookmark = async (id: number) => {
+export const removeBookmarkApi = async (id: number) => {
   const response = await api.delete(`/bookmark/${id}`);
   return response.data;
 };
 
-export const updateBookmark = async (bookmark: UpdateBookmark) => {
+export const updateBookmarkApi = async (bookmark: UpdateBookmark) => {
   const response = await api.patch(`/bookmark/${bookmark.id}`, { ...bookmark });
   return response.data;
 };

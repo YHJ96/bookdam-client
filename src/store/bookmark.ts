@@ -1,4 +1,4 @@
-import { StateCreator, create } from 'zustand';
+import { StateCreator, StoreApi, create } from 'zustand';
 import { PersistOptions, createJSONStorage, persist } from 'zustand/middleware';
 
 import type { Bookmark } from '@/entities';
@@ -14,6 +14,8 @@ type BookmarkStore = {
 
 type BookmarkStorePersistOptions = PersistOptions<BookmarkStore, BookmarkStore>;
 type CreateBookmarkStore = StateCreator<BookmarkStore, [['zustand/persist', unknown]], []>;
+type Setter = StoreApi<BookmarkStore>['setState'];
+type Getter = StoreApi<BookmarkStore>['getState'];
 
 const options: BookmarkStorePersistOptions = {
   name: 'bookmarks',
@@ -23,21 +25,37 @@ const options: BookmarkStorePersistOptions = {
   },
 };
 
-const createBookmarkStore: CreateBookmarkStore = (set) => ({
+const addBookmark = (set: Setter, get: Getter, bookmark: Bookmark) => {
+  const bookmarks = get().bookmarks;
+  bookmarks.push(bookmark);
+  set({ bookmarks });
+};
+
+const findBookmarkIndexById = (get: Getter, id: number) => {
+  const bookmarks = get().bookmarks;
+  const idx = bookmarks.findIndex((_bookmarks) => _bookmarks.id === id);
+  return idx;
+};
+
+const updateBookmark = (set: Setter, get: Getter, bookmark: UpdateBookmark) => {
+  const idx = findBookmarkIndexById(get, bookmark.id);
+  if (idx === -1) return;
+  const bookmarks = get().bookmarks;
+  bookmarks[idx] = { ...bookmarks[idx], ...bookmark };
+  set({ bookmarks });
+};
+
+const removeBookmark = (set: Setter, get: Getter, id: number) => {
+  const bookmarks = get().bookmarks;
+  const filterBookmarks = bookmarks.filter((_bookmark) => _bookmark.id !== id);
+  set({ bookmarks: filterBookmarks });
+};
+
+const createBookmarkStore: CreateBookmarkStore = (set, get) => ({
   bookmarks: [],
-  createBookmark: (bookmark) =>
-    set((state) => ({
-      bookmarks: [...state.bookmarks, bookmark],
-    })),
-  updateBookmark: (bookmark) =>
-    set((state) => {
-      const _bookmarks = state.bookmarks;
-      const idx = state.bookmarks.findIndex((_bookmark) => bookmark.id === _bookmark.id);
-      if (idx === -1) return state;
-      _bookmarks[idx] = { ..._bookmarks[idx], ...bookmark };
-      return { bookmarks: _bookmarks };
-    }),
-  removeBookmark: (id) => set((state) => ({ bookmarks: state.bookmarks?.filter((bookmark) => bookmark.id !== id) })),
+  createBookmark: (bookmark) => addBookmark(set, get, bookmark),
+  updateBookmark: (bookmark) => updateBookmark(set, get, bookmark),
+  removeBookmark: (id) => removeBookmark(set, get, id),
   reset: () => set({ bookmarks: [] }),
 });
 

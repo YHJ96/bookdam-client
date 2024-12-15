@@ -1,12 +1,55 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
-import { createBookmark, createOgTag, getBookmark, removeBookmark, revalidate, updateBookmark } from './api';
+import {
+  createBookmarkApi,
+  createOgTagApi,
+  getBookmarksApi,
+  removeBookmarkApi,
+  revalidate,
+  updateBookmarkApi,
+} from './api';
 import { Bookmark, CreateBookmark, UpdateBookmark } from './type';
+
+const getBookmarks = () => {
+  const queryClient = useQueryClient();
+  const bookmarks = queryClient.getQueryData<Bookmark[]>(['bookmark']);
+  return bookmarks ?? [];
+};
+
+const setBookmarks = (bookmarks: Bookmark[]) => {
+  const queryClient = useQueryClient();
+  queryClient.setQueryData<Bookmark[]>(['bookmark'], bookmarks);
+};
+
+const findBookmarkIndexById = (id: number) => {
+  const idx = getBookmarks().findIndex((_bookmark) => _bookmark.id === id);
+  return idx;
+};
+
+const addBookmark = (bookmark: Bookmark) => {
+  const bookmarks = getBookmarks();
+  bookmarks.push(bookmark);
+  setBookmarks(bookmarks);
+};
+
+const removeBookmark = (id: number) => {
+  const bookmarks = getBookmarks();
+  const filterBookmarks = bookmarks.filter((_bookmarks) => _bookmarks.id !== id);
+  setBookmarks(filterBookmarks);
+};
+
+const updateBookmark = (bookmark: Bookmark) => {
+  const idx = findBookmarkIndexById(bookmark.id);
+  if (idx === -1) return;
+  const bookmarks = getBookmarks();
+  bookmarks[idx] = { ...bookmarks[idx], ...bookmark };
+  setBookmarks(bookmarks);
+};
 
 export const useBookmark = () => {
   const { data, ...rest } = useQuery<Bookmark[]>({
     queryKey: ['bookmark'],
-    queryFn: getBookmark,
+    queryFn: getBookmarksApi,
     staleTime: Infinity,
   });
 
@@ -14,16 +57,10 @@ export const useBookmark = () => {
 };
 
 export const useCreateBookmark = () => {
-  const queryClient = useQueryClient();
-
-  const { mutate } = useMutation({
-    mutationFn: createBookmark,
-    onSuccess: (data) => {
-      queryClient.setQueryData<Bookmark[]>(['bookmark'], (prev) => {
-        if (!prev) return prev;
-        return [...prev, data];
-      });
-
+  const { mutate } = useMutation<Bookmark, Error, Bookmark>({
+    mutationFn: createBookmarkApi,
+    onSuccess: (bookmark) => {
+      addBookmark(bookmark);
       revalidate(['bookmark']);
     },
   });
@@ -33,23 +70,17 @@ export const useCreateBookmark = () => {
 
 export const useCreateOgTag = () => {
   const { mutate } = useMutation<Omit<Bookmark, 'id'>, Error, CreateBookmark>({
-    mutationFn: createOgTag,
+    mutationFn: createOgTagApi,
   });
 
   return mutate;
 };
 
 export const useRemoveBookmark = () => {
-  const queryClient = useQueryClient();
-
   const { mutate } = useMutation<Bookmark, Error, number>({
-    mutationFn: removeBookmark,
+    mutationFn: removeBookmarkApi,
     onSuccess: ({ id }) => {
-      queryClient.setQueryData<Bookmark[]>(['bookmark'], (prev) => {
-        if (!prev) return;
-        return prev.filter((bookmark) => bookmark.id !== id);
-      });
-
+      removeBookmark(id);
       revalidate(['bookmark', 'trash']);
     },
   });
@@ -58,18 +89,10 @@ export const useRemoveBookmark = () => {
 };
 
 export const useUpdateBookmark = () => {
-  const queryClient = useQueryClient();
-
   const { mutate } = useMutation<Bookmark, Error, UpdateBookmark>({
-    mutationFn: updateBookmark,
+    mutationFn: updateBookmarkApi,
     onSuccess: (bookmark) => {
-      const bookmarks = queryClient.getQueryData<Bookmark[]>(['bookmark']);
-      if (bookmarks === undefined) return;
-      const idx = bookmarks.findIndex((_bookmark) => bookmark.id === _bookmark.id);
-      if (idx === -1) return;
-      bookmarks[idx] = bookmark;
-      queryClient.setQueryData(['bookmark'], bookmarks);
-
+      updateBookmark(bookmark);
       revalidate(['bookmark']);
     },
   });

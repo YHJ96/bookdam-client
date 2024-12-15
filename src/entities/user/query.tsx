@@ -2,7 +2,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 import { revalidate } from '@/entities/bookmark/api';
 
-import { removeCookies } from './api';
+import { removeCookiesApi } from './api';
 import { User } from './type';
 
 export const useUser = () => {
@@ -14,10 +14,10 @@ export const useUser = () => {
 export const useLogout = () => {
   const queryClient = useQueryClient();
   const { mutate } = useMutation({
-    mutationFn: removeCookies,
+    mutationFn: removeCookiesApi,
     onSuccess: () => {
       queryClient.setQueryData(['user'], null);
-      queryClient.setQueryData(['bookmark'], null);
+      queryClient.setQueryData(['bookmark'], []);
     },
   });
 
