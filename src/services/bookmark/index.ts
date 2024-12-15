@@ -1,4 +1,5 @@
 import { Bookmark, CreateBookmark } from '@/entities';
+import { UpdateBookmark } from '@/entities/bookmark';
 
 import useAdminBookmarkStrategy from './useAdminBookmarkStrategy';
 import useGuestBookmarkStrategy from './useGuestBookmarkStrategy';
@@ -8,6 +9,7 @@ type Role = 'guest' | 'user';
 export interface BookmarkService {
   bookmarks: Bookmark[];
   createBookmark: (bookmark: CreateBookmark) => void;
+  updateBookmark: (bookmark: UpdateBookmark) => void;
   removeBookmark: (id: number) => void;
 }
 

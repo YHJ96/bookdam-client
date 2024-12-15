@@ -1,8 +1,10 @@
 import React from 'react';
 
+import { useQueryClient } from '@tanstack/react-query';
 import { MoreHorizontal } from 'lucide-react';
 
-import { ConfirmDialog } from '@/components';
+import { BookmarkUpdateDialog, ConfirmDialog } from '@/components';
+import { Bookmark } from '@/entities';
 import { useBookmarkService } from '@/services';
 import { useDialog, useRole } from '@/shared/hooks';
 import { Button, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/shared/ui';
@@ -13,11 +15,15 @@ type BookmarkDropdown = {
 
 function BookMarkDropdown({ id }: BookmarkDropdown) {
   const role = useRole();
-  const { removeBookmark } = useBookmarkService(role);
+  const { removeBookmark, updateBookmark, bookmarks } = useBookmarkService(role);
   const open = useDialog();
 
   const handleUpdateOnSelect = async () => {
-    await open(ConfirmDialog, { title: '북마크 수정', description: '정말로 북마크를 업데이트 하시겠습니까?' });
+    const findById = bookmarks.find((bookmark) => bookmark.id === id);
+    if (!findById) return;
+
+    const bookmark = await open(BookmarkUpdateDialog, { title: '북마크 수정', description: '', bookmark: findById });
+    updateBookmark({ ...bookmark, id });
   };
 
   const handleRemoveOnSelect = async () => {

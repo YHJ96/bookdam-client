@@ -8,3 +8,5 @@ export type Bookmark = {
 };
 
 export type CreateBookmark = Omit<Bookmark, 'id' | 'image'>;
+
+export type UpdateBookmark = Omit<Bookmark, 'url' | 'image'>;
