@@ -4,16 +4,15 @@ import React from 'react';
 
 import { Bookmark, BookmarkEmpty, FloatingButton } from '@/components/home';
 
-import { useBookmarkService } from '@/services/bookmark';
+import { useBookmarkService, useTagService } from '@/services';
 import { useRole } from '@/shared/hooks';
 import { Badge } from '@/shared/ui';
 import { IfElse } from '@/shared/utils/react';
-import { useTagStore } from '@/store/tag';
 
 function Home() {
   const role = useRole();
   const { bookmarks } = useBookmarkService(role);
-  const { tags } = useTagStore();
+  const { tags } = useTagService(role);
 
   return (
     <React.Fragment>
