@@ -1,37 +1,55 @@
 import * as React from 'react';
 
+import { type VariantProps, cva } from 'class-variance-authority';
 import { X } from 'lucide-react';
 
 import { cn } from '@/shared/utils';
-import { Hide } from '@/shared/utils/react';
 
 export interface BadgeProps extends React.HTMLAttributes<HTMLDivElement> {
   isDelete?: boolean;
   onDelete?: () => void;
 }
 
-function Badge({ className, isDelete, onDelete, children, ...props }: BadgeProps) {
-  return (
-    <div
-      className={cn(
-        'inline-flex items-center gap-1 rounded-md border border-transparent bg-[#F4F4F5] px-2.5 py-0.5 text-xs font-semibold text-[#18181B] transition-colors dark:bg-[#27272A] dark:text-[#FAFAFA]',
-        className,
-      )}
-      {...props}
-    >
-      {children}
+const badgeVariants = cva(
+  'inline-flex items-center gap-1 rounded-md border px-2.5 py-0.5 text-xs font-semibold transition-colors cursor-pointer',
+  {
+    variants: {
+      variant: {
+        default:
+          'border-[#E4E4E7] bg-[#F4F4F5] text-[#18181B] dark:border-[#3F3F46] dark:bg-[#27272A] dark:text-[#FAFAFA]',
+        outline: 'border-transparent bg-[#18181B] text-[#FAFAFA] dark:bg-[#FAFAFA] dark:text-[#18181B]',
+      },
+    },
+    defaultVariants: {
+      variant: 'default',
+    },
+  },
+);
 
-      <Hide
-        condition={!isDelete}
-        component={
-          <button type="button" onClick={onDelete}>
-            <X className="h-3 w-3" />
-            <span className="sr-only">Remove Tag</span>
-          </button>
-        }
-      />
+export interface BadgeProps extends React.HTMLAttributes<HTMLDivElement>, VariantProps<typeof badgeVariants> {}
+
+const Badge = React.forwardRef<HTMLDivElement, BadgeProps>(({ className, children, ...props }, ref) => {
+  return (
+    <div ref={ref} className={cn(badgeVariants({ variant: 'default' }), className)} {...props}>
+      {children}
     </div>
   );
+});
+Badge.displayName = 'Badge';
+
+export interface BadgeDeleteProps extends React.HTMLAttributes<HTMLButtonElement> {
+  onDelete: () => void;
 }
 
-export { Badge };
+const BadgeDelete = React.forwardRef<HTMLButtonElement, BadgeDeleteProps>(
+  ({ className, onDelete, children, ...props }, ref) => {
+    return (
+      <button ref={ref} className={className} {...props} onClick={onDelete}>
+        <X className="h-3 w-3" />
+        <span className="sr-only">Remove Tag</span>
+      </button>
+    );
+  },
+);
+BadgeDelete.displayName = 'BadgeDelete';
+export { Badge, BadgeDelete };
