@@ -6,5 +6,7 @@ export {
   useUpdateBookmark,
   useBookmarkUtils,
 } from './query';
-export type { Bookmark, CreateBookmark, UpdateBookmark } from './type';
+
 export { bookmarkSchema } from './schema';
+
+export type { Bookmark, CreateBookmark, UpdateBookmark, OgTag } from './type';

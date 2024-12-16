@@ -1,6 +1,6 @@
 import z from 'zod';
 
-export const formSchema = z.object({
+export const bookmarkFormSchema = z.object({
   title: z.string(),
   description: z.string(),
   url: z.string().url({

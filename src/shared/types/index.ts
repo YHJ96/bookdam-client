@@ -1,3 +1,1 @@
-import type { Theme } from './theme';
-
-export type { Theme };
+export type { Role } from './role';

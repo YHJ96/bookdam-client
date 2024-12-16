@@ -2,21 +2,25 @@ import React from 'react';
 
 import { cookies } from 'next/headers';
 
-import { FloatingButton } from '@/components';
-import { SidebarInset, SidebarProvider } from '@/shared/ui';
-import { AppSideBar, Footer, Header } from '@/templates';
+import { AppSidebarContent, AppSidebarFooter, Footer, Header } from '@/components/layout';
+
+import { Sidebar, SidebarInset, SidebarProvider, SidebarRail } from '@/shared/ui';
 
 type LayoutProps = {
   children: React.ReactNode;
 };
 
 async function Layout({ children }: LayoutProps) {
-  const cookieStore = await cookies();
-  const defaultOpen = cookieStore.get('sidebar:state')?.value === 'true';
+  const cookie = await cookies();
+  const defaultOpen = cookie.get('sidebar:state')?.value === 'true';
 
   return (
     <SidebarProvider defaultOpen={defaultOpen}>
-      <AppSideBar />
+      <Sidebar collapsible="icon">
+        <AppSidebarContent />
+        <AppSidebarFooter />
+        <SidebarRail />
+      </Sidebar>
       <SidebarInset>
         <div className="flex min-h-screen flex-col dark:text-sidebar-foreground">
           <Header />
@@ -24,7 +28,6 @@ async function Layout({ children }: LayoutProps) {
           <Footer />
         </div>
       </SidebarInset>
-      <FloatingButton />
     </SidebarProvider>
   );
 }

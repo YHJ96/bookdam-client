@@ -1,1 +1,1 @@
-export { useTrashBookmark, useRedoTrashBookmark, useUndoTrashBookmark } from './query';
+export { useTrashBookmark, useRedoTrashBookmark, useUndoTrashBookmark, useTrashBookmarkUtils } from './query';

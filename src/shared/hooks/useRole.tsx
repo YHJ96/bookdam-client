@@ -1,10 +1,7 @@
-import React from 'react';
+import { useUser } from '@/entities/user';
+import { Role } from '@/shared/types';
 
-import { useUser } from '@/entities';
-
-type Role = 'guest' | 'user';
-
-export function useRole(): Role {
+export const useRole = (): Role => {
   const { user } = useUser();
   return user ? 'user' : 'guest';
-}
+};

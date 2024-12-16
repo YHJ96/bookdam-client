@@ -1,7 +1,7 @@
 import Home from './Home';
 import Layout from './Layout';
 import Login from './Login';
-import Remove from './Remove';
 import Tour from './Tour';
+import Trash from './Trash';
 
-export { Home, Layout, Remove, Tour, Login };
+export { Home, Layout, Trash, Tour, Login };

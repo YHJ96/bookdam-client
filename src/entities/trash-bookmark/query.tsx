@@ -1,10 +1,11 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
+import { revalidate } from '@/shared/utils';
+
 import { Bookmark, useBookmarkUtils } from '../bookmark';
-import { revalidate } from '../bookmark/api';
 import { getTrashBookmarksApi, redoTrashBookmarkApi, undoTrashBookmarkApi } from './api';
 
-const useTrashBookmarkUtils = () => {
+export const useTrashBookmarkUtils = () => {
   const { getBookmarks, setBookmarks } = useBookmarkUtils();
   const queryClient = useQueryClient();
 
@@ -71,7 +72,7 @@ export const useRedoTrashBookmark = () => {
 export const useUndoTrashBookmark = () => {
   const { undoTrashBookmarks } = useTrashBookmarkUtils();
 
-  const { mutate } = useMutation({
+  const { mutate } = useMutation<Bookmark, Error, number>({
     mutationFn: undoTrashBookmarkApi,
     onSuccess: ({ id }) => {
       undoTrashBookmarks(id);
