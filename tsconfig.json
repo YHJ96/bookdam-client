@@ -39,7 +39,7 @@
   },
 
   /* Files */
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/components/home/index.tss"],
   "exclude": ["node_modules"],
   "references": [{ "path": "./tsconfig.vitest.json" }]
 }

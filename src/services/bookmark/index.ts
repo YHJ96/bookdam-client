@@ -1,28 +1,27 @@
-import { Bookmark, CreateBookmark } from '@/entities';
-import { UpdateBookmark } from '@/entities/bookmark';
+import { Bookmark } from '@/entities/bookmark';
+import { CreateBookmark, UpdateBookmark } from '@/entities/bookmark';
+import { Role } from '@/shared/types';
 
-import useAdminBookmarkStrategy from './useAdminBookmarkStrategy';
-import useGuestBookmarkStrategy from './useGuestBookmarkStrategy';
-
-type Role = 'guest' | 'user';
+import { useGuestBookmarkStrategy } from './useGuestBookmarkStrategy';
+import { useUserBookmarkStrategy } from './useUserBookmarkStrategy';
 
 export interface BookmarkService {
   bookmarks: Bookmark[];
-  createBookmark: (bookmark: Bookmark) => void;
+  createBookmark: (bookmark: CreateBookmark) => void;
   updateBookmark: (bookmark: UpdateBookmark) => void;
   removeBookmark: (id: number) => void;
 }
 
-export function useBookmarkService(role: Role) {
-  const useAdminBookmark = useAdminBookmarkStrategy();
+export const useBookmarkService = (role: Role) => {
+  const useUserBookmark = useUserBookmarkStrategy();
   const useGuestBookmark = useGuestBookmarkStrategy();
 
   switch (role) {
     case 'user':
-      return useAdminBookmark;
+      return useUserBookmark;
     case 'guest':
       return useGuestBookmark;
     default:
       throw new Error(`해당 역할이 없습니다. : ${role}`);
   }
-}
+};

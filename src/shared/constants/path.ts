@@ -2,16 +2,16 @@ import { Bookmark, HelpCircle, Trash2 } from 'lucide-react';
 
 export const PATHS = {
   BOOK_MARK: {
-    id: 'BOOK_MARK',
+    id: 'BOOKMARK',
     title: '북마크',
     icon: Bookmark,
     url: '/',
   },
   REMOVE: {
-    id: 'REMOVE',
+    id: 'TRASH',
     title: '휴지통',
     icon: Trash2,
-    url: '/remove',
+    url: '/trash',
   },
   TOUR: {
     id: 'TOUR',

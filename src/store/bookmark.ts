@@ -1,7 +1,7 @@
 import { StateCreator, StoreApi, create } from 'zustand';
 import { PersistOptions, createJSONStorage, persist } from 'zustand/middleware';
 
-import type { Bookmark } from '@/entities';
+import type { Bookmark } from '@/entities/bookmark';
 import { UpdateBookmark, bookmarkSchema } from '@/entities/bookmark';
 
 import { useTrashBookmarkStore } from './trash-bookmark';

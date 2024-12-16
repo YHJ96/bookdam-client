@@ -4,9 +4,12 @@ export type Bookmark = {
   description: string;
   url: string;
   image: string;
+  createdAt: string;
   tags: string[];
 };
 
-export type CreateBookmark = Omit<Bookmark, 'id' | 'image'>;
+export type CreateBookmark = Omit<Bookmark, 'id' | 'image' | 'createdAt'>;
 
-export type UpdateBookmark = Omit<Bookmark, 'url' | 'image'>;
+export type UpdateBookmark = Omit<Bookmark, 'url' | 'image' | 'createdAt'>;
+
+export type OgTag = Omit<Bookmark, 'id' | 'createdAt' | 'tags'>;

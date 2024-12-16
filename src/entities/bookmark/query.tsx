@@ -1,14 +1,9 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
-import {
-  createBookmarkApi,
-  createOgTagApi,
-  getBookmarksApi,
-  removeBookmarkApi,
-  revalidate,
-  updateBookmarkApi,
-} from './api';
-import { Bookmark, CreateBookmark, UpdateBookmark } from './type';
+import { revalidate } from '@/shared/utils';
+
+import { createBookmarkApi, createOgTagApi, getBookmarksApi, removeBookmarkApi, updateBookmarkApi } from './api';
+import { Bookmark, CreateBookmark, OgTag, UpdateBookmark } from './type';
 
 export const useBookmarkUtils = () => {
   const queryClient = useQueryClient();
@@ -63,7 +58,7 @@ export const useBookmark = () => {
 export const useCreateBookmark = () => {
   const { addBookmark } = useBookmarkUtils();
 
-  const { mutate } = useMutation<Bookmark, Error, Bookmark>({
+  const { mutate } = useMutation<Bookmark, Error, CreateBookmark>({
     mutationFn: createBookmarkApi,
     onSuccess: (bookmark) => {
       addBookmark(bookmark);
@@ -75,7 +70,7 @@ export const useCreateBookmark = () => {
 };
 
 export const useCreateOgTag = () => {
-  const { mutate } = useMutation<Omit<Bookmark, 'id'>, Error, CreateBookmark>({
+  const { mutate } = useMutation<OgTag, Error, CreateBookmark>({
     mutationFn: createOgTagApi,
   });
 
