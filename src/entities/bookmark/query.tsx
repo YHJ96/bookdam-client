@@ -1,5 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
+import { useTagUtils } from '@/entities/tag';
 import { revalidate } from '@/shared/utils';
 
 import { createBookmarkApi, createOgTagApi, getBookmarksApi, removeBookmarkApi, updateBookmarkApi } from './api';
@@ -57,12 +58,14 @@ export const useBookmark = () => {
 
 export const useCreateBookmark = () => {
   const { addBookmark } = useBookmarkUtils();
+  const { getUniqueTags, setTags } = useTagUtils();
 
   const { mutate } = useMutation<Bookmark, Error, CreateBookmark>({
     mutationFn: createBookmarkApi,
     onSuccess: (bookmark) => {
       addBookmark(bookmark);
-      revalidate(['bookmark']);
+      setTags(getUniqueTags());
+      revalidate(['bookmark', 'tag']);
     },
   });
 
@@ -79,12 +82,14 @@ export const useCreateOgTag = () => {
 
 export const useRemoveBookmark = () => {
   const { removeBookmark } = useBookmarkUtils();
+  const { getUniqueTags, setTags } = useTagUtils();
 
   const { mutate } = useMutation<Bookmark, Error, number>({
     mutationFn: removeBookmarkApi,
     onSuccess: ({ id }) => {
       removeBookmark(id);
-      revalidate(['bookmark', 'trash']);
+      setTags(getUniqueTags());
+      revalidate(['bookmark', 'trash', 'tag']);
     },
   });
 
@@ -93,12 +98,14 @@ export const useRemoveBookmark = () => {
 
 export const useUpdateBookmark = () => {
   const { updateBookmark } = useBookmarkUtils();
+  const { getUniqueTags, setTags } = useTagUtils();
 
   const { mutate } = useMutation<Bookmark, Error, UpdateBookmark>({
     mutationFn: updateBookmarkApi,
     onSuccess: (bookmark) => {
       updateBookmark(bookmark);
-      revalidate(['bookmark']);
+      setTags(getUniqueTags());
+      revalidate(['bookmark', 'tag']);
     },
   });
 
