@@ -2,7 +2,7 @@ import React, { useRef } from 'react';
 
 import { Plus } from 'lucide-react';
 
-import { Badge, Button, Input, Label } from '@/shared/ui';
+import { Badge, BadgeDelete, Button, Input, Label } from '@/shared/ui';
 
 type BookmarkTagFormProps = {
   tags: string[];
@@ -46,8 +46,9 @@ function BookmarkTagForm({ tags, addTag, deleteTag }: BookmarkTagFormProps) {
         </div>
         <div className="flex h-14 flex-wrap items-start gap-1 overflow-y-auto">
           {tags.map((tag) => (
-            <Badge key={tag} isDelete={true} onDelete={handleDeleteButtonOnClick(tag)}>
-              {tag}
+            <Badge key={tag}>
+              <React.Fragment>{tag}</React.Fragment>
+              <BadgeDelete onDelete={handleDeleteButtonOnClick(tag)} />
             </Badge>
           ))}
         </div>

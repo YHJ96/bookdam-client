@@ -1,6 +1,6 @@
 export { Avatar, AvatarFallback, AvatarImage } from './Avatar';
 
-export { Badge } from './Badge';
+export { Badge, BadgeDelete } from './Badge';
 
 export { Button } from './Button';
 
@@ -19,8 +19,6 @@ export { Label } from './Label';
 export { Popover, PopoverContent, PopoverTrigger } from './Popover';
 
 export { Separator } from './Separator';
-
-export { Skeleton } from './Skeleton';
 
 export { Tabs, TabsContent, TabsList, TabsTrigger } from './Tabs';
 
