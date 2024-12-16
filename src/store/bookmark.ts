@@ -4,6 +4,7 @@ import { PersistOptions, createJSONStorage, persist } from 'zustand/middleware';
 import type { Bookmark } from '@/entities/bookmark';
 import { UpdateBookmark, bookmarkSchema } from '@/entities/bookmark';
 
+import { useTagStore } from './tag';
 import { useTrashBookmarkStore } from './trash-bookmark';
 
 type BookmarkStore = {
@@ -34,6 +35,8 @@ const addBookmark = (set: Setter, get: Getter, bookmark: Bookmark) => {
   const bookmarks = get().bookmarks;
   bookmarks.push(bookmark);
   set({ bookmarks });
+  const tags = useTagStore.getState().getUniqueTags();
+  useTagStore.setState({ tags });
 };
 
 const findBookmarkIndexById = (get: Getter, id: number) => {
@@ -48,6 +51,8 @@ const updateBookmark = (set: Setter, get: Getter, bookmark: UpdateBookmark) => {
   const bookmarks = get().bookmarks;
   bookmarks[idx] = { ...bookmarks[idx], ...bookmark };
   set({ bookmarks });
+  const tags = useTagStore.getState().getUniqueTags();
+  useTagStore.setState({ tags });
 };
 
 const removeBookmark = (set: Setter, get: Getter, id: number) => {
@@ -59,6 +64,8 @@ const removeBookmark = (set: Setter, get: Getter, id: number) => {
   const trashBookmarks = useTrashBookmarkStore.getState().bookmarks;
   trashBookmarks.push(bookmarks[idx]);
   useTrashBookmarkStore.setState({ bookmarks: trashBookmarks });
+  const tags = useTagStore.getState().getUniqueTags();
+  useTagStore.setState({ tags });
 };
 
 const createBookmarkStore: CreateBookmarkStore = (set, get) => ({
