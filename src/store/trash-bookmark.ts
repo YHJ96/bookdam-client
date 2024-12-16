@@ -4,6 +4,7 @@ import { PersistOptions, createJSONStorage, persist } from 'zustand/middleware';
 import type { Bookmark } from '@/entities/bookmark';
 
 import { useBookmarkStore } from './bookmark';
+import { useTagStore } from './tag';
 
 type TrashBookmarkStore = {
   bookmarks: Bookmark[];
@@ -41,6 +42,8 @@ const redoBookmark = (set: Setter, get: Getter, id: number) => {
   const bookmarks = useBookmarkStore.getState().bookmarks;
   bookmarks.push(trashBookmarks[idx]);
   useBookmarkStore.setState({ bookmarks });
+  const tags = useTagStore.getState().getUniqueTags();
+  useTagStore.setState({ tags });
 };
 
 const undoBookmark = (set: Setter, get: Getter, id: number) => {

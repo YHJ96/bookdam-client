@@ -10,8 +10,8 @@ export const useTagUtils = () => {
 
   const getUniqueTags = () => {
     const bookmarks = getBookmarks();
-    const set = new Set(bookmarks.flatMap((bookmark) => bookmark.tags));
-    return set.values().toArray();
+    const set = new Set<string>(bookmarks.flatMap((bookmark) => bookmark.tags));
+    return Array.from(set.values());
   };
 
   const setTags = (tags: string[]) => {
