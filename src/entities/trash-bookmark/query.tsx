@@ -1,5 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
+import { useTagUtils } from '@/entities/tag';
 import { revalidate } from '@/shared/utils';
 
 import { Bookmark, useBookmarkUtils } from '../bookmark';
@@ -57,12 +58,14 @@ export const useTrashBookmark = () => {
 
 export const useRedoTrashBookmark = () => {
   const { redoTrashBookmarks } = useTrashBookmarkUtils();
+  const { getUniqueTags, setTags } = useTagUtils();
 
   const { mutate } = useMutation({
     mutationFn: redoTrashBookmarkApi,
     onSuccess: ({ id }) => {
       redoTrashBookmarks(id);
-      revalidate(['bookmark', 'trash']);
+      setTags(getUniqueTags());
+      revalidate(['bookmark', 'trash', 'tag']);
     },
   });
 

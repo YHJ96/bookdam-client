@@ -4,6 +4,7 @@ import { unstable_cache } from 'next/cache';
 import { HydrationBoundary, QueryClient, dehydrate } from '@tanstack/react-query';
 
 import { getBookmarksApi } from '@/entities/bookmark/api';
+import { getTagsApi } from '@/entities/tag/api';
 import { QueryProvider, ThemeProvider } from '@/providers';
 import { font } from '@/shared/libs';
 import { DialogProvider } from '@/shared/ui';
@@ -38,6 +39,15 @@ async function RootLayout({ children }: RooRootLayoutProps) {
           revalidate: 3600,
           tags: ['bookmark'],
         },
+      ),
+    });
+
+    await queryClient.prefetchQuery({
+      queryKey: ['tag'],
+      queryFn: unstable_cache(
+        cookieWrapper(session.accessToken, session.refreshToken, getTagsApi),
+        ['tag', session.id],
+        { revalidate: 3600, tags: ['tag'] },
       ),
     });
   }
