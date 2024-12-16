@@ -33,7 +33,7 @@ function FloatingButton() {
         onClick={handleOnClick}
       >
         <Bookmark className="text-blue-200" />
-        <span className="sr-only">BookMark Add</span>
+        <span className="sr-only">Bookmark Add</span>
         <Hide
           condition={Boolean(bookmarks.length)}
           component={
