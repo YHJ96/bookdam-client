@@ -1,4 +1,4 @@
-import { StateCreator, StoreApi, create } from 'zustand';
+import { StateCreator, create } from 'zustand';
 import { PersistOptions, createJSONStorage, persist } from 'zustand/middleware';
 
 import { useBookmarkStore } from './bookmark';

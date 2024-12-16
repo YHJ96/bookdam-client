@@ -16,8 +16,8 @@ const badgeVariants = cva(
     variants: {
       variant: {
         default:
-          'border-[#E4E4E7] bg-[#F4F4F5] text-[#18181B] dark:border-[#3F3F46] dark:bg-[#27272A] dark:text-[#FAFAFA]',
-        outline: 'border-transparent bg-[#18181B] text-[#FAFAFA] dark:bg-[#FAFAFA] dark:text-[#18181B]',
+          'border-[#C4C4CA] bg-[#D4D4D8] text-[#18181B] dark:border-[#3F3F46] dark:bg-[#52525B] dark:text-[#FAFAFA]',
+        selected: 'border-transparent bg-[#E4E4E7] text-[#18181B] dark:bg-[#27272A] dark:text-[#FAFAFA]',
       },
     },
     defaultVariants: {
@@ -28,9 +28,9 @@ const badgeVariants = cva(
 
 export interface BadgeProps extends React.HTMLAttributes<HTMLDivElement>, VariantProps<typeof badgeVariants> {}
 
-const Badge = React.forwardRef<HTMLDivElement, BadgeProps>(({ className, children, ...props }, ref) => {
+const Badge = React.forwardRef<HTMLDivElement, BadgeProps>(({ className, variant, children, ...props }, ref) => {
   return (
-    <div ref={ref} className={cn(badgeVariants({ variant: 'default' }), className)} {...props}>
+    <div ref={ref} className={cn(badgeVariants({ variant }), className)} {...props}>
       {children}
     </div>
   );
