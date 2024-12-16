@@ -2,23 +2,20 @@
 
 import React from 'react';
 
-import { Bookmark, BookmarkEmpty, FloatingButton } from '@/components/home';
+import { Bookmark, BookmarkEmpty, BookmarkTagFilter, FloatingButton } from '@/components/home';
 
 import { useBookmarkService, useTagService } from '@/services';
 import { useRole } from '@/shared/hooks';
-import { Badge } from '@/shared/ui';
 import { IfElse } from '@/shared/utils/react';
 
 function Home() {
   const role = useRole();
   const { bookmarks } = useBookmarkService(role);
-  const { tags } = useTagService(role);
+  const { tags, selectedTags, toggleTag } = useTagService(role);
 
   return (
     <React.Fragment>
-      {tags.map((tag) => (
-        <Badge key={tag}>{tag}</Badge>
-      ))}
+      <BookmarkTagFilter tags={tags} selectedTags={selectedTags} toggleTag={toggleTag} />
       <IfElse
         condition={Boolean(bookmarks.length)}
         then={
