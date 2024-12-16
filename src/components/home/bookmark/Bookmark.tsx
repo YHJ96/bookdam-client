@@ -8,7 +8,7 @@ import { Card, CardContent, Image } from '@/shared/ui';
 
 import BookmarkDropdown from './BookmarkDropdown';
 
-type BookMarkListProps = {
+type BookmarkProps = {
   id: number;
   title: string;
   description: string;
@@ -16,7 +16,7 @@ type BookMarkListProps = {
   image: string;
 };
 
-function BookMark({ id, title, description, url, image }: BookMarkListProps) {
+function Bookmark({ id, title, description, url, image }: BookmarkProps) {
   return (
     <Card className="group relative pr-4">
       <div className="absolute right-2 top-2 z-10">
@@ -41,4 +41,4 @@ function BookMark({ id, title, description, url, image }: BookMarkListProps) {
   );
 }
 
-export default BookMark;
+export default Bookmark;
