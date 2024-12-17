@@ -1,8 +1,8 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 
-import { Bookmark, BookmarkEmpty, BookmarkTagFilter, FloatingButton } from '@/components/home';
+import { Bookmark, BookmarkEmpty, BookmarkSearchInput, BookmarkTagFilter, FloatingButton } from '@/components/home';
 
 import { useBookmarkService, useTagService } from '@/services';
 import { useRole } from '@/shared/hooks';
@@ -12,9 +12,11 @@ function Home() {
   const role = useRole();
   const { bookmarks } = useBookmarkService(role);
   const { tags, selectedTags, toggleTag } = useTagService(role);
+  const [search, setSearch] = useState('');
 
   return (
     <React.Fragment>
+      <BookmarkSearchInput search={search} setSearch={setSearch} />
       <BookmarkTagFilter tags={tags} selectedTags={selectedTags} toggleTag={toggleTag} />
       <IfElse
         condition={Boolean(bookmarks.length)}
