@@ -5,8 +5,7 @@ import { HydrationBoundary, QueryClient, dehydrate } from '@tanstack/react-query
 
 import { getBookmarksApi } from '@/entities/bookmark/api';
 import { getTagsApi } from '@/entities/tag/api';
-import { QueryProvider, ThemeProvider } from '@/providers';
-import { font } from '@/shared/libs';
+import { QueryProvider } from '@/providers';
 import { DialogProvider } from '@/shared/ui';
 import { cookieWrapper, getSession } from '@/shared/utils/server';
 import { Layout } from '@/views';
@@ -18,12 +17,12 @@ export const metadata: Metadata = {
   description: 'BookDam',
 };
 
-type RooRootLayoutProps = {
+type MainLayoutProps = {
   children: React.ReactNode;
 };
 
 /* https://github.com/pacocoursey/next-themes/blob/bf0c5a45eaf6fb2b336a6b93840e4ec572bc08c8/next-themes/README.md?plain=1#L95C1-L96C1 */
-async function RootLayout({ children }: RooRootLayoutProps) {
+async function MainLayout({ children }: MainLayoutProps) {
   const queryClient = new QueryClient();
   const session = await getSession();
 
@@ -53,20 +52,14 @@ async function RootLayout({ children }: RooRootLayoutProps) {
   }
 
   return (
-    <html lang="ko" suppressHydrationWarning>
-      <body className={font.className}>
-        <ThemeProvider>
-          <QueryProvider>
-            <DialogProvider>
-              <HydrationBoundary state={dehydrate(queryClient)}>
-                <Layout>{children}</Layout>
-              </HydrationBoundary>
-            </DialogProvider>
-          </QueryProvider>
-        </ThemeProvider>
-      </body>
-    </html>
+    <QueryProvider>
+      <DialogProvider>
+        <HydrationBoundary state={dehydrate(queryClient)}>
+          <Layout>{children}</Layout>
+        </HydrationBoundary>
+      </DialogProvider>
+    </QueryProvider>
   );
 }
 
-export default RootLayout;
+export default MainLayout;
