@@ -15,7 +15,7 @@ export default function TrashBookmarkEmpty() {
         삭제된 북마크가 없습니다. 북마크를 삭제하면 이곳에 표시됩니다.
       </p>
       <Button asChild>
-        <Link href="/bookmarks" className="inline-flex items-center">
+        <Link href="/" className="inline-flex items-center">
           <ArrowLeft className="mr-2 h-4 w-4" />
           북마크로 돌아가기
         </Link>

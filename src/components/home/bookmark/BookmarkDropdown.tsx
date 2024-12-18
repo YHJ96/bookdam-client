@@ -47,7 +47,9 @@ function BookmarkDropdown({ id }: BookmarkDropdownProps) {
       </DropdownMenuTrigger>
       <DropdownMenuContent align="center">
         <DropdownMenuItem onSelect={handleUpdateOnSelect}>수정</DropdownMenuItem>
-        <DropdownMenuItem onSelect={handleRemoveOnSelect}>삭제</DropdownMenuItem>
+        <DropdownMenuItem className="text-red-500" onSelect={handleRemoveOnSelect}>
+          삭제
+        </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );

@@ -45,7 +45,9 @@ function TrashBookmarkDropdown({ id }: TrashBookmarkDropdownProps) {
       </DropdownMenuTrigger>
       <DropdownMenuContent align="center">
         <DropdownMenuItem onSelect={handleRedoOnSelect}>복구</DropdownMenuItem>
-        <DropdownMenuItem onSelect={handleUndoOnSelect}>영구 삭제</DropdownMenuItem>
+        <DropdownMenuItem className="text-red-500" onSelect={handleUndoOnSelect}>
+          영구 삭제
+        </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );
