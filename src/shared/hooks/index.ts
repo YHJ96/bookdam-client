@@ -3,3 +3,4 @@ export { useSidebar } from '@/shared/ui/Sidebar';
 export { useIsMobile } from './useIsMobile';
 export { useRole } from './useRole';
 export { useDebounce } from './useDebounce';
+export { useFilterBookmark } from './useFilterBookmark';
