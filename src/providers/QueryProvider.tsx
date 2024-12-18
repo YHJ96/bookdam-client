@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 
-import { MutationCache, QueryCache, QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { MutationCache, QueryCache, QueryClient, QueryClientProvider, Register } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { AxiosError } from 'axios';
 
@@ -28,8 +28,9 @@ export default function QueryProvider({ children }: QueryProviderProps) {
           },
         }),
         mutationCache: new MutationCache({
-          onError: async (err) => {
+          onError: async (err, variables, context, mutation) => {
             if (!(err instanceof AxiosError)) return;
+            if (mutation.meta?.isThrowError) return;
 
             if (err.status === 401) {
               await nextApi.delete('/cookie');

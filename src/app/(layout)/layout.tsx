@@ -7,6 +7,7 @@ import { getBookmarksApi } from '@/entities/bookmark/api';
 import { getTagsApi } from '@/entities/tag/api';
 import { QueryProvider } from '@/providers';
 import { DialogProvider } from '@/shared/ui';
+import { Toaster } from '@/shared/ui/toaster';
 import { cookieWrapper, getSession } from '@/shared/utils/server';
 import { Layout } from '@/views';
 
@@ -57,6 +58,7 @@ async function MainLayout({ children }: MainLayoutProps) {
         <HydrationBoundary state={dehydrate(queryClient)}>
           <Layout>{children}</Layout>
         </HydrationBoundary>
+        <Toaster />
       </DialogProvider>
     </QueryProvider>
   );

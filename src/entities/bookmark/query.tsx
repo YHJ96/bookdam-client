@@ -1,6 +1,8 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { AxiosError } from 'axios';
 
 import { useTagUtils } from '@/entities/tag';
+import { useToast } from '@/shared/hooks/use-toast';
 import { revalidate } from '@/shared/utils';
 
 import { createBookmarkApi, createOgTagApi, getBookmarksApi, removeBookmarkApi, updateBookmarkApi } from './api';
@@ -59,13 +61,22 @@ export const useBookmark = () => {
 export const useCreateBookmark = () => {
   const { addBookmark } = useBookmarkUtils();
   const { getUniqueTags, setTags } = useTagUtils();
+  const { toast } = useToast();
 
-  const { mutate } = useMutation<Bookmark, Error, CreateBookmark>({
+  const { mutate } = useMutation<Bookmark, AxiosError<{ message: string }>, CreateBookmark>({
     mutationFn: createBookmarkApi,
+    meta: { isThrowError: true },
     onSuccess: (bookmark) => {
       addBookmark(bookmark);
       setTags(getUniqueTags());
       revalidate(['bookmark', 'tag']);
+    },
+    onError: (error) => {
+      toast({
+        variant: 'destructive',
+        title: 'URL를 찾을 수 없습니다.',
+        description: error.response?.data.message,
+      });
     },
   });
 
@@ -75,6 +86,10 @@ export const useCreateBookmark = () => {
 export const useCreateOgTag = () => {
   const { mutate } = useMutation<OgTag, Error, CreateBookmark>({
     mutationFn: createOgTagApi,
+    meta: { isThrowError: true },
+    onError: (error) => {
+      console.log(error);
+    },
   });
 
   return mutate;
