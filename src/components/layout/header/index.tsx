@@ -8,9 +8,12 @@ import { usePathname } from 'next/navigation';
 import { Download, Menu } from 'lucide-react';
 
 import { useUser } from '@/entities/user';
+import { useBookmarkService } from '@/services';
 import { PATHS_TO_ARRAY } from '@/shared/constants';
+import { useRole } from '@/shared/hooks';
 import { Button } from '@/shared/ui';
 import { useSidebar } from '@/shared/ui';
+import { excel } from '@/shared/utils';
 import { Hide } from '@/shared/utils/react';
 
 function Header() {
@@ -18,9 +21,12 @@ function Header() {
   const router = useRouter();
   const { toggleSidebar } = useSidebar();
   const path = usePathname();
+  const role = useRole();
+  const { bookmarks } = useBookmarkService(role);
 
   const currentPath = PATHS_TO_ARRAY.find(({ url }) => url === path);
   const handleLoginButtonOnClick = () => router.push('/login');
+  const handleExcelButtonOnClick = () => excel(bookmarks);
 
   return (
     <header className="flex w-full items-center justify-between border-b border-primary px-4 py-2.5">
@@ -33,7 +39,7 @@ function Header() {
       </section>
 
       <div className="flex gap-2">
-        <Button variant="outline" size="sm">
+        <Button variant="outline" size="sm" onClick={handleExcelButtonOnClick}>
           <Download />
           <span>엑셀 다운로드</span>
         </Button>
