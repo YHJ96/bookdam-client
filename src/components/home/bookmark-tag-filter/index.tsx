@@ -10,7 +10,7 @@ function BookmarkTagFilter({ tags, selectedTags, toggleTag }: BookmarkTagFilterP
   const handleToggleTag = (tag: string) => () => toggleTag(tag);
 
   return (
-    <div className="flex flex-wrap gap-1 pb-2">
+    <div className="flex flex-wrap gap-1">
       {tags.map((tag) => (
         <Badge key={tag} variant={selectedTags.includes(tag) ? 'default' : 'selected'} onClick={handleToggleTag(tag)}>
           {tag}

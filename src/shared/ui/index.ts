@@ -24,6 +24,8 @@ export { Tabs, TabsContent, TabsList, TabsTrigger } from './Tabs';
 
 export { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from './Tooltip';
 
+export { Select, SelectContent, SelectGroup, SelectItem, SelectSeparator, SelectTrigger, SelectValue } from './Select';
+
 export {
   Dialog,
   DialogClose,
