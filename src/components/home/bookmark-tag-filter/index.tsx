@@ -12,7 +12,7 @@ function BookmarkTagFilter({ tags, selectedTags, toggleTag }: BookmarkTagFilterP
   return (
     <div className="flex flex-wrap gap-1">
       {tags.map((tag) => (
-        <Badge key={tag} variant={selectedTags.includes(tag) ? 'default' : 'selected'} onClick={handleToggleTag(tag)}>
+        <Badge key={tag} variant={selectedTags.includes(tag) ? 'selected' : 'default'} onClick={handleToggleTag(tag)}>
           {tag}
         </Badge>
       ))}
