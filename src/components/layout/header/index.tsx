@@ -29,7 +29,7 @@ function Header() {
   const handleExcelButtonOnClick = () => excel(bookmarks);
 
   return (
-    <header className="flex w-full items-center justify-between border-b border-primary px-4 py-2.5">
+    <header className="flex w-full items-center justify-between border-b px-4 py-2.5">
       <section className="flex items-center gap-1.5">
         <Button className="h-6 w-6 md:hidden" variant="ghost" size="icon" onClick={toggleSidebar}>
           <Menu />
