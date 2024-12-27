@@ -6,8 +6,7 @@ import { HydrationBoundary, QueryClient, dehydrate } from '@tanstack/react-query
 import { getBookmarksApi } from '@/entities/bookmark/api';
 import { getTagsApi } from '@/entities/tag/api';
 import { QueryProvider } from '@/providers';
-import { DialogProvider } from '@/shared/ui';
-import { Toaster } from '@/shared/ui/toaster';
+import { DialogProvider, Toaster } from '@/shared/ui';
 import { cookieWrapper, getSession } from '@/shared/utils/server';
 import { Layout } from '@/views';
 

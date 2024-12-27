@@ -2,7 +2,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
 
 import { useTagUtils } from '@/entities/tag';
-import { useToast } from '@/shared/hooks/use-toast';
+import { useToast } from '@/shared/hooks';
 import { revalidate } from '@/shared/utils';
 
 import { createBookmarkApi, createOgTagApi, getBookmarksApi, removeBookmarkApi, updateBookmarkApi } from './api';
