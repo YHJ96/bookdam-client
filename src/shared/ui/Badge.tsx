@@ -5,19 +5,13 @@ import { X } from 'lucide-react';
 
 import { cn } from '@/shared/utils';
 
-export interface BadgeProps extends React.HTMLAttributes<HTMLDivElement> {
-  isDelete?: boolean;
-  onDelete?: () => void;
-}
-
 const badgeVariants = cva(
   'inline-flex items-center gap-1 rounded-md border px-2.5 py-0.5 text-xs font-semibold transition-colors cursor-pointer',
   {
     variants: {
       variant: {
-        default:
-          'border-[#C4C4CA] bg-[#D4D4D8] text-[#18181B] dark:border-[#3F3F46] dark:bg-[#52525B] dark:text-[#FAFAFA]',
-        selected: 'border-transparent bg-[#E4E4E7] text-[#18181B] dark:bg-[#27272A] dark:text-[#FAFAFA]',
+        default: 'border bg-badge',
+        selected: 'border-transparent bg-badge-selected',
       },
     },
     defaultVariants: {

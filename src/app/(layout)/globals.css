@@ -57,6 +57,8 @@
 
     --background: var(--neutral-0);
     --foreground: var(--neutral-950);
+    --badge: var(--neutral-300);
+    --badge-selected: var(--neutral-200);
     --card: var(--neutral-0);
     --card-foreground: var(--neutral-950);
     --popover: var(--neutral-0);
@@ -87,6 +89,8 @@
   .dark {
     --background: var(--neutral-950);
     --foreground: var(--neutral-50);
+    --badge: var(--neutral-800);
+    --badge-selected: var(--neutral-700);
     --card: var(--neutral-950);
     --card-foreground: var(--neutral-50);
     --popover: var(--neutral-950);
