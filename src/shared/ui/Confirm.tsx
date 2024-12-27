@@ -24,12 +24,12 @@ export const Confirm = ({ title, description, resolve }: ConfirmDialog) => {
     <Dialog defaultOpen>
       <DialogContent className="max-w-[340px] md:max-w-[425px]">
         <DialogHeader className="mb-6">
-          <DialogTitle className="text-black dark:text-white">{title}</DialogTitle>
+          <DialogTitle>{title}</DialogTitle>
           <DialogDescription>{description}</DialogDescription>
         </DialogHeader>
         <DialogFooter className="gap-4 md:gap-0">
           <DialogClose asChild>
-            <Button className="dark:text-white" variant="outline" onClick={handleOnClick(false)}>
+            <Button variant="outline" onClick={handleOnClick(false)}>
               취소
             </Button>
           </DialogClose>
