@@ -22,7 +22,7 @@ function BookmarkEmpty() {
   return (
     <div
       ref={containerRef}
-      className={`bg-background flex h-full flex-col items-center justify-center text-center ${isGuest && 'opacity-0'}`}
+      className={`flex h-full flex-col items-center justify-center bg-background text-center ${isGuest && 'opacity-0'}`}
     >
       <Bookmark className="mb-4 h-16 w-16 text-muted-foreground" />
       <h2 className="mb-2 text-2xl font-semibold">북마크가 없습니다</h2>
