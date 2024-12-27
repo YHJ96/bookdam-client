@@ -35,7 +35,7 @@ function BookmarkUpdateDialog({ bookmark, resolve }: BookmarkUpdateDialogProps) 
 
   return (
     <Dialog defaultOpen>
-      <DialogContent className="bg-white sm:max-w-[425px]">
+      <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle>북마크 수정</DialogTitle>
           <DialogDescription>수정할 북마크의 정보를 입력해주세요.</DialogDescription>

@@ -36,7 +36,7 @@ function BookmarkCreateDialog({ title, description, resolve }: BookmarkCreateDia
 
   return (
     <Dialog defaultOpen>
-      <DialogContent className="bg-white sm:max-w-[425px]">
+      <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle>{title}</DialogTitle>
           <DialogDescription>{description}</DialogDescription>
