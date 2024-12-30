@@ -11,6 +11,7 @@ const config: StorybookConfig = {
     '@storybook/preview-api',
     '@storybook/addon-viewport',
     'storybook-dark-mode',
+    '@storybook/addon-actions',
   ],
   framework: {
     name: '@storybook/nextjs',

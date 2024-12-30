@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import type { Decorator } from '@storybook/react';
 import { themes } from '@storybook/theming';
@@ -11,6 +11,10 @@ const GlobalDecorator: Decorator = (Story) => {
   const theme = isDark ? themes.dark.appBg : themes.light.appBg;
   const $body = document.body;
   $body.style.background = theme;
+
+  useEffect(() => {
+    document.documentElement.style.setProperty('color-scheme', isDark ? 'dark' : 'light');
+  }, []);
 
   return (
     <div className={font.className}>
