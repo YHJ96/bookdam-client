@@ -1,0 +1,37 @@
+import { ColorItem, ColorPalette, Meta } from '@storybook/blocks';
+import resolveConfig from 'tailwindcss/resolveConfig';
+
+import tailwindConfig from '../../tailwind.config';
+
+export const fullColors = Object.entries(resolveConfig(tailwindConfig).theme.colors);
+
+export const variablesColorkeys = [
+  'background',
+  'foreground',
+  'badge',
+  'card',
+  'popover',
+  'primary',
+  'secondary',
+  'muted',
+  'accent',
+  'destructive',
+  'border',
+  'input',
+  'ring',
+  'sidebar',
+];
+
+export const colors = fullColors.filter(([key]) => variablesColorkeys.includes(key));
+
+<Meta title="Colors" />
+
+<ColorPalette>
+
+{colors.map(([key, value]) => {
+const result = typeof value === 'string' ? { [key]: value } : value;
+const title = `theme.color.${key}`;
+return <ColorItem key={key} title={title} colors={{ ...result }} />;
+})}
+
+</ColorPalette>

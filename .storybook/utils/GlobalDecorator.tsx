@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 
 import type { Decorator } from '@storybook/react';
 import { themes } from '@storybook/theming';
