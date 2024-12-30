@@ -26,8 +26,6 @@ export { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from './Tool
 
 export { Select, SelectContent, SelectGroup, SelectItem, SelectSeparator, SelectTrigger, SelectValue } from './Select';
 
-export { Toaster } from './Toaster';
-
 export {
   type ToastProps,
   type ToastActionElement,
@@ -38,6 +36,7 @@ export {
   ToastDescription,
   ToastClose,
   ToastAction,
+  Toaster,
 } from './Toast';
 
 export {
