@@ -7,7 +7,6 @@ const meta = {
   component: Input,
   tags: ['autodocs'],
   argTypes: {
-    children: { control: 'text' },
     type: { control: 'select', options: ['text', 'email', 'password', 'number', 'tel', 'url'] },
     placeholder: { control: 'text' },
     disabled: { control: 'boolean' },
