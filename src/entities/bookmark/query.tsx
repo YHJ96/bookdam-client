@@ -2,7 +2,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
 
 import { useTagUtils } from '@/entities/tag';
-import { useToast } from '@/shared/hooks';
+import { useRole, useToast } from '@/shared/hooks';
 import { revalidate } from '@/shared/utils';
 
 import { createBookmarkApi, createOgTagApi, getBookmarksApi, removeBookmarkApi, updateBookmarkApi } from './api';
@@ -49,10 +49,13 @@ export const useBookmarkUtils = () => {
 };
 
 export const useBookmark = () => {
+  const role = useRole();
+
   const { data, ...rest } = useQuery<Bookmark[]>({
     queryKey: ['bookmark'],
     queryFn: getBookmarksApi,
     staleTime: Infinity,
+    enabled: role === 'user',
   });
 
   return { bookmarks: data ?? [], ...rest };

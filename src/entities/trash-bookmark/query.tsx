@@ -1,6 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 import { useTagUtils } from '@/entities/tag';
+import { useRole } from '@/shared/hooks';
 import { revalidate } from '@/shared/utils';
 
 import { Bookmark, useBookmarkUtils } from '../bookmark';
@@ -47,10 +48,13 @@ export const useTrashBookmarkUtils = () => {
 };
 
 export const useTrashBookmark = () => {
+  const role = useRole();
+
   const { data, ...rest } = useQuery<Bookmark[]>({
     queryKey: ['trash'],
     queryFn: getTrashBookmarksApi,
     staleTime: Infinity,
+    enabled: role === 'user',
   });
 
   return { bookmarks: data ?? [], ...rest };

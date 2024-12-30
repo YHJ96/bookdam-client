@@ -30,7 +30,7 @@ function Login() {
           </Button>
         </CardContent>
         <CardFooter className="flex justify-center text-sm">
-          <Button variant="transparent" onClick={handleBackButtonOnClick}>
+          <Button variant="default" onClick={handleBackButtonOnClick}>
             이전 페이지로 돌아가기
           </Button>
         </CardFooter>
