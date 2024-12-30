@@ -10,8 +10,14 @@ const DocsContainer: React.FC<DocsContainerProps> = ({ ...props }) => {
   const theme = isDark ? themes.dark : themes.light;
 
   useEffect(() => {
+    document.documentElement.style.setProperty('color-scheme', isDark ? 'dark' : 'light');
+
     const chan = addons.getChannel();
-    chan.on('DARK_MODE', setIsDark);
+    chan.on('DARK_MODE', (darkMode: boolean) => {
+      setIsDark(darkMode);
+      document.documentElement.style.setProperty('color-scheme', darkMode ? 'dark' : 'light');
+    });
+
     return () => chan.off('DARK_MODE', setIsDark);
   }, []);
 
