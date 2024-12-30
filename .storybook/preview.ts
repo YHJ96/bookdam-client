@@ -1,7 +1,7 @@
 import { INITIAL_VIEWPORTS } from '@storybook/addon-viewport';
 import type { Preview } from '@storybook/react';
 
-import '../src/app/globals.css';
+import '../src/app/(layout)/globals.css';
 import { DocsContainer, GlobalDecorator } from './utils';
 
 const CUSTOM_VIEWPORTS = {
