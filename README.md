@@ -1,32 +1,15 @@
 # Bookdam-Client
 
-## 12-17
+## Task 1
 
-- 태그 필터링 기능 [O]
-- 검색 기능 [O]
-- 정렬 기능 [O]
-- 모든 UI 완성 (Tour) 기능 빼고 [O]
-- 엑셀 다운로드 기능 [O]
-- 암호화 빌드 문제 정리 [O]
-- 모달 삭제 텍스트 빨강 변경 [O]
-- 로그인 API에 따른 Access Token 연장 기능 [O]
-- Error 처리 기능
-- Git Commit Message 정리
 - 스토리북 UI 정리 시작
-
-## 12-18
-
-- 낙관적 업데이트
 - Cypress 테스트 코드 작성
 
-## 12-20
+## Task 2
 
+- 낙관적 업데이트
 - 이미지 최적화
 - Aria Label SEO 최적화
-
-## 12-21
-
-- 배포 및 뒷작업 완료
 
 ## Folder Structure
 

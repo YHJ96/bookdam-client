@@ -73,9 +73,9 @@ export const useCreateBookmark = () => {
     },
     onError: (error) => {
       toast({
-        variant: 'destructive',
-        title: 'URL를 찾을 수 없습니다.',
+        title: '에러가 발생했습니다.',
         description: error.response?.data.message,
+        variant: 'destructive',
       });
     },
   });
@@ -84,11 +84,16 @@ export const useCreateBookmark = () => {
 };
 
 export const useCreateOgTag = () => {
-  const { mutate } = useMutation<OgTag, Error, CreateBookmark>({
+  const { toast } = useToast();
+  const { mutate } = useMutation<OgTag, AxiosError<{ message: string }>, CreateBookmark>({
     mutationFn: createOgTagApi,
     meta: { isThrowError: true },
     onError: (error) => {
-      console.log(error);
+      toast({
+        title: '에러가 발생했습니다.',
+        description: error.response?.data.message,
+        variant: 'destructive',
+      });
     },
   });
 
