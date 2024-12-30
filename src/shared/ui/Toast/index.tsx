@@ -8,6 +8,8 @@ import { X } from 'lucide-react';
 
 import { cn } from '@/shared/utils';
 
+import { Toaster } from './Toaster';
+
 const ToastProvider = ToastPrimitives.Provider;
 
 const ToastViewport = React.forwardRef<
@@ -111,4 +113,5 @@ export {
   ToastDescription,
   ToastClose,
   ToastAction,
+  Toaster,
 };
