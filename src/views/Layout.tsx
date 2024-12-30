@@ -22,7 +22,7 @@ async function Layout({ children }: LayoutProps) {
         <SidebarRail />
       </Sidebar>
       <SidebarInset>
-        <div className="flex min-h-screen flex-col dark:text-sidebar-foreground">
+        <div className="flex min-h-screen flex-col">
           <Header />
           <div className="flex-1 p-2">{children}</div>
           <Footer />
