@@ -18,6 +18,7 @@ type UserPopoverProps = {
 
 function UserPopover({ name, avatar, email }: UserPopoverProps) {
   const logout = useLogout();
+  const handleLogout = () => logout();
 
   return (
     <Popover>
@@ -32,7 +33,7 @@ function UserPopover({ name, avatar, email }: UserPopoverProps) {
           <UserAvatar name={name} email={email} avatarSrc={avatar} />
         </div>
         <Separator />
-        <Button variant="ghost" className="h6 justify-start px-2.5 py-1.5 text-sm" onClick={() => logout()}>
+        <Button variant="ghost" className="h6 justify-start px-2.5 py-1.5 text-sm" onClick={handleLogout}>
           <LogOut className="h-4 w-4" />
           <span>로그아웃</span>
         </Button>
