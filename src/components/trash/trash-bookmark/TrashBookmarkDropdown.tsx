@@ -2,39 +2,14 @@ import React from 'react';
 
 import { MoreHorizontal } from 'lucide-react';
 
-import { useTrashBookmarkService } from '@/services';
-import { useDialog, useRole } from '@/shared/hooks';
-import { Button, Confirm, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/shared/ui';
+import { Button, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/shared/ui';
 
 type TrashBookmarkDropdownProps = {
-  id: number;
+  redoOnSelect: () => void;
+  undoOnSelect: () => void;
 };
 
-function TrashBookmarkDropdown({ id }: TrashBookmarkDropdownProps) {
-  const role = useRole();
-  const { redoBookmark, undoBookmark } = useTrashBookmarkService(role);
-  const open = useDialog();
-
-  const handleRedoOnSelect = async () => {
-    const isConfirm = await open(Confirm, {
-      title: '북마크 복구',
-      description: '정말로 북마크를 복구하시겠습니까?',
-    });
-
-    if (!isConfirm) return;
-    redoBookmark(id);
-  };
-
-  const handleUndoOnSelect = async () => {
-    const isConfirm = await open(Confirm, {
-      title: '북마크 삭제',
-      description: '정말로 북마크를 영구 삭제하시겠습니까?',
-    });
-
-    if (!isConfirm) return;
-    undoBookmark(id);
-  };
-
+function TrashBookmarkDropdown({ redoOnSelect, undoOnSelect }: TrashBookmarkDropdownProps) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -44,8 +19,8 @@ function TrashBookmarkDropdown({ id }: TrashBookmarkDropdownProps) {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="center">
-        <DropdownMenuItem onSelect={handleRedoOnSelect}>복구</DropdownMenuItem>
-        <DropdownMenuItem className="text-red-500" onSelect={handleUndoOnSelect}>
+        <DropdownMenuItem onSelect={redoOnSelect}>복구</DropdownMenuItem>
+        <DropdownMenuItem className="text-red-500" onSelect={undoOnSelect}>
           영구 삭제
         </DropdownMenuItem>
       </DropdownMenuContent>

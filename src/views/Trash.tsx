@@ -10,7 +10,7 @@ import { IfElse } from '@/shared/utils/react';
 
 function Trash() {
   const role = useRole();
-  const { bookmarks } = useTrashBookmarkService(role);
+  const { bookmarks, redoBookmark, undoBookmark } = useTrashBookmarkService(role);
 
   return (
     <IfElse
@@ -18,14 +18,7 @@ function Trash() {
       then={
         <div className="grid grid-cols-1 gap-2 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
           {bookmarks.map((bookmark) => (
-            <TrashBookmark
-              key={bookmark.id}
-              id={bookmark.id}
-              title={bookmark.title}
-              description={bookmark.description}
-              url={bookmark.url}
-              imageUrl={bookmark.image}
-            />
+            <TrashBookmark key={bookmark.id} redoBookmark={redoBookmark} undoBookmark={undoBookmark} {...bookmark} />
           ))}
         </div>
       }
