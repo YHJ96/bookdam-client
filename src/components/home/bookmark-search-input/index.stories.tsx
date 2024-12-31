@@ -17,6 +17,13 @@ const meta: Meta<typeof BookmarkSearchInput> = {
     search: '',
     setSearch: action('setSearch'),
   },
+  decorators: [
+    (Story) => (
+      <div className="w-[350px]">
+        <Story />
+      </div>
+    ),
+  ],
 } satisfies Meta<typeof BookmarkSearchInput>;
 
 export default meta;
