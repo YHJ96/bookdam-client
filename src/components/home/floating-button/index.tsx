@@ -4,6 +4,7 @@ import React from 'react';
 
 import { Bookmark } from 'lucide-react';
 
+import { CreateBookmark } from '@/entities/bookmark';
 import { useBookmarkService } from '@/services';
 import { useDialog, useRole } from '@/shared/hooks';
 import { Button } from '@/shared/ui';
@@ -11,10 +12,13 @@ import { Hide } from '@/shared/utils/react';
 
 import BookmarkCreateDialog from '../bookmark-dialog/BookmarkCreateDialog';
 
-function FloatingButton() {
+type FloatingButtonProps = {
+  isAnimate: boolean;
+  createBookmark: (bookmark: CreateBookmark) => void;
+};
+
+function FloatingButton({ isAnimate, createBookmark }: FloatingButtonProps) {
   const open = useDialog();
-  const role = useRole();
-  const { createBookmark, bookmarks } = useBookmarkService(role);
 
   const handleOnClick = async () => {
     const bookmark = await open(BookmarkCreateDialog, {
@@ -35,7 +39,7 @@ function FloatingButton() {
         <Bookmark className="text-blue-200" />
         <span className="sr-only">Bookmark Add</span>
         <Hide
-          condition={Boolean(bookmarks.length)}
+          condition={isAnimate}
           component={
             <div className="fixed h-12 w-12 animate-ping rounded-full bg-blue-700 opacity-75 dark:bg-blue-600" />
           }
