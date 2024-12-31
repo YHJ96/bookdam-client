@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
-export const useBookmarkDialogTag = () => {
-  const [tags, setTags] = useState<string[]>([]);
+export const useBookmarkDialogTag = (initialTags: string[] = []) => {
+  const [tags, setTags] = useState<string[]>(initialTags);
 
   const addTag = (tag: string) => {
     const findByText = tags.find((_tag) => _tag.toLowerCase() === tag.toLowerCase());

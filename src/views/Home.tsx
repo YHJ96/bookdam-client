@@ -17,7 +17,7 @@ import { IfElse } from '@/shared/utils/react';
 
 function Home() {
   const role = useRole();
-  const { bookmarks } = useBookmarkService(role);
+  const { bookmarks, updateBookmark, removeBookmark } = useBookmarkService(role);
   const { tags, selectedTags, toggleTag } = useTagService(role);
   const [search, setSearch] = useState('');
   const [order, setOrder] = useState<'asc' | 'desc'>('asc');
@@ -38,7 +38,12 @@ function Home() {
         then={
           <div className="grid grid-cols-1 gap-2 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
             {filteredBookmarks.map((bookmark) => (
-              <Bookmark key={bookmark.id} {...bookmark} />
+              <Bookmark
+                key={bookmark.id}
+                bookmark={bookmark}
+                updateBookmark={updateBookmark}
+                removeBookmark={removeBookmark}
+              />
             ))}
           </div>
         }
