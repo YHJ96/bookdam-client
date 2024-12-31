@@ -42,7 +42,7 @@ function Home() {
             ))}
           </div>
         }
-        other={<BookmarkEmpty />}
+        other={<BookmarkEmpty isCSR={role === 'guest'} />}
       />
       <FloatingButton />
     </React.Fragment>

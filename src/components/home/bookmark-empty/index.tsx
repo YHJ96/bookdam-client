@@ -4,25 +4,25 @@ import React, { useEffect, useRef } from 'react';
 
 import { Bookmark } from 'lucide-react';
 
-import { useRole } from '@/shared/hooks';
+interface BookmarkEmptyProps {
+  isCSR: boolean;
+}
 
-function BookmarkEmpty() {
+function BookmarkEmpty({ isCSR }: BookmarkEmptyProps) {
   const containerRef = useRef<HTMLDivElement>(null);
-  const role = useRole();
-  const isGuest = role === 'guest';
 
   useEffect(() => {
     const $container = containerRef.current;
-    if (!isGuest) return;
+    if (!isCSR) return;
     if (!$container) return;
 
     setTimeout(() => ($container.style.opacity = '1'));
-  }, [isGuest]);
+  }, [isCSR]);
 
   return (
     <div
       ref={containerRef}
-      className={`flex h-full flex-col items-center justify-center bg-background text-center ${isGuest && 'opacity-0'}`}
+      className={`flex h-full flex-col items-center justify-center text-center ${isCSR && 'opacity-0'}`}
     >
       <Bookmark className="mb-4 h-16 w-16 text-muted-foreground" />
       <h2 className="mb-2 text-2xl font-semibold">북마크가 없습니다</h2>
