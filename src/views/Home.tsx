@@ -49,7 +49,7 @@ function Home() {
         }
         other={<BookmarkEmpty isCSR={role === 'guest'} />}
       />
-      <FloatingButton isAnimate={Boolean(bookmarks.length)} createBookmark={createBookmark} />
+      <FloatingButton isAnimate={!Boolean(bookmarks.length)} createBookmark={createBookmark} />
     </React.Fragment>
   );
 }
