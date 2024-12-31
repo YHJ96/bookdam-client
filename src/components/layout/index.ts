@@ -1,6 +1,5 @@
-import AppSidebarContent from './app-sidebar/app-sidebar-content/AppSidebarContent';
-import AppSidebarFooter from './app-sidebar/app-sidebar-footer/AppSidebarFooter';
+import AppSidebar from './app-sidebar';
 import Footer from './footer';
 import Header from './header';
 
-export { Header, Footer, AppSidebarContent, AppSidebarFooter };
+export { Header, Footer, AppSidebar };
