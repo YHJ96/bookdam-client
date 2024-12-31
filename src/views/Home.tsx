@@ -17,7 +17,7 @@ import { IfElse } from '@/shared/utils/react';
 
 function Home() {
   const role = useRole();
-  const { bookmarks, updateBookmark, removeBookmark } = useBookmarkService(role);
+  const { bookmarks, updateBookmark, removeBookmark, createBookmark } = useBookmarkService(role);
   const { tags, selectedTags, toggleTag } = useTagService(role);
   const [search, setSearch] = useState('');
   const [order, setOrder] = useState<'asc' | 'desc'>('asc');
@@ -49,7 +49,7 @@ function Home() {
         }
         other={<BookmarkEmpty isCSR={role === 'guest'} />}
       />
-      <FloatingButton />
+      <FloatingButton isAnimate={Boolean(bookmarks.length)} createBookmark={createBookmark} />
     </React.Fragment>
   );
 }
