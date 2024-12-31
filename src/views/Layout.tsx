@@ -2,9 +2,9 @@ import React from 'react';
 
 import { cookies } from 'next/headers';
 
-import { AppSidebarContent, AppSidebarFooter, Footer, Header } from '@/components/layout';
+import { AppSidebar, Footer, Header } from '@/components/layout';
 
-import { Sidebar, SidebarInset, SidebarProvider, SidebarRail } from '@/shared/ui';
+import { SidebarInset, SidebarProvider } from '@/shared/ui';
 
 type LayoutProps = {
   children: React.ReactNode;
@@ -16,11 +16,7 @@ async function Layout({ children }: LayoutProps) {
 
   return (
     <SidebarProvider defaultOpen={defaultOpen}>
-      <Sidebar collapsible="icon">
-        <AppSidebarContent />
-        <AppSidebarFooter />
-        <SidebarRail />
-      </Sidebar>
+      <AppSidebar />
       <SidebarInset>
         <div className="flex min-h-screen flex-col">
           <Header />
