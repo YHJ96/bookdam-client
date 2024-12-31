@@ -4,22 +4,21 @@ import React from 'react';
 
 import { ExternalLink } from 'lucide-react';
 
+import { Bookmark } from '@/entities/bookmark';
 import { useDialog } from '@/shared/hooks';
 import { Card, CardContent, Confirm, Image } from '@/shared/ui';
 
 import TrashBookmarkDropdown from './TrashBookmarkDropdown';
 
 type TrashBookmarkProps = {
-  id: number;
-  title: string;
-  description: string;
-  url: string;
-  image: string;
+  bookmark: Bookmark;
   redoBookmark: (id: number) => void;
   undoBookmark: (id: number) => void;
 };
 
-function TrashBookmark({ id, title, description, url, image, redoBookmark, undoBookmark }: TrashBookmarkProps) {
+function TrashBookmark({ bookmark, redoBookmark, undoBookmark }: TrashBookmarkProps) {
+  const { id, title, description, url, image } = bookmark;
+
   const open = useDialog();
 
   const handleRedoOnSelect = async () => {

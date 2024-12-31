@@ -18,7 +18,12 @@ function Trash() {
       then={
         <div className="grid grid-cols-1 gap-2 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
           {bookmarks.map((bookmark) => (
-            <TrashBookmark key={bookmark.id} redoBookmark={redoBookmark} undoBookmark={undoBookmark} {...bookmark} />
+            <TrashBookmark
+              key={bookmark.id}
+              bookmark={bookmark}
+              redoBookmark={redoBookmark}
+              undoBookmark={undoBookmark}
+            />
           ))}
         </div>
       }
