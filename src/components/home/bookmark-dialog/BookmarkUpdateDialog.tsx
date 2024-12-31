@@ -23,7 +23,7 @@ interface BookmarkUpdateDialogProps {
 }
 
 function BookmarkUpdateDialog({ bookmark, resolve }: BookmarkUpdateDialogProps) {
-  const { tags, addTag, deleteTag } = useBookmarkDialogTag();
+  const { tags, addTag, deleteTag } = useBookmarkDialogTag(bookmark.tags);
   const open = useDialog();
   const form = useBookmarkForm(bookmark);
 
