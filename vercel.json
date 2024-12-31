@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    { "source": "/server/", "destination": "https://bookdam-server.vercel.app" },
+    { "source": "/server/:match*", "destination": "https://bookdam-server.vercel.app/:match*" },
+    { "source": "/", "destination": "https://bookdam-client-three.vercel.app" },
+    { "source": "/:match*", "destination": "https://bookdam-client-three.vercel.app/:match*" }
+  ]
+}
