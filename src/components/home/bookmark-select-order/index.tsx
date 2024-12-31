@@ -2,7 +2,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 
 interface BookmarkSelectOrderProps {
   order: 'asc' | 'desc';
-  setOrder: (order: 'asc' | 'desc') => void;
+  setOrder: React.Dispatch<React.SetStateAction<'desc' | 'asc'>>;
 }
 
 function BookmarkSelectOrder({ order, setOrder }: BookmarkSelectOrderProps) {
