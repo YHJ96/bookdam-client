@@ -33,6 +33,12 @@ const meta = {
       },
     },
   },
+  parameters: {
+    layout: 'centered',
+    docs: {
+      subtitle: 'Confirm 컴포넌트는 확인 대화 상자를 표시하는 데 사용됩니다.',
+    },
+  },
   args: {
     title: '제목',
     description: '내용',
@@ -65,4 +71,12 @@ export default meta;
 
 type Story = StoryObj<ConfirmProps>;
 
-export const Default: Story = {};
+export const Default: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: '기본적인 확인 대화 상자 컴포넌트입니다.',
+      },
+    },
+  },
+};
