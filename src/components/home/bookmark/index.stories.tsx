@@ -39,6 +39,11 @@ const meta: Meta<typeof Bookmark> = {
       );
     },
   ],
+  parameters: {
+    docs: {
+      subtitle: 'Bookmark 컴포넌트는 북마크 목록을 표시하는 데 사용됩니다.',
+    },
+  },
   render: (args) => (
     <div className="w-[400px]">
       <Bookmark {...args} />
