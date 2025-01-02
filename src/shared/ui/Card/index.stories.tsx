@@ -26,6 +26,9 @@ const meta = {
   ),
   parameters: {
     layout: 'centered',
+    docs: {
+      subtitle: 'Card 컴포넌트는 카드를 표시하는 데 사용됩니다.',
+    },
   },
 } satisfies Meta<typeof Card>;
 
@@ -33,4 +36,12 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-export const Default: Story = {};
+export const Default: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: '기본적인 카드 컴포넌트입니다.',
+      },
+    },
+  },
+};
