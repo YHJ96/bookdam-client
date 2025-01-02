@@ -8,6 +8,7 @@ const meta = {
   component: Footer,
   parameters: {
     docs: {
+      subtitle: 'Footer 컴포넌트는 푸터를 표시하는 데 사용됩니다.',
       page: () => (
         <>
           <Title />
@@ -27,7 +28,7 @@ type Story = StoryObj<typeof Footer>;
 
 export const PC: Story = {
   parameters: {
-    layout: 'fullscreen',
+    layout: 'padded',
     viewport: {
       defaultViewport: 'pc',
     },
@@ -36,7 +37,7 @@ export const PC: Story = {
 
 export const Mobile: Story = {
   parameters: {
-    layout: 'fullscreen',
+    layout: 'padded',
     viewport: {
       defaultViewport: 'mobile',
     },
