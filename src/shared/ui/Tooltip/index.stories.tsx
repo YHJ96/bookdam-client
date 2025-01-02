@@ -25,6 +25,9 @@ const meta: Meta<typeof TooltipContent> = {
   },
   parameters: {
     layout: 'centered',
+    docs: {
+      subtitle: 'Tooltip 컴포넌트는 툴팁을 표시하는 데 사용됩니다.',
+    },
   },
   render: (args) => (
     <TooltipProvider>
@@ -43,21 +46,50 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-export const Default: Story = {};
+export const Default: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: '위쪽에 툴팁을 표시하는 컴포넌트입니다.',
+      },
+    },
+  },
+};
 
 export const Bottom: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: '아래쪽에 툴팁을 표시하는 컴포넌트입니다.',
+      },
+    },
+  },
   args: {
     side: 'bottom',
   },
 };
 
 export const Left: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: '왼쪽에 툴팁을 표시하는 컴포넌트입니다.',
+      },
+    },
+  },
   args: {
     side: 'left',
   },
 };
 
 export const Right: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: '오른쪽에 툴팁을 표시하는 컴포넌트입니다.',
+      },
+    },
+  },
   args: {
     side: 'right',
   },
