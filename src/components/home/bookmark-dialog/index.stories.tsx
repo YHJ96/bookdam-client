@@ -22,6 +22,11 @@ const meta = {
       );
     },
   ],
+  parameters: {
+    docs: {
+      subtitle: 'BookmarkDialog 컴포넌트는 북마크를 생성 및 수정하는 데 사용됩니다.',
+    },
+  },
   render: (args: OpenDialog) => {
     const open = useDialog();
 
