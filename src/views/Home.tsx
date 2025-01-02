@@ -25,14 +25,12 @@ function Home() {
   const filteredBookmarks = useFilterBookmark(bookmarks, search, selectedTags, order);
 
   return (
-    <React.Fragment>
-      <div className="flex flex-col gap-2 pb-3 pt-1">
-        <div className="flex flex-col gap-2 md:flex-row">
-          <BookmarkSearchInput search={search} setSearch={setSearch} />
-          <BookmarkSelectOrder order={order} setOrder={setOrder} />
-        </div>
-        <BookmarkTagFilter tags={tags} selectedTags={selectedTags} toggleTag={toggleTag} />
+    <div className="flex h-full flex-col gap-1 pb-3 pt-1">
+      <div className="flex flex-col gap-2 md:flex-row">
+        <BookmarkSearchInput search={search} setSearch={setSearch} />
+        <BookmarkSelectOrder order={order} setOrder={setOrder} />
       </div>
+      <BookmarkTagFilter tags={tags} selectedTags={selectedTags} toggleTag={toggleTag} />
       <IfElse
         condition={Boolean(bookmarks.length)}
         then={
@@ -47,10 +45,14 @@ function Home() {
             ))}
           </div>
         }
-        other={<BookmarkEmpty isCSR={role === 'guest'} />}
+        other={
+          <div className="flex-1">
+            <BookmarkEmpty isCSR={role === 'guest'} />
+          </div>
+        }
       />
       <FloatingButton isAnimate={!Boolean(bookmarks.length)} createBookmark={createBookmark} />
-    </React.Fragment>
+    </div>
   );
 }
 

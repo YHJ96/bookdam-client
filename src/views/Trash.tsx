@@ -27,7 +27,7 @@ function Trash() {
           ))}
         </div>
       }
-      other={<TrashBookmarkEmpty />}
+      other={<TrashBookmarkEmpty isCSR={role === 'guest'} />}
     />
   );
 }

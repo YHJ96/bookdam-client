@@ -1,12 +1,31 @@
+import React, { useEffect, useRef } from 'react';
+
 import Link from 'next/link';
 
 import { ArrowLeft, Trash2 } from 'lucide-react';
 
 import { Button } from '@/shared/ui';
 
-export default function TrashBookmarkEmpty() {
+interface TrashBookmarkEmptyProps {
+  isCSR: boolean;
+}
+
+function TrashBookmarkEmpty({ isCSR }: TrashBookmarkEmptyProps) {
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const $container = containerRef.current;
+    if (!isCSR) return;
+    if (!$container) return;
+
+    setTimeout(() => ($container.style.opacity = '1'));
+  }, [isCSR]);
+
   return (
-    <div className="flex h-full flex-col items-center justify-center p-4 text-center">
+    <div
+      ref={containerRef}
+      className={`flex h-full flex-col items-center justify-center p-4 text-center ${isCSR && 'opacity-0'}`}
+    >
       <div className="mb-4 rounded-full bg-muted p-3">
         <Trash2 className="h-12 w-12 text-muted-foreground" aria-hidden="true" />
       </div>
@@ -23,3 +42,5 @@ export default function TrashBookmarkEmpty() {
     </div>
   );
 }
+
+export default TrashBookmarkEmpty;
