@@ -13,6 +13,12 @@ const meta: Meta<typeof Form> = {
   tags: ['autodocs'],
   argTypes: {},
   render: (args) => <ProfileForm {...args} />,
+  parameters: {
+    layout: 'centered',
+    docs: {
+      subtitle: 'Form 컴포넌트는 폼을 표시하는 데 사용됩니다.',
+    },
+  },
 } satisfies Meta<typeof Form>;
 
 export default meta;
@@ -66,4 +72,12 @@ const ProfileForm = (args: Story['args']) => {
   );
 };
 
-export const Default: Story = {};
+export const Default: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: '기본적인 폼 컴포넌트입니다.',
+      },
+    },
+  },
+};
