@@ -24,6 +24,11 @@ const meta: Meta<typeof BookmarkSearchInput> = {
       </div>
     ),
   ],
+  parameters: {
+    docs: {
+      subtitle: 'BookmarkSearchInput 컴포넌트는 북마크 검색을 위한 입력 필드입니다.',
+    },
+  },
 } satisfies Meta<typeof BookmarkSearchInput>;
 
 export default meta;
