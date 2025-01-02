@@ -25,6 +25,9 @@ const meta: Meta<typeof Select> = {
   ),
   parameters: {
     layout: 'centered',
+    docs: {
+      subtitle: 'Select 컴포넌트는 선택 목록을 표시하는 데 사용됩니다.',
+    },
   },
 } satisfies Meta<typeof Select>;
 
@@ -32,4 +35,12 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-export const Default: Story = {};
+export const Default: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: '기본적인 선택 컴포넌트입니다.',
+      },
+    },
+  },
+};
