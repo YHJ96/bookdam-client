@@ -16,6 +16,9 @@ const meta = {
   ),
   parameters: {
     layout: 'centered',
+    docs: {
+      subtitle: 'Tabs 컴포넌트는 탭을 표시하는 데 사용됩니다.',
+    },
   },
 } satisfies Meta<typeof Tabs>;
 
@@ -23,4 +26,12 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-export const Default: Story = {};
+export const Default: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: '기본적인 탭 컴포넌트입니다.',
+      },
+    },
+  },
+};
