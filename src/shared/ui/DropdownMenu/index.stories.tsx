@@ -29,11 +29,22 @@ const meta = {
   ),
   parameters: {
     layout: 'centered',
+    docs: {
+      subtitle: 'DropdownMenu 컴포넌트는 드롭다운 메뉴를 표시하는 데 사용됩니다.',
+    },
   },
 } satisfies Meta<typeof DropdownMenu>;
 
 type Story = StoryObj<typeof meta>;
 
-export const Default: Story = {};
+export const Default: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: '기본적인 드롭다운 메뉴 컴포넌트입니다.',
+      },
+    },
+  },
+};
 
 export default meta;
