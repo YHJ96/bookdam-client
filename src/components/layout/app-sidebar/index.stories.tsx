@@ -8,6 +8,11 @@ import AppSidebar from './index';
 const meta: Meta<typeof AppSidebar> = {
   title: 'Component/AppSidebar',
   component: AppSidebar,
+  parameters: {
+    docs: {
+      subtitle: 'AppSidebar 컴포넌트는 앱의 사이드바를 표시하는 데 사용됩니다.',
+    },
+  },
 };
 
 export default meta;
@@ -15,6 +20,13 @@ export default meta;
 type Story = StoryObj<typeof AppSidebar>;
 
 export const Default: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: '기본적인 사이드바 컴포넌트입니다.',
+      },
+    },
+  },
   decorators: [
     (Story) => {
       const queryClient = new QueryClient();
@@ -31,6 +43,13 @@ export const Default: Story = {
 };
 
 export const Login: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: '로그인 상태인 경우 표시되는 사이드바 컴포넌트입니다.',
+      },
+    },
+  },
   decorators: [
     (Story) => {
       const queryClient = new QueryClient();
