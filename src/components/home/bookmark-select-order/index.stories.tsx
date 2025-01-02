@@ -18,6 +18,11 @@ const meta: Meta<typeof BookmarkSelectOrder> = {
     order: 'asc',
     setOrder: action('setOrder'),
   },
+  parameters: {
+    docs: {
+      subtitle: 'BookmarkSelectOrder 컴포넌트는 북마크 정렬 순서를 선택하는 데 사용됩니다.',
+    },
+  },
 } satisfies Meta<typeof BookmarkSelectOrder>;
 
 export default meta;
