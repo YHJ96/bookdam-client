@@ -14,6 +14,9 @@ const meta: Meta<typeof FloatingButton> = {
   },
   parameters: {
     layout: 'padded',
+    docs: {
+      subtitle: 'FloatingButton 컴포넌트는 북마크를 생성하는 데 사용됩니다.',
+    },
   },
   decorators: [
     (Story) => (
@@ -32,6 +35,13 @@ const meta: Meta<typeof FloatingButton> = {
 export default meta;
 
 export const Default: StoryObj<typeof FloatingButton> = {
+  parameters: {
+    docs: {
+      description: {
+        story: '기본적인 북마크 생성 버튼 컴포넌트입니다.',
+      },
+    },
+  },
   args: {
     isAnimate: false,
     createBookmark: action('createBookmark'),
@@ -39,6 +49,14 @@ export const Default: StoryObj<typeof FloatingButton> = {
 };
 
 export const Animate: StoryObj<typeof FloatingButton> = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          '애니메이션이 포함된 북마크 생성 버튼 컴포넌트입니다. 페이지에 북마크가 존재하지 않는 경우 애니메이션이 활성화됩니다.',
+      },
+    },
+  },
   args: {
     isAnimate: true,
     createBookmark: action('createBookmark'),
