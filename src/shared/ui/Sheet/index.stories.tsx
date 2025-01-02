@@ -44,6 +44,9 @@ const meta: Meta<typeof SheetContent> = {
   ),
   parameters: {
     layout: 'centered',
+    docs: {
+      subtitle: 'Sheet 컴포넌트는 시트를 표시하는 데 사용됩니다.',
+    },
   },
 } satisfies Meta<typeof SheetContent>;
 
@@ -51,4 +54,12 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-export const Default: Story = {};
+export const Default: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: '기본적인 시트 컴포넌트입니다.',
+      },
+    },
+  },
+};
