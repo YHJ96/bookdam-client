@@ -21,6 +21,13 @@ const meta: Meta<typeof TrashBookmark> = {
     redoBookmark: action('redoBookmark'),
     undoBookmark: action('undoBookmark'),
   },
+  parameters: {
+    docs: {
+      description: {
+        story: '휴지통에 들어있는 북마크를 보여주는 컴포넌트입니다.',
+      },
+    },
+  },
   decorators: [
     (Story) => (
       <DialogProvider>
