@@ -37,6 +37,9 @@ const meta: Meta<typeof Header> = {
   },
   parameters: {
     layout: 'padded',
+    docs: {
+      subtitle: 'Header 컴포넌트는 헤더를 표시하는 데 사용됩니다.',
+    },
   },
 } satisfies Meta<typeof Header>;
 
@@ -44,11 +47,26 @@ export default meta;
 
 type Story = StoryObj<typeof Header>;
 
-export const Default: Story = {};
+export const Default: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: '로그인 상태가 아닌 경우 표시되는 헤더 컴포넌트입니다.',
+      },
+    },
+  },
+};
 
 export const Login: Story = {
   args: {
     isLogin: true,
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: '로그인 상태인 경우 표시되는 헤더 컴포넌트입니다.',
+      },
+    },
   },
 };
 
@@ -61,7 +79,9 @@ export const Mobile: Story = {
       defaultViewport: 'mobile',
     },
     docs: {
-      disable: true,
+      description: {
+        story: '모바일 환경에서 표시되는 헤더 컴포넌트입니다.',
+      },
     },
   },
 };
