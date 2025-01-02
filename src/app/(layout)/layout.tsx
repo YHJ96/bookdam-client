@@ -1,4 +1,3 @@
-import type { Metadata } from 'next';
 import { unstable_cache } from 'next/cache';
 
 import { HydrationBoundary, QueryClient, dehydrate } from '@tanstack/react-query';
@@ -11,11 +10,6 @@ import { cookieWrapper, getSession } from '@/shared/utils/server';
 import { Layout } from '@/views';
 
 import './globals.css';
-
-export const metadata: Metadata = {
-  title: 'BookDam',
-  description: 'BookDam',
-};
 
 type MainLayoutProps = {
   children: React.ReactNode;

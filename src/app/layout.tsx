@@ -6,8 +6,9 @@ import { font } from '@/shared/libs';
 import './(layout)/globals.css';
 
 export const metadata: Metadata = {
-  title: 'BookDam',
-  description: 'BookDam',
+  title: 'Bookdam',
+  description: 'Bookdam',
+  manifest: '/manifest.json',
 };
 
 type RooRootLayoutProps = {
