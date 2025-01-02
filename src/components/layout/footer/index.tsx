@@ -6,7 +6,7 @@ import { Button } from '@/shared/ui';
 
 export default function Footer() {
   return (
-    <footer className="w-full border-t">
+    <footer className="w-full border-t bg-background">
       <div className="flex flex-col items-center justify-between gap-1 py-2.5 md:flex-row md:px-4">
         <nav className="flex items-center space-x-4">
           <Button variant="ghost" size="icon" asChild>
