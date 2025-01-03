@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "rm -rf .next && next build",
     "start": "next start",
     "lint": "next lint",
     "test": "vitest",
@@ -12,8 +12,8 @@
     "build-storybook": "storybook build",
     "cypress:open": "cypress open",
     "cypress:run": "cypress run",
-    "e2e": "start-server-and-test dev http://localhost:3000 cypress:open",
-    "e2e:ci": "start-server-and-test dev http://localhost:3000 cypress:run"
+    "e2e": "rm -rf .next && start-server-and-test dev http://localhost:3000 cypress:open",
+    "e2e:ci": "rm -rf .next && start-server-and-test dev http://localhost:3000 cypress:run"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.1",
