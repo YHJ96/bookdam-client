@@ -6,7 +6,7 @@ describe('홈 북마크 정렬 기능 테스트', () => {
   it('북마크 정렬 기능이 동작해야 합니다.', () => {
     window.localStorage.setItem('bookmark', JSON.stringify(BOOKMARKS_DATA_LOCAL_STORAGE));
 
-    cy.visit('http://localhost:3000').should('exist');
+    cy.visit('/').should('exist');
 
     cy.findByRole('combobox').click();
     cy.findByText('오래된순').click();

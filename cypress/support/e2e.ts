@@ -7,50 +7,50 @@ afterEach(() => {
 });
 
 Cypress.Commands.add('login', () => {
-  cy.setCookie('access', Cypress.env('access'));
+  cy.setCookie('access', Cypress.env('ACCESS'));
 });
 
 Cypress.Commands.add('logout', (statusCode: number) => {
-  cy.intercept('POST', 'http://localhost:8080/auth/logout', { statusCode }).as('logout');
+  cy.intercept('POST', `${Cypress.env('SERVER_URL')}/auth/logout`, { statusCode });
 });
 
 Cypress.Commands.add('createOgTag', (statusCode: number, body: any) => {
-  cy.intercept('POST', 'http://localhost:8080/bookmark/og', {
+  cy.intercept('POST', `${Cypress.env('SERVER_URL')}/bookmark/og`, {
     statusCode,
     body,
   });
 });
 
 Cypress.Commands.add('getTags', (statusCode: number, body: any) => {
-  cy.intercept('GET', 'http://localhost:8080/tag', {
+  cy.intercept('GET', `${Cypress.env('SERVER_URL')}/tag`, {
     statusCode,
     body,
   });
 });
 
 Cypress.Commands.add('getBookmarks', (statusCode: number, body: any) => {
-  cy.intercept('GET', 'http://localhost:8080/bookmark', {
+  cy.intercept('GET', `${Cypress.env('SERVER_URL')}/bookmark`, {
     statusCode,
     body,
   });
 });
 
 Cypress.Commands.add('createBookmark', (statusCode: number, body: any) => {
-  cy.intercept('POST', 'http://localhost:8080/bookmark', {
+  cy.intercept('POST', `${Cypress.env('SERVER_URL')}/bookmark`, {
     statusCode,
     body,
   });
 });
 
 Cypress.Commands.add('updateBookmark', (statusCode: number, id: number, body: any) => {
-  cy.intercept('PATCH', `http://localhost:8080/bookmark/${id}`, {
+  cy.intercept('PATCH', `${Cypress.env('SERVER_URL')}/bookmark/${id}`, {
     statusCode,
     body,
   });
 });
 
 Cypress.Commands.add('removeBookmark', (statusCode: number, id: number) => {
-  cy.intercept('DELETE', `http://localhost:8080/bookmark/${id}`, {
+  cy.intercept('DELETE', `${Cypress.env('SERVER_URL')}/bookmark/${id}`, {
     statusCode,
     body: {
       id,
@@ -59,14 +59,14 @@ Cypress.Commands.add('removeBookmark', (statusCode: number, id: number) => {
 });
 
 Cypress.Commands.add('getTrashBookmarks', (statusCode: number, body: any) => {
-  cy.intercept('GET', 'http://localhost:8080/trash', {
+  cy.intercept('GET', `${Cypress.env('SERVER_URL')}/trash`, {
     statusCode,
     body,
   });
 });
 
 Cypress.Commands.add('redoTrashBookmark', (statusCode: number, id: number) => {
-  cy.intercept('PATCH', `http://localhost:8080/trash/${id}`, {
+  cy.intercept('PATCH', `${Cypress.env('SERVER_URL')}/trash/${id}`, {
     statusCode,
     body: {
       id,
@@ -75,7 +75,7 @@ Cypress.Commands.add('redoTrashBookmark', (statusCode: number, id: number) => {
 });
 
 Cypress.Commands.add('undoTrashBookmark', (statusCode: number, id: number) => {
-  cy.intercept('DELETE', `http://localhost:8080/trash/${id}`, {
+  cy.intercept('DELETE', `${Cypress.env('SERVER_URL')}/trash/${id}`, {
     statusCode,
     body: {
       id,

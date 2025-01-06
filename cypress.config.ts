@@ -13,7 +13,8 @@ export default defineConfig({
     scrollBehavior: 'center',
     downloadsFolder: 'cypress/downloads',
     env: {
-      access: process.env.ACCESS,
+      ACCESS: process.env.ACCESS,
+      SERVER_URL: process.env.NEXT_PUBLIC_SERVER_URL,
     },
   },
 });
