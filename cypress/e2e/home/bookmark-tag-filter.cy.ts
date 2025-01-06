@@ -5,7 +5,7 @@ describe('홈 태그 필터 기능 테스트', () => {
     window.localStorage.setItem('bookmark', JSON.stringify(BOOKMARKS_DATA_LOCAL_STORAGE));
     window.localStorage.setItem('tag', JSON.stringify(TAGS_DATA_LOCAL_STORAGE));
 
-    cy.visit('http://localhost:3000').should('exist');
+    cy.visit('/').should('exist');
 
     cy.findByText('ETC').click();
 
