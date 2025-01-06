@@ -1,11 +1,24 @@
 import '@testing-library/cypress/add-commands';
 
+afterEach(() => {
+  cy.clearLocalStorage();
+  cy.clearCookies();
+  cy.removeAllListeners();
+});
+
 Cypress.Commands.add('login', () => {
   cy.setCookie('access', Cypress.env('access'));
 });
 
 Cypress.Commands.add('logout', (statusCode: number) => {
   cy.intercept('POST', 'http://localhost:8080/auth/logout', { statusCode }).as('logout');
+});
+
+Cypress.Commands.add('createOgTag', (statusCode: number, body: any) => {
+  cy.intercept('POST', 'http://localhost:8080/bookmark/og', {
+    statusCode,
+    body,
+  });
 });
 
 Cypress.Commands.add('getTags', (statusCode: number, body: any) => {
@@ -17,6 +30,13 @@ Cypress.Commands.add('getTags', (statusCode: number, body: any) => {
 
 Cypress.Commands.add('getBookmarks', (statusCode: number, body: any) => {
   cy.intercept('GET', 'http://localhost:8080/bookmark', {
+    statusCode,
+    body,
+  });
+});
+
+Cypress.Commands.add('createBookmark', (statusCode: number, body: any) => {
+  cy.intercept('POST', 'http://localhost:8080/bookmark', {
     statusCode,
     body,
   });
