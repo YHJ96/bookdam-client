@@ -1,0 +1,47 @@
+name: E2E Tests
+
+on:
+  push:
+    branches: [main, dev]
+  pull_request:
+    branches: [main, dev]
+
+jobs:
+  cypress-run:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 9
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Cypress run
+        id: cypress
+        uses: cypress-io/github-action@v6
+        env:
+          CYPRESS_ACCESS: ${{ secrets.CYPRESS_ACCESS }}
+          CYPRESS_SERVER_URL: ${{ secrets.CYPRESS_SERVER_URL }}
+          NEXT_PUBLIC_SERVER_URL: ${{ secrets.NEXT_PUBLIC_SERVER_URL }}
+          NEXT_PUBLIC_SECRET_KEY: ${{ secrets.NEXT_PUBLIC_SECRET_KEY }}
+          NEXT_PUBLIC_NEXT_SERVER_URL: ${{ secrets.NEXT_PUBLIC_NEXT_SERVER_URL }}
+        with:
+          build: pnpm build
+          start: pnpm start
+
+      - name: 'Cypress screenshots'
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cypress-screenshots
+          path: cypress/screenshots
