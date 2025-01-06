@@ -5,6 +5,7 @@ import { useTagUtils } from '@/entities/tag';
 import { useRole, useToast } from '@/shared/hooks';
 import { revalidate } from '@/shared/utils';
 
+import { useTrashBookmarkUtils } from '../trash-bookmark';
 import { createBookmarkApi, createOgTagApi, getBookmarksApi, removeBookmarkApi, updateBookmarkApi } from './api';
 import { Bookmark, CreateBookmark, OgTag, UpdateBookmark } from './type';
 
@@ -18,6 +19,11 @@ export const useBookmarkUtils = () => {
 
   const setBookmarks = (bookmarks: Bookmark[]) => {
     queryClient.setQueryData<Bookmark[]>(['bookmark'], bookmarks);
+  };
+
+  const findBookmarkById = (id: number) => {
+    const bookmarks = getBookmarks().find((_bookmark) => _bookmark.id === id);
+    return bookmarks;
   };
 
   const findBookmarkIndexById = (id: number) => {
@@ -45,7 +51,15 @@ export const useBookmarkUtils = () => {
     setBookmarks(bookmarks);
   };
 
-  return { getBookmarks, setBookmarks, addBookmark, removeBookmark, updateBookmark };
+  return {
+    getBookmarks,
+    setBookmarks,
+    findBookmarkById,
+    findBookmarkIndexById,
+    addBookmark,
+    removeBookmark,
+    updateBookmark,
+  };
 };
 
 export const useBookmark = () => {
@@ -104,12 +118,20 @@ export const useCreateOgTag = () => {
 };
 
 export const useRemoveBookmark = () => {
-  const { removeBookmark } = useBookmarkUtils();
+  const { getTrashBookmarks, setTrashBookmarks } = useTrashBookmarkUtils();
+  const { removeBookmark, findBookmarkById } = useBookmarkUtils();
   const { getUniqueTags, setTags } = useTagUtils();
 
   const { mutate } = useMutation<Bookmark, Error, number>({
     mutationFn: removeBookmarkApi,
     onSuccess: ({ id }) => {
+      const target = findBookmarkById(id);
+      if (target === undefined) return;
+
+      const trashBookmarks = getTrashBookmarks();
+      trashBookmarks.push(target);
+      setTrashBookmarks(trashBookmarks);
+
       removeBookmark(id);
       setTags(getUniqueTags());
       revalidate(['bookmark', 'trash', 'tag']);

@@ -8,7 +8,6 @@ import { Bookmark, useBookmarkUtils } from '../bookmark';
 import { getTrashBookmarksApi, redoTrashBookmarkApi, undoTrashBookmarkApi } from './api';
 
 export const useTrashBookmarkUtils = () => {
-  const { getBookmarks, setBookmarks } = useBookmarkUtils();
   const queryClient = useQueryClient();
 
   const getTrashBookmarks = () => {
@@ -20,23 +19,17 @@ export const useTrashBookmarkUtils = () => {
     queryClient.setQueryData<Bookmark[]>(['trash'], bookmarks);
   };
 
+  const findBookmarkById = (id: number) => {
+    const bookmarks = getTrashBookmarks().find((_bookmark) => _bookmark.id === id);
+    return bookmarks;
+  };
+
   const findBookmarkIndexById = (id: number) => {
     const idx = getTrashBookmarks().findIndex((_bookmark) => _bookmark.id === id);
     return idx;
   };
 
-  const redoTrashBookmarks = (id: number) => {
-    const trashBookmarks = getTrashBookmarks();
-    const idx = findBookmarkIndexById(id);
-    if (idx === -1) return;
-    undoTrashBookmarks(id);
-
-    const bookmarks = getBookmarks();
-    bookmarks.push(trashBookmarks[idx]);
-    setBookmarks(bookmarks);
-  };
-
-  const undoTrashBookmarks = (id: number) => {
+  const removeTrashBookmark = (id: number) => {
     const bookmarks = getTrashBookmarks();
     const idx = findBookmarkIndexById(id);
     if (idx === -1) return;
@@ -44,7 +37,13 @@ export const useTrashBookmarkUtils = () => {
     setTrashBookmarks(filterBookmarks);
   };
 
-  return { getTrashBookmarks, setTrashBookmarks, findBookmarkIndexById, redoTrashBookmarks, undoTrashBookmarks };
+  return {
+    getTrashBookmarks,
+    setTrashBookmarks,
+    findBookmarkById,
+    findBookmarkIndexById,
+    removeTrashBookmark,
+  };
 };
 
 export const useTrashBookmark = () => {
@@ -61,13 +60,21 @@ export const useTrashBookmark = () => {
 };
 
 export const useRedoTrashBookmark = () => {
-  const { redoTrashBookmarks } = useTrashBookmarkUtils();
+  const { setBookmarks, getBookmarks } = useBookmarkUtils();
+  const { removeTrashBookmark, findBookmarkById } = useTrashBookmarkUtils();
   const { getUniqueTags, setTags } = useTagUtils();
 
   const { mutate } = useMutation({
     mutationFn: redoTrashBookmarkApi,
     onSuccess: ({ id }) => {
-      redoTrashBookmarks(id);
+      const target = findBookmarkById(id);
+      if (target === undefined) return;
+
+      const bookmarks = getBookmarks();
+      bookmarks.push(target);
+      setBookmarks(bookmarks);
+
+      removeTrashBookmark(id);
       setTags(getUniqueTags());
       revalidate(['bookmark', 'trash', 'tag']);
     },
@@ -77,12 +84,12 @@ export const useRedoTrashBookmark = () => {
 };
 
 export const useUndoTrashBookmark = () => {
-  const { undoTrashBookmarks } = useTrashBookmarkUtils();
+  const { removeTrashBookmark } = useTrashBookmarkUtils();
 
   const { mutate } = useMutation<Bookmark, Error, number>({
     mutationFn: undoTrashBookmarkApi,
     onSuccess: ({ id }) => {
-      undoTrashBookmarks(id);
+      removeTrashBookmark(id);
       revalidate(['trash']);
     },
   });
