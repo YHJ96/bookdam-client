@@ -1,4 +1,4 @@
-import { BOOKMARKS_DATA_LOCAL_STORAGE } from '../../mocks';
+import { BOOKMARKS_DATA, BOOKMARKS_DATA_LOCAL_STORAGE, TAGS_DATA } from '../../mocks';
 
 describe('Header UI 테스트', () => {
   it('비로그인 상태에서는 로그인 버튼이 존재해야 합니다.', () => {
@@ -8,6 +8,9 @@ describe('Header UI 테스트', () => {
 
   it('로그인 상태에서는 로그인 버튼이 존재하지 않아야 합니다.', () => {
     cy.login();
+    cy.getBookmarks(200, BOOKMARKS_DATA);
+    cy.getTags(200, TAGS_DATA);
+
     cy.visit('/').should('exist');
     cy.findByRole('button', { name: '로그인' }).should('not.exist');
     cy.findByText('네이버').should('exist');

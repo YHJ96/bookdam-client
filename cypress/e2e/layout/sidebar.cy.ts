@@ -28,6 +28,9 @@ describe('네비게이션 테스트', () => {
 describe('로그인 기능 테스트', () => {
   beforeEach(() => {
     cy.login();
+    cy.getBookmarks(200, []);
+    cy.getTags(200, []);
+    cy.getTrashBookmarks(200, []);
   });
 
   it('테마 버튼을 누르는 경우 테마가 변경되어야 합니다.', () => {
