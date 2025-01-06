@@ -41,7 +41,7 @@ function Bookmark({ bookmark, updateBookmark, removeBookmark }: BookmarkProps) {
       <div className="absolute right-2 top-2 z-10">
         <BookmarkDropdown updateOnSelect={handleUpdateOnSelect} removeOnSelect={handleRemoveOnSelect} />
       </div>
-      <a href={url} target="_blank" rel="noopener noreferrer">
+      <a href={url} target="_blank" rel="noopener noreferrer" aria-label="bookmark">
         <CardContent className="flex items-center p-4">
           <div className="relative mr-4 h-14 w-14 flex-shrink-0 overflow-hidden rounded-md">
             <Image src={image} alt={title} fill={true} style={{ objectFit: 'contain' }} />
