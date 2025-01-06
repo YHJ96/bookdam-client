@@ -12,7 +12,7 @@ function AppSidebarFooter() {
   return (
     <SidebarFooter>
       <SidebarMenu>
-        <SidebarMenuItem>
+        <SidebarMenuItem aria-label="sidebar-footer">
           <UserPopover {...user} />
         </SidebarMenuItem>
       </SidebarMenu>
