@@ -67,46 +67,6 @@ describe('홈 로그인 기능 테스트', () => {
     cy.getTrashBookmarks(200, []).as('getTrashBookmarks');
   });
 
-  it('북마크 수정 버튼을 클릭 시 북마크가 수정 되어야 합니다.', () => {
-    cy.updateBookmark(200, BOOKMARKS_DATA[1].id, { ...BOOKMARKS_DATA[1], title: '구글' }).as('updateBookmark');
-
-    cy.visit('/').should('exist');
-
-    cy.findAllByRole('button', { name: '북마크 옵션' }).should('have.length', 2).eq(0).click();
-    cy.findByRole('menuitem', { name: '수정' }).click();
-    cy.findByRole('dialog').should('exist');
-
-    cy.findByLabelText('제목').should('exist').type('구글');
-    cy.findByRole('button', { name: '북마크 수정' }).click();
-    cy.findByRole('button', { name: '확인' }).click();
-
-    cy.wait('@updateBookmark');
-
-    cy.findByRole('status').should('not.have.class', 'destructive');
-
-    cy.findByText('Google').should('not.exist');
-    cy.findByText('구글').should('exist');
-  });
-
-  it('북마크 수정 버튼을 클릭 시 500 오류가 나는 경우 오류 메시지가 출력되어야 합니다.', () => {
-    cy.updateBookmark(500, BOOKMARKS_DATA[1].id, { ...BOOKMARKS_DATA[1], title: '구글' }).as('updateBookmark');
-
-    cy.visit('/').should('exist');
-
-    cy.findAllByRole('button', { name: '북마크 옵션' }).should('have.length', 2).eq(0).click();
-    cy.findByRole('menuitem', { name: '수정' }).click();
-    cy.findByRole('dialog').should('exist');
-
-    cy.findByLabelText('제목').should('exist').type('구글');
-    cy.findByRole('button', { name: '북마크 수정' }).click();
-    cy.findByRole('button', { name: '확인' }).click();
-
-    cy.wait('@updateBookmark');
-
-    cy.findByRole('status').should('have.class', 'destructive');
-    cy.findByText('Google').should('exist');
-  });
-
   it('북마크 삭제 버튼을 클릭 시 북마크가 삭제 되어야 합니다.', () => {
     cy.removeBookmark(200, BOOKMARKS_DATA[1].id).as('removeBookmark');
 
@@ -147,5 +107,45 @@ describe('홈 로그인 기능 테스트', () => {
     cy.findByRole('button', { name: '휴지통' }).click();
     cy.url().should('include', '/trash');
     cy.findByText('Google').should('not.exist');
+  });
+
+  it('북마크 수정 버튼을 클릭 시 북마크가 수정 되어야 합니다.', () => {
+    cy.updateBookmark(200, BOOKMARKS_DATA[1].id, { ...BOOKMARKS_DATA[1], title: '구글' }).as('updateBookmark');
+
+    cy.visit('/').should('exist');
+
+    cy.findAllByRole('button', { name: '북마크 옵션' }).should('have.length', 2).eq(0).click();
+    cy.findByRole('menuitem', { name: '수정' }).click();
+    cy.findByRole('dialog').should('exist');
+
+    cy.findByLabelText('제목').should('exist').type('구글');
+    cy.findByRole('button', { name: '북마크 수정' }).click();
+    cy.findByRole('button', { name: '확인' }).click();
+
+    cy.wait('@updateBookmark');
+
+    cy.findByRole('status').should('not.have.class', 'destructive');
+
+    cy.findByText('Google').should('not.exist');
+    cy.findByText('구글').should('exist');
+  });
+
+  it('북마크 수정 버튼을 클릭 시 500 오류가 나는 경우 오류 메시지가 출력되어야 합니다.', () => {
+    cy.updateBookmark(500, BOOKMARKS_DATA[1].id, { ...BOOKMARKS_DATA[1], title: '구글' }).as('updateBookmark');
+
+    cy.visit('/').should('exist');
+
+    cy.findAllByRole('button', { name: '북마크 옵션' }).should('have.length', 2).eq(0).click();
+    cy.findByRole('menuitem', { name: '수정' }).click();
+    cy.findByRole('dialog').should('exist');
+
+    cy.findByLabelText('제목').should('exist').type('구글');
+    cy.findByRole('button', { name: '북마크 수정' }).click();
+    cy.findByRole('button', { name: '확인' }).click();
+
+    cy.wait('@updateBookmark');
+
+    cy.findByRole('status').should('have.class', 'destructive');
+    cy.findByText('Google').should('exist');
   });
 });
