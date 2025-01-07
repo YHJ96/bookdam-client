@@ -2,8 +2,9 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
 
 import { useTagUtils } from '@/entities/tag';
-import { useRole, useToast } from '@/shared/hooks';
-import { revalidate } from '@/shared/utils';
+import { useRole } from '@/shared/hooks';
+import { checkUrl, randomId, revalidate } from '@/shared/utils';
+import { useBookmarkStore } from '@/store';
 
 import { useTrashBookmarkUtils } from '../trash-bookmark';
 import { createBookmarkApi, createOgTagApi, getBookmarksApi, removeBookmarkApi, updateBookmarkApi } from './api';
@@ -43,8 +44,8 @@ export const useBookmarkUtils = () => {
     setBookmarks(filterBookmarks);
   };
 
-  const updateBookmark = (bookmark: Bookmark) => {
-    const idx = findBookmarkIndexById(bookmark.id);
+  const updateBookmark = (bookmark: Bookmark, prevId?: number) => {
+    const idx = findBookmarkIndexById(prevId ?? bookmark.id);
     if (idx === -1) return;
     const bookmarks = getBookmarks();
     bookmarks[idx] = { ...bookmarks[idx], ...bookmark };
@@ -62,6 +63,29 @@ export const useBookmarkUtils = () => {
   };
 };
 
+type CreateOgContext = {
+  id: number;
+  tags: string[];
+  bookmarks: Bookmark[];
+};
+
+type CreateContext = {
+  id: number;
+  bookmarks: Bookmark[];
+  tags: string[];
+};
+
+type RemoveContext = {
+  bookmarks: Bookmark[];
+  trashBookmarks: Bookmark[];
+  tags: string[];
+};
+
+type UpdateContext = {
+  bookmarks: Bookmark[];
+  tags: string[];
+};
+
 export const useBookmark = () => {
   const role = useRole();
 
@@ -76,24 +100,39 @@ export const useBookmark = () => {
 };
 
 export const useCreateBookmark = () => {
-  const { addBookmark } = useBookmarkUtils();
-  const { getUniqueTags, setTags } = useTagUtils();
-  const { toast } = useToast();
+  const { addBookmark, getBookmarks, setBookmarks, updateBookmark } = useBookmarkUtils();
+  const { getUniqueTags, setTags, getTags } = useTagUtils();
 
-  const { mutate } = useMutation<Bookmark, AxiosError<{ message: string }>, CreateBookmark>({
+  const { mutate } = useMutation<Bookmark, AxiosError<{ message: string }>, CreateBookmark, CreateContext>({
     mutationFn: createBookmarkApi,
-    meta: { isThrowError: true },
-    onSuccess: (bookmark) => {
+
+    onMutate: (createBookmark) => {
+      const prevBookmark = getBookmarks();
+      const prevTags = getTags();
+      const id = randomId();
+
+      const bookmark = {
+        ...createBookmark,
+        id,
+        createdAt: new Date().toISOString(),
+        image: process.env.NEXT_PUBLIC_EMPTY_IMAGE,
+      };
+
       addBookmark(bookmark);
       setTags(getUniqueTags());
+
+      return { id, bookmarks: prevBookmark, tags: prevTags };
+    },
+
+    onSuccess: (bookmark, _, context) => {
+      updateBookmark(bookmark, context.id);
       revalidate(['bookmark', 'tag']);
     },
-    onError: (error) => {
-      toast({
-        title: '에러가 발생했습니다.',
-        description: error.response?.data.message,
-        variant: 'destructive',
-      });
+
+    onError: (_, __, context) => {
+      if (context === undefined) return;
+      setBookmarks(context.bookmarks);
+      setTags(context.tags);
     },
   });
 
@@ -101,16 +140,42 @@ export const useCreateBookmark = () => {
 };
 
 export const useCreateOgTag = () => {
-  const { toast } = useToast();
-  const { mutate } = useMutation<OgTag, AxiosError<{ message: string }>, CreateBookmark>({
+  const {
+    bookmarks,
+    createBookmark: _createBookmark,
+    setBookmark,
+    updateBookmark: _updateBookmark,
+  } = useBookmarkStore();
+  const { mutate } = useMutation<OgTag, AxiosError<{ message: string }>, CreateBookmark, CreateOgContext>({
     mutationFn: createOgTagApi,
-    meta: { isThrowError: true },
-    onError: (error) => {
-      toast({
-        title: '에러가 발생했습니다.',
-        description: error.response?.data.message,
-        variant: 'destructive',
-      });
+    onMutate: (createBookmark) => {
+      const prevBookmarks = structuredClone(bookmarks);
+      const id = randomId();
+
+      const bookmark = {
+        ...createBookmark,
+        id,
+        createdAt: new Date().toISOString(),
+        image: process.env.NEXT_PUBLIC_EMPTY_IMAGE,
+      };
+
+      _createBookmark(bookmark);
+      return { id, tags: createBookmark.tags, bookmarks: prevBookmarks };
+    },
+
+    onSuccess: (data, _, context) => {
+      const bookmark = {
+        id: context.id,
+        tags: [],
+        ...data,
+      };
+
+      _updateBookmark(bookmark);
+    },
+
+    onError: (_, __, context) => {
+      if (context === undefined) return;
+      setBookmark(context.bookmarks);
     },
   });
 
@@ -118,23 +183,36 @@ export const useCreateOgTag = () => {
 };
 
 export const useRemoveBookmark = () => {
-  const { getTrashBookmarks, setTrashBookmarks } = useTrashBookmarkUtils();
-  const { removeBookmark, findBookmarkById } = useBookmarkUtils();
-  const { getUniqueTags, setTags } = useTagUtils();
+  const { getTrashBookmarks, setTrashBookmarks, addTrashBookmark } = useTrashBookmarkUtils();
+  const { getBookmarks, removeBookmark, findBookmarkById, setBookmarks } = useBookmarkUtils();
+  const { getUniqueTags, getTags, setTags } = useTagUtils();
 
-  const { mutate } = useMutation<Bookmark, Error, number>({
+  const { mutate } = useMutation<Bookmark, Error, number, RemoveContext>({
     mutationFn: removeBookmarkApi,
-    onSuccess: ({ id }) => {
+    onMutate: (id) => {
       const target = findBookmarkById(id);
       if (target === undefined) return;
 
-      const trashBookmarks = getTrashBookmarks();
-      trashBookmarks.push(target);
-      setTrashBookmarks(trashBookmarks);
+      const prevBookmarks = getBookmarks();
+      const prevTrashBookmarks = getTrashBookmarks();
+      const prevTags = getTags();
 
+      addTrashBookmark(target);
       removeBookmark(id);
       setTags(getUniqueTags());
+
+      return { bookmarks: prevBookmarks, trashBookmarks: prevTrashBookmarks, tags: prevTags };
+    },
+
+    onSuccess: () => {
       revalidate(['bookmark', 'trash', 'tag']);
+    },
+
+    onError(_, __, context) {
+      if (context === undefined) return;
+      setBookmarks(context.bookmarks);
+      setTrashBookmarks(context.trashBookmarks);
+      setTags(context.tags);
     },
   });
 
@@ -142,17 +220,43 @@ export const useRemoveBookmark = () => {
 };
 
 export const useUpdateBookmark = () => {
-  const { updateBookmark } = useBookmarkUtils();
-  const { getUniqueTags, setTags } = useTagUtils();
+  const { getBookmarks, updateBookmark, setBookmarks, findBookmarkById } = useBookmarkUtils();
+  const { getUniqueTags, getTags, setTags } = useTagUtils();
 
-  const { mutate } = useMutation<Bookmark, Error, UpdateBookmark>({
+  const { mutate } = useMutation<Bookmark, Error, UpdateBookmark, UpdateContext>({
     mutationFn: updateBookmarkApi,
-    onSuccess: (bookmark) => {
-      updateBookmark(bookmark);
+    onMutate: (bookmark) => {
+      const target = findBookmarkById(bookmark.id);
+      if (target === undefined) return;
+
+      const prevBookmarks = getBookmarks();
+      const prevTags = getTags();
+
+      updateBookmark({ ...target, ...bookmark });
       setTags(getUniqueTags());
+
+      return { bookmarks: prevBookmarks, tags: prevTags };
+    },
+
+    onSuccess: () => {
       revalidate(['bookmark', 'tag']);
+    },
+
+    onError: (_, __, context) => {
+      if (context === undefined) return;
+      setBookmarks(context.bookmarks);
+      setTags(context.tags);
     },
   });
 
   return mutate;
+};
+
+export const useCheckurl = () => {
+  const { mutateAsync } = useMutation<boolean, Error, string>({
+    mutationFn: checkUrl,
+    meta: { isThrowError: true, isSuccess: true },
+  });
+
+  return mutateAsync;
 };

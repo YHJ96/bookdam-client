@@ -1,5 +1,6 @@
 type MutationMeta = {
   isThrowError?: boolean;
+  isSuccess?: boolean;
 };
 
 // https://github.com/TanStack/query/discussions/6045
