@@ -1,5 +1,7 @@
 'use client';
 
+import { Loader2 } from 'lucide-react';
+
 import { useCheckurl } from '@/entities/bookmark';
 import { useBookmarkForm } from '@/entities/bookmark-form';
 import { useDialog } from '@/shared/hooks';
@@ -13,6 +15,7 @@ import {
   DialogTitle,
   Form,
 } from '@/shared/ui';
+import { IfElse } from '@/shared/utils/react';
 
 import BookmarkFormInput from './BookmarkFormInput';
 import BookmarkTagForm from './BookmarkTagForm';
@@ -28,7 +31,7 @@ function BookmarkCreateDialog({ title, description, resolve }: BookmarkCreateDia
   const { tags, addTag, deleteTag } = useBookmarkDialogTag();
   const open = useDialog();
   const form = useBookmarkForm();
-  const checkUrl = useCheckurl();
+  const { mutateAsync: checkUrl, isPending } = useCheckurl();
 
   const urlVaildation = async () => {
     const isUrl = await checkUrl(form.getValues().url);
@@ -73,9 +76,20 @@ function BookmarkCreateDialog({ title, description, resolve }: BookmarkCreateDia
             <BookmarkFormInput className="pb-6" form={form} name="url" label="URL" placeholder="https://example.com" />
             <BookmarkTagForm tags={tags} addTag={addTag} deleteTag={deleteTag} />
 
-            <Button type="submit" className="w-full">
-              {title}
-            </Button>
+            <IfElse
+              condition={isPending}
+              then={
+                <Button disabled className="w-full">
+                  <Loader2 className="animate-spin" />
+                  <span>URL 검증을 진행중입니다.</span>
+                </Button>
+              }
+              other={
+                <Button type="submit" className="w-full">
+                  {title}
+                </Button>
+              }
+            />
           </form>
         </Form>
       </DialogContent>
