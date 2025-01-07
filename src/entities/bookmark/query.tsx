@@ -1,3 +1,5 @@
+import { useEffect, useState } from 'react';
+
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
 
@@ -253,10 +255,30 @@ export const useUpdateBookmark = () => {
 };
 
 export const useCheckurl = () => {
-  const { mutateAsync } = useMutation<boolean, Error, string>({
+  const [delayPending, setDelayPending] = useState(false);
+
+  const mutation = useMutation<boolean, Error, string>({
     mutationFn: checkUrl,
     meta: { isThrowError: true, isSuccess: true },
   });
 
-  return mutateAsync;
+  useEffect(() => {
+    if (mutation.isPending) {
+      const timer = setTimeout(() => {
+        setDelayPending(true);
+      }, 300);
+
+      return () => {
+        clearTimeout(timer);
+        setDelayPending(false);
+      };
+    } else {
+      setDelayPending(false);
+    }
+  }, [mutation.isPending]);
+
+  return {
+    ...mutation,
+    isPending: delayPending,
+  };
 };
