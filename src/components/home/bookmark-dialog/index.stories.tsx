@@ -2,6 +2,7 @@
 import React from 'react';
 
 import type { StoryObj } from '@storybook/react';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 import { DialogProvider } from '@/shared/ui';
 import useDialog from '@/shared/ui/Dialog/useDialog';
@@ -15,10 +16,14 @@ const meta = {
   title: 'Component/BookmarkDialog',
   decorators: [
     (Story: React.ComponentType<any>) => {
+      const queryClient = new QueryClient();
+
       return (
-        <DialogProvider>
-          <Story />
-        </DialogProvider>
+        <QueryClientProvider client={queryClient}>
+          <DialogProvider>
+            <Story />
+          </DialogProvider>
+        </QueryClientProvider>
       );
     },
   ],
