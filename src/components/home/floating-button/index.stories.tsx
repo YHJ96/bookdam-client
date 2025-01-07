@@ -1,5 +1,6 @@
 import { action } from '@storybook/addon-actions';
 import type { Meta, StoryObj } from '@storybook/react';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 import { DialogProvider } from '@/shared/ui';
 
@@ -19,11 +20,17 @@ const meta: Meta<typeof FloatingButton> = {
     },
   },
   decorators: [
-    (Story) => (
-      <DialogProvider>
-        <Story />
-      </DialogProvider>
-    ),
+    (Story) => {
+      const queryClient = new QueryClient();
+
+      return (
+        <QueryClientProvider client={queryClient}>
+          <DialogProvider>
+            <Story />
+          </DialogProvider>
+        </QueryClientProvider>
+      );
+    },
   ],
   render: (args) => (
     <div className="h-[150px]">
