@@ -12,7 +12,7 @@ export const useTrashBookmarkUtils = () => {
 
   const getTrashBookmarks = () => {
     const bookmarks = queryClient.getQueryData<Bookmark[]>(['trash']);
-    return bookmarks ?? [];
+    return structuredClone(bookmarks) ?? [];
   };
 
   const setTrashBookmarks = (bookmarks: Bookmark[]) => {
@@ -59,24 +59,47 @@ export const useTrashBookmark = () => {
   return { bookmarks: data ?? [], ...rest };
 };
 
-export const useRedoTrashBookmark = () => {
-  const { setBookmarks, getBookmarks } = useBookmarkUtils();
-  const { removeTrashBookmark, findBookmarkById } = useTrashBookmarkUtils();
-  const { getUniqueTags, setTags } = useTagUtils();
+type RedoContext = {
+  bookmarks: Bookmark[];
+  trashBookmarks: Bookmark[];
+  tags: string[];
+};
 
-  const { mutate } = useMutation({
+type UndoContext = {
+  trashBookmarks: Bookmark[];
+};
+
+export const useRedoTrashBookmark = () => {
+  const { setBookmarks, getBookmarks, addBookmark } = useBookmarkUtils();
+  const { removeTrashBookmark, findBookmarkById, getTrashBookmarks, setTrashBookmarks } = useTrashBookmarkUtils();
+  const { getUniqueTags, setTags, getTags } = useTagUtils();
+
+  const { mutate } = useMutation<Bookmark, Error, number, RedoContext>({
     mutationFn: redoTrashBookmarkApi,
-    onSuccess: ({ id }) => {
+    onMutate: (id) => {
       const target = findBookmarkById(id);
       if (target === undefined) return;
 
-      const bookmarks = getBookmarks();
-      bookmarks.push(target);
-      setBookmarks(bookmarks);
+      const prevTrashBookmarks = getTrashBookmarks();
+      const prevBookmarks = getBookmarks();
+      const prevTags = getTags();
 
+      addBookmark(target);
       removeTrashBookmark(id);
       setTags(getUniqueTags());
+
+      return { bookmarks: prevBookmarks, trashBookmarks: prevTrashBookmarks, tags: prevTags };
+    },
+
+    onSuccess: () => {
       revalidate(['bookmark', 'trash', 'tag']);
+    },
+
+    onError: (_, __, context) => {
+      if (context === undefined) return;
+      setBookmarks(context.bookmarks);
+      setTrashBookmarks(context.trashBookmarks);
+      setTags(context.tags);
     },
   });
 
@@ -84,13 +107,23 @@ export const useRedoTrashBookmark = () => {
 };
 
 export const useUndoTrashBookmark = () => {
-  const { removeTrashBookmark } = useTrashBookmarkUtils();
+  const { getTrashBookmarks, removeTrashBookmark, setTrashBookmarks } = useTrashBookmarkUtils();
 
-  const { mutate } = useMutation<Bookmark, Error, number>({
+  const { mutate } = useMutation<Bookmark, Error, number, UndoContext>({
     mutationFn: undoTrashBookmarkApi,
-    onSuccess: ({ id }) => {
+    onMutate: (id) => {
+      const prevTrashBookmarks = getTrashBookmarks();
       removeTrashBookmark(id);
+      return { trashBookmarks: prevTrashBookmarks };
+    },
+
+    onSuccess: () => {
       revalidate(['trash']);
+    },
+
+    onError(_, __, context) {
+      if (context === undefined) return;
+      setTrashBookmarks(context.trashBookmarks);
     },
   });
 

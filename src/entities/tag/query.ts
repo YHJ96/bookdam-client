@@ -15,11 +15,16 @@ export const useTagUtils = () => {
     return Array.from(set.values());
   };
 
+  const getTags = () => {
+    const tags = queryClient.getQueryData<string[]>(['tag']);
+    return structuredClone(tags) ?? [];
+  };
+
   const setTags = (tags: string[]) => {
     queryClient.setQueryData<string[]>(['tag'], tags);
   };
 
-  return { getUniqueTags, setTags };
+  return { getTags, getUniqueTags, setTags };
 };
 
 export const useTag = () => {
