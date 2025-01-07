@@ -14,7 +14,7 @@ export const useBookmarkUtils = () => {
 
   const getBookmarks = () => {
     const bookmarks = queryClient.getQueryData<Bookmark[]>(['bookmark']);
-    return bookmarks ?? [];
+    return structuredClone(bookmarks) ?? [];
   };
 
   const setBookmarks = (bookmarks: Bookmark[]) => {
