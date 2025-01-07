@@ -29,6 +29,12 @@ export const useTrashBookmarkUtils = () => {
     return idx;
   };
 
+  const addTrashBookmark = (bookmark: Bookmark) => {
+    const bookmarks = getTrashBookmarks();
+    bookmarks.push(bookmark);
+    setTrashBookmarks(bookmarks);
+  };
+
   const removeTrashBookmark = (id: number) => {
     const bookmarks = getTrashBookmarks();
     const idx = findBookmarkIndexById(id);
@@ -42,6 +48,7 @@ export const useTrashBookmarkUtils = () => {
     setTrashBookmarks,
     findBookmarkById,
     findBookmarkIndexById,
+    addTrashBookmark,
     removeTrashBookmark,
   };
 };

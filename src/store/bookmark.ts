@@ -12,6 +12,7 @@ type BookmarkStore = {
   createBookmark: (bookmark: Bookmark) => void;
   updateBookmark: (bookmark: UpdateBookmark) => void;
   removeBookmark: (id: number) => void;
+  setBookmark: (bookmarks: Bookmark[]) => void;
   reset: () => void;
 };
 
@@ -68,11 +69,16 @@ const removeBookmark = (set: Setter, get: Getter, id: number) => {
   useTagStore.setState({ tags });
 };
 
+const setBookmark = (set: Setter, bookmarks: Bookmark[]) => {
+  set({ bookmarks });
+};
+
 const createBookmarkStore: CreateBookmarkStore = (set, get) => ({
   bookmarks: [],
   createBookmark: (bookmark) => addBookmark(set, get, bookmark),
   updateBookmark: (bookmark) => updateBookmark(set, get, bookmark),
   removeBookmark: (id) => removeBookmark(set, get, id),
+  setBookmark: (bookmarks) => setBookmark(set, bookmarks),
   reset: () => set({ bookmarks: [] }),
 });
 

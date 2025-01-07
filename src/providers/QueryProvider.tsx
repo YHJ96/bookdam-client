@@ -34,10 +34,13 @@ export default function QueryProvider({ children }: QueryProviderProps) {
           },
         }),
         mutationCache: new MutationCache({
-          onSuccess: () => {
+          onSuccess: (_, __, ___, mutation) => {
+            if (mutation.meta?.isSuccess) return;
+
             toast({ title: '성공하였습니다.', description: '요청이 성공적으로 반영되었습니다.', variant: 'default' });
           },
-          onError: async (err, variables, context, mutation) => {
+
+          onError: async (err, _, __, mutation) => {
             if (!(err instanceof AxiosError)) return;
             if (mutation.meta?.isThrowError) return;
 

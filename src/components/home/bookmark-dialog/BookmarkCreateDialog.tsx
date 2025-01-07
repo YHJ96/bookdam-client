@@ -1,5 +1,6 @@
 'use client';
 
+import { useCheckurl } from '@/entities/bookmark';
 import { useBookmarkForm } from '@/entities/bookmark-form';
 import { useDialog } from '@/shared/hooks';
 import {
@@ -27,10 +28,23 @@ function BookmarkCreateDialog({ title, description, resolve }: BookmarkCreateDia
   const { tags, addTag, deleteTag } = useBookmarkDialogTag();
   const open = useDialog();
   const form = useBookmarkForm();
+  const checkUrl = useCheckurl();
+
+  const urlVaildation = async () => {
+    const isUrl = await checkUrl(form.getValues().url);
+    if (isUrl) return true;
+
+    form.setError('url', { message: '유효하지 않은 URL 입니다.' });
+    return false;
+  };
 
   const handleOnSumbit = async () => {
+    const isUrl = await urlVaildation();
+    if (!isUrl) return;
+
     const isConfirm = await open(Confirm, { title: '북마크 추가', description: '북마크를 추가하시겠습니까?' });
     if (!isConfirm) return;
+
     resolve({ ...form.getValues(), tags });
   };
 
