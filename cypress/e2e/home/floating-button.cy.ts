@@ -61,6 +61,22 @@ describe('비로그인 플로팅 버튼 기능 테스트', () => {
     cy.findByText('올바른 URL 형식을 입력해주세요.').should('exist');
   });
 
+  it('유효하지 않은 URL 형식일 경우 오류 메시지가 출력되어야 합니다.', () => {
+    cy.visit('/').should('exist');
+
+    cy.visit('/').should('exist');
+
+    cy.findByRole('button', { name: 'Bookmark Add' }).click();
+
+    cy.findByRole('dialog').should('exist');
+
+    cy.findByLabelText('제목').type('쿠팡');
+    cy.findByLabelText('내용').type('로켓배송');
+    cy.findByLabelText('URL').type('https://asd.com');
+    cy.findByRole('button', { name: '북마크 추가' }).click();
+    cy.findByText('유효하지 않은 URL 입니다.').should('exist');
+  });
+
   it('북마크 추가 버튼을 클릭 시 500 오류가 나는 경우 오류 메시지가 출력되어야 합니다.', () => {
     cy.createOgTag(500, {}).as('createOgTag');
 
