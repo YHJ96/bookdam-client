@@ -7,9 +7,12 @@ import dynamic from 'next/dynamic';
 
 import { TourTooltip } from '@/components/tour';
 
+import { useTourStore } from '@/store';
+
 const Joyride = dynamic(() => import('react-joyride'), { ssr: false });
 
 function TrashBookmarkTourService() {
+  const { isTour, cachingRole } = useTourStore();
   const helperRef = useRef<StoreHelpers>();
   const timerRef = useRef<ReturnType<typeof setTimeout>>();
 
@@ -87,7 +90,7 @@ function TrashBookmarkTourService() {
   return (
     <>
       <Joyride
-        run={false}
+        run={isTour}
         continuous={true}
         steps={steps}
         callback={handleJoyrideCallback}
