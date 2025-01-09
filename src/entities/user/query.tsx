@@ -19,12 +19,12 @@ export const useUserUtils = () => {
     return user ?? { role: 'guest', user: null };
   };
 
-  const setUser = (role: Role) => {
+  const setRole = (role: Role) => {
     const { user } = getUser();
     queryClient.setQueryData<UserWithRole>(['user'], { role, user });
   };
 
-  return { setUser };
+  return { setRole };
 };
 
 export const useUser = () => {
