@@ -52,8 +52,8 @@ function BookmarkCreateDialog({ title, description, resolve }: BookmarkCreateDia
   };
 
   return (
-    <Dialog defaultOpen>
-      <DialogContent className="sm:max-w-[425px]">
+    <Dialog defaultOpen modal={true}>
+      <DialogContent id="bookmark-create-dialog" className="sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle>{title}</DialogTitle>
           <DialogDescription>{description}</DialogDescription>

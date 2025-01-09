@@ -1,3 +1,4 @@
+import BookmarkTourService from './BookmarkTourService';
 import TrashBookmarkTourService from './TrashBookmarkTourService';
 
-export { TrashBookmarkTourService };
+export { BookmarkTourService, TrashBookmarkTourService };
