@@ -2,13 +2,13 @@ import { StateCreator, StoreApi, create } from 'zustand';
 
 import type { Role } from '@/shared/types';
 
-type CachingRole = Omit<Role, 'tourist'>;
+type CachingRole = Exclude<Role, 'tourist'>;
 
 type TourStore = {
   isTour: boolean;
   cachingRole: CachingRole | null;
   startTour: (cachingRole: CachingRole) => void;
-  reset: () => void;
+  endTour: () => void;
 };
 
 type CreateTourStore = StateCreator<TourStore>;
@@ -22,7 +22,7 @@ const createTourStore: CreateTourStore = (set) => ({
   isTour: false,
   cachingRole: null,
   startTour: (cachingRole) => startTour(set, cachingRole),
-  reset: () => endTour(set),
+  endTour: () => endTour(set),
 });
 
 export const useTourStore = create<TourStore>(createTourStore);

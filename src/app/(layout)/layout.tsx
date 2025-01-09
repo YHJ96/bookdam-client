@@ -20,8 +20,17 @@ async function MainLayout({ children }: MainLayoutProps) {
   const queryClient = new QueryClient();
   const session = await getSession();
 
+  const getUser = () => {
+    const email = session?.email;
+    const name = session?.name;
+    const avatar = session?.avatar;
+
+    if (!email || !name || !avatar) return { role: 'guest', user: null };
+    return { role: 'user', user: { email, name, avatar } };
+  };
+
   if (session) {
-    await queryClient.prefetchQuery({ queryKey: ['user'], queryFn: getSession });
+    await queryClient.prefetchQuery({ queryKey: ['user'], queryFn: getUser });
 
     await queryClient.prefetchQuery({
       queryKey: ['bookmark'],

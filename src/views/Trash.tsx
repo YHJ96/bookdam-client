@@ -6,8 +6,8 @@ import dynamic from 'next/dynamic';
 
 import { TrashBookmark, TrashBookmarkEmpty } from '@/components/trash';
 
+import { useUser } from '@/entities/user';
 import { TrashBookmarkTourService, useTrashBookmarkService } from '@/services';
-import { useRole } from '@/shared/hooks';
 import { IfElse } from '@/shared/utils/react';
 
 const LazyTrashBookmarkTourService = dynamic(() => Promise.resolve(TrashBookmarkTourService), {
@@ -15,7 +15,7 @@ const LazyTrashBookmarkTourService = dynamic(() => Promise.resolve(TrashBookmark
 });
 
 function Trash() {
-  const role = useRole();
+  const { role } = useUser();
   const { bookmarks, redoBookmark, undoBookmark } = useTrashBookmarkService(role);
 
   return (
