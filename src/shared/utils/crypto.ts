@@ -19,6 +19,6 @@ export const decrypt = (data: string) => {
 
     return JSON.parse(decrypted) as { name: string; avatar: string; email: string };
   } catch {
-    return {};
+    return null;
   }
 };

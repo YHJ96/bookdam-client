@@ -1,7 +1,7 @@
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 
 import { useBookmarkUtils } from '@/entities/bookmark';
-import { useRole } from '@/shared/hooks';
+import { useUser } from '@/entities/user';
 
 import { getTagsApi } from './api';
 
@@ -28,7 +28,7 @@ export const useTagUtils = () => {
 };
 
 export const useTag = () => {
-  const role = useRole();
+  const { role } = useUser();
 
   const { data, ...rest } = useQuery<string[]>({
     queryKey: ['tag'],

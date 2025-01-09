@@ -1,12 +1,39 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
+import { Bookmark } from '@/entities/bookmark';
+import type { Role } from '@/shared/types';
+
 import { removeCookiesApi } from './api';
 import { User } from './type';
 
-export const useUser = () => {
-  const { data, ...rest } = useQuery<User>({ queryKey: ['user'], staleTime: Infinity });
+type UserWithRole = {
+  role: Role;
+  user: User | null;
+};
 
-  return { user: data ?? null, ...rest };
+export const useUserUtils = () => {
+  const queryClient = useQueryClient();
+
+  const getUser = () => {
+    const user = queryClient.getQueryData<UserWithRole>(['user']);
+    return user ?? { role: 'guest', user: null };
+  };
+
+  const setUser = (role: Role) => {
+    const { user } = getUser();
+    queryClient.setQueryData<UserWithRole>(['user'], { role, user });
+  };
+
+  return { setUser };
+};
+
+export const useUser = () => {
+  const { data } = useQuery<User, Error, UserWithRole>({
+    queryKey: ['user'],
+    staleTime: Infinity,
+  });
+
+  return data ?? { role: 'guest', user: null };
 };
 
 export const useLogout = () => {
@@ -14,8 +41,8 @@ export const useLogout = () => {
   const { mutate } = useMutation({
     mutationFn: removeCookiesApi,
     onSuccess: () => {
-      queryClient.setQueryData(['user'], null);
-      queryClient.setQueryData(['bookmark'], []);
+      queryClient.setQueryData<UserWithRole>(['user'], { role: 'guest', user: null });
+      queryClient.setQueryData<Bookmark[]>(['bookmark'], []);
     },
   });
 

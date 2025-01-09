@@ -8,7 +8,6 @@ import { usePathname } from 'next/navigation';
 import { useUser } from '@/entities/user';
 import { useBookmarkService } from '@/services';
 import { PATHS_TO_ARRAY } from '@/shared/constants';
-import { useRole } from '@/shared/hooks';
 import { excel } from '@/shared/utils';
 
 import Header from './Header';
@@ -18,9 +17,8 @@ interface ContainerProps {
 }
 
 function Container({ component: Compoent }: ContainerProps) {
-  const { user } = useUser();
+  const { user, role } = useUser();
   const router = useRouter();
-  const role = useRole();
   const { bookmarks } = useBookmarkService(role);
 
   const path = usePathname();

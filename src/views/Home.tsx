@@ -11,12 +11,13 @@ import {
   FloatingButton,
 } from '@/components/home';
 
+import { useUser } from '@/entities/user';
 import { useBookmarkService, useTagService } from '@/services';
-import { useFilterBookmark, useRole } from '@/shared/hooks';
+import { useFilterBookmark } from '@/shared/hooks';
 import { IfElse } from '@/shared/utils/react';
 
 function Home() {
-  const role = useRole();
+  const { role } = useUser();
   const { bookmarks, updateBookmark, removeBookmark, createBookmark } = useBookmarkService(role);
   const { tags, selectedTags, toggleTag } = useTagService(role);
   const [search, setSearch] = useState('');

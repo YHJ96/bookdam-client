@@ -1,10 +1,15 @@
+'use client';
+
 import React from 'react';
 
 import Link from 'next/link';
 
 import { Button } from '@/shared/ui';
+import { useTourStore } from '@/store';
 
 export default function Tour() {
+  const { startTour } = useTourStore();
+
   return (
     <div className="mx-auto flex h-full flex-col items-center justify-center px-4 py-16">
       <h2 className="mb-6 text-4xl font-bold">북마크 튜토리얼에 오신 것을 환영합니다!</h2>
