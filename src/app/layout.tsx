@@ -6,9 +6,31 @@ import { font } from '@/shared/libs';
 import './(layout)/globals.css';
 
 export const metadata: Metadata = {
-  title: 'Bookdam',
-  description: 'Bookdam',
+  title: '북담',
+  description: '북마크를 쉽게 관리하세요.',
+  icons: '/favicon.ico',
   manifest: '/manifest.json',
+  keywords: ['북마크', '북담', '북마크 관리', '웹 북마크', 'bookmark'],
+  robots: 'index, follow',
+  openGraph: {
+    title: '북담',
+    description: '북마크를 쉽게 관리하세요.',
+    url: 'https://bookdam.com',
+    siteName: '북담',
+    images: {
+      url: '/og-image.png',
+      width: 1200,
+      height: 630,
+      alt: '북담',
+    },
+  },
+
+  twitter: {
+    card: 'summary_large_image',
+    title: '북담 - 북마크 관리 서비스',
+    description: '북마크를 쉽게 관리하세요.',
+    images: '/og-image.png',
+  },
 };
 
 type RooRootLayoutProps = {
