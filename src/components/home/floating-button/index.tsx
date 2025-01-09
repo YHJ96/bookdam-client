@@ -29,22 +29,21 @@ function FloatingButton({ isAnimate, createBookmark }: FloatingButtonProps) {
   };
 
   return (
-    <>
-      <Button
-        variant="default"
-        className="fixed bottom-6 right-6 z-50 h-12 w-12 transform rounded-full bg-blue-700 shadow-lg transition-all duration-300 ease-in-out hover:scale-110 dark:bg-blue-600 md:bottom-10 md:right-6 [&_svg]:size-4"
-        onClick={handleOnClick}
-      >
-        <Bookmark className="text-blue-200" />
-        <span className="sr-only">Bookmark Add</span>
-        <Hide
-          condition={!isAnimate}
-          component={
-            <div className="fixed h-12 w-12 animate-ping rounded-full bg-blue-700 opacity-75 dark:bg-blue-600" />
-          }
-        />
-      </Button>
-    </>
+    <Button
+      id="floating-button"
+      variant="default"
+      className="fixed bottom-6 right-6 z-50 h-12 w-12 transform rounded-full bg-blue-700 shadow-lg transition-all duration-300 ease-in-out hover:scale-110 dark:bg-blue-600 md:bottom-10 md:right-6 [&_svg]:size-4"
+      onClick={handleOnClick}
+    >
+      <Bookmark className="text-blue-200" />
+      <span className="sr-only">Bookmark Add</span>
+      <Hide
+        condition={!isAnimate}
+        component={
+          <div className="fixed h-12 w-12 animate-ping rounded-full bg-blue-700 opacity-75 dark:bg-blue-600" />
+        }
+      />
+    </Button>
   );
 }
 

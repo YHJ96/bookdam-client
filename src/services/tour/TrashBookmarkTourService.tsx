@@ -4,6 +4,7 @@ import React, { useMemo, useRef } from 'react';
 import type { CallBackProps, Step, StoreHelpers } from 'react-joyride';
 
 import dynamic from 'next/dynamic';
+import { useRouter } from 'next/navigation';
 
 import { TourTooltip } from '@/components/tour';
 
@@ -13,6 +14,7 @@ import { useTourStore } from '@/store';
 const Joyride = dynamic(() => import('react-joyride'), { ssr: false });
 
 function TrashBookmarkTourService() {
+  const router = useRouter();
   const { setRole } = useUserUtils();
   const { isTour, cachingRole, endTour } = useTourStore();
   const helperRef = useRef<StoreHelpers>();
@@ -54,7 +56,7 @@ function TrashBookmarkTourService() {
   ];
 
   const domEvent = useMemo(() => {
-    const handleButtonPotinerDown = () => {
+    const handleDismissEvent = () => {
       timerRef.current = setTimeout(() => helperRef.current?.next(), 300);
       document.addEventListener('pointerdown', domEvent.preventDismiss, true);
       document.addEventListener('focusin', domEvent.preventDismiss, true);
@@ -65,7 +67,7 @@ function TrashBookmarkTourService() {
       e.preventDefault();
     };
 
-    return { handleButtonPotinerDown, preventDismiss };
+    return { handleDismissEvent, preventDismiss };
   }, []);
 
   const handleJoyrideCallback = (data: CallBackProps) => {
@@ -73,17 +75,19 @@ function TrashBookmarkTourService() {
     const $button = document.querySelector<HTMLButtonElement>('button[aria-haspopup="menu"]');
 
     if (index === 2 && type === 'tooltip') {
-      $button?.addEventListener('pointerdown', domEvent.handleButtonPotinerDown);
+      $button?.addEventListener('pointerdown', domEvent.handleDismissEvent);
     }
 
     if (status === 'finished') {
       document.removeEventListener('pointerdown', domEvent.preventDismiss, true);
       document.removeEventListener('focusin', domEvent.preventDismiss, true);
-      $button?.removeEventListener('pointerdown', domEvent.handleButtonPotinerDown);
+      $button?.removeEventListener('pointerdown', domEvent.handleDismissEvent);
       clearTimeout(timerRef.current);
       if (cachingRole === null) return;
       setRole(cachingRole);
       endTour();
+
+      router.push('/');
 
       queueMicrotask(() => {
         const pointerEvent = new PointerEvent('pointerdown');
@@ -93,25 +97,23 @@ function TrashBookmarkTourService() {
   };
 
   return (
-    <>
-      <Joyride
-        run={isTour}
-        continuous={true}
-        steps={steps}
-        callback={handleJoyrideCallback}
-        getHelpers={(helper) => (helperRef.current = helper)}
-        disableOverlayClose={true}
-        hideCloseButton={true}
-        floaterProps={{ hideArrow: false }}
-        tooltipComponent={(context) => <TourTooltip {...context} />}
-        styles={{
-          options: {
-            overlayColor: '#000000CC',
-            arrowColor: window.matchMedia('(prefers-color-scheme: dark)').matches ? 'hsl(0 0% 3.9%)' : 'hsl(0 0% 100%)',
-          },
-        }}
-      />
-    </>
+    <Joyride
+      run={isTour}
+      continuous={true}
+      steps={steps}
+      callback={handleJoyrideCallback}
+      getHelpers={(helper) => (helperRef.current = helper)}
+      disableOverlayClose={true}
+      hideCloseButton={true}
+      floaterProps={{ hideArrow: false }}
+      tooltipComponent={(context) => <TourTooltip {...context} />}
+      styles={{
+        options: {
+          overlayColor: '#000000CC',
+          arrowColor: window.matchMedia('(prefers-color-scheme: dark)').matches ? 'hsl(0 0% 3.9%)' : 'hsl(0 0% 100%)',
+        },
+      }}
+    />
   );
 }
 

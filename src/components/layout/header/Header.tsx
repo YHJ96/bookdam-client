@@ -29,7 +29,7 @@ function Header({ title, isLogin, onLogin, onExcel }: HeaderProps) {
       </section>
 
       <div className="flex gap-2">
-        <Button variant="outline" size="sm" onClick={onExcel}>
+        <Button id="excel-button" variant="outline" size="sm" onClick={onExcel}>
           <Download />
           <span>엑셀 다운로드</span>
         </Button>

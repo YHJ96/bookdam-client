@@ -37,7 +37,7 @@ function Bookmark({ bookmark, updateBookmark, removeBookmark }: BookmarkProps) {
   };
 
   return (
-    <Card className="group relative pr-4">
+    <Card id="bookmark" className="group relative pr-4">
       <div className="absolute right-2 top-2 z-10">
         <BookmarkDropdown updateOnSelect={handleUpdateOnSelect} removeOnSelect={handleRemoveOnSelect} />
       </div>
