@@ -21,6 +21,8 @@ export const useBookmarkService = (role: Role) => {
       return useUserBookmark;
     case 'guest':
       return useGuestBookmark;
+    case 'tourist':
+      return useGuestBookmark;
     default:
       throw new Error(`해당 역할이 없습니다. : ${role}`);
   }

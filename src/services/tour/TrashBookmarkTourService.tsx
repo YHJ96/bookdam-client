@@ -7,12 +7,14 @@ import dynamic from 'next/dynamic';
 
 import { TourTooltip } from '@/components/tour';
 
+import { useUserUtils } from '@/entities/user';
 import { useTourStore } from '@/store';
 
 const Joyride = dynamic(() => import('react-joyride'), { ssr: false });
 
 function TrashBookmarkTourService() {
-  const { isTour, cachingRole } = useTourStore();
+  const { setRole } = useUserUtils();
+  const { isTour, cachingRole, endTour } = useTourStore();
   const helperRef = useRef<StoreHelpers>();
   const timerRef = useRef<ReturnType<typeof setTimeout>>();
 
@@ -79,6 +81,9 @@ function TrashBookmarkTourService() {
       document.removeEventListener('focusin', domEvent.preventDismiss, true);
       $button?.removeEventListener('pointerdown', domEvent.handleButtonPotinerDown);
       clearTimeout(timerRef.current);
+      if (cachingRole === null) return;
+      setRole(cachingRole);
+      endTour();
 
       queueMicrotask(() => {
         const pointerEvent = new PointerEvent('pointerdown');
