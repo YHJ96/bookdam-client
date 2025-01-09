@@ -3,6 +3,7 @@ import { CreateBookmark, UpdateBookmark } from '@/entities/bookmark';
 import { Role } from '@/shared/types';
 
 import { useGuestBookmarkStrategy } from './useGuestBookmarkStrategy';
+import { useTouristTrashBookmarkStrategy } from './useTouristTrashBookmarkStrategy';
 import { useUserBookmarkStrategy } from './useUserBookmarkStrategy';
 
 export interface BookmarkService {
@@ -15,6 +16,7 @@ export interface BookmarkService {
 export const useBookmarkService = (role: Role) => {
   const useUserBookmark = useUserBookmarkStrategy();
   const useGuestBookmark = useGuestBookmarkStrategy();
+  const useTouristBookmark = useTouristTrashBookmarkStrategy();
 
   switch (role) {
     case 'user':
@@ -22,7 +24,7 @@ export const useBookmarkService = (role: Role) => {
     case 'guest':
       return useGuestBookmark;
     case 'tourist':
-      return useGuestBookmark;
+      return useTouristBookmark;
     default:
       throw new Error(`해당 역할이 없습니다. : ${role}`);
   }
