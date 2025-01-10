@@ -6,6 +6,7 @@ import { font } from '@/shared/libs';
 import './(layout)/globals.css';
 
 export const metadata: Metadata = {
+  metadataBase: new URL(process.env.NEXT_PUBLIC_CLIENT_URL),
   title: '북담',
   description: '북마크를 쉽게 관리하세요.',
   icons: '/favicon.ico',
