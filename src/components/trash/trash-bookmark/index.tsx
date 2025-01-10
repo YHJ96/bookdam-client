@@ -48,7 +48,7 @@ function TrashBookmark({ bookmark, redoBookmark, undoBookmark }: TrashBookmarkPr
       </div>
       <CardContent className="flex items-center p-4">
         <div className="relative mr-4 h-14 w-14 flex-shrink-0 overflow-hidden rounded-md">
-          <Image src={image} alt={title} fill={true} style={{ objectFit: 'contain' }} />
+          <Image src={image} alt={title} priority={true} fill={true} sizes="56px" />
         </div>
         <div className="min-w-0 flex-grow">
           <h3 className="truncate text-sm font-medium text-blue-600">{title}</h3>
