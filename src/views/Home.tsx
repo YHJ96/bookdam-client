@@ -9,6 +9,7 @@ import {
   BookmarkEmpty,
   BookmarkSearchInput,
   BookmarkSelectOrder,
+  BookmarkSkeleton,
   BookmarkTagFilter,
   FloatingButton,
 } from '@/components/home';
@@ -43,6 +44,7 @@ function Home() {
           condition={Boolean(bookmarks.length)}
           then={
             <div id="bookmark-list" className="grid grid-cols-1 gap-2 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
+              <BookmarkSkeleton />
               {filteredBookmarks.map((bookmark) => (
                 <Bookmark
                   key={bookmark.id}
