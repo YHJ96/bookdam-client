@@ -5,16 +5,7 @@ import { Loader2 } from 'lucide-react';
 import { useCheckurl } from '@/entities/bookmark';
 import { useBookmarkForm } from '@/entities/bookmark-form';
 import { useDialog } from '@/shared/hooks';
-import {
-  Button,
-  Dialog,
-  DialogClose,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  Form,
-} from '@/shared/ui';
+import { Button, Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, Form } from '@/shared/ui';
 import { IfElse } from '@/shared/utils/react';
 
 import BookmarkFormInput from './BookmarkFormInput';
@@ -28,7 +19,7 @@ interface BookmarkCreateDialogProps {
 }
 
 function BookmarkCreateDialog({ title, description, resolve }: BookmarkCreateDialogProps) {
-  const { open, close } = useDialog();
+  const { close } = useDialog();
   const { tags, addTag, deleteTag } = useBookmarkDialogTag();
   const form = useBookmarkForm();
   const { mutateAsync: checkUrl, isPending } = useCheckurl();

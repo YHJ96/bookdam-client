@@ -7,13 +7,16 @@ import dynamic from 'next/dynamic';
 import { useRouter } from 'next/navigation';
 
 import { TourTooltip } from '@/components/tour';
+import { EndTourDialog } from '@/components/tour';
 
 import { useUserUtils } from '@/entities/user';
+import { useDialog } from '@/shared/hooks';
 import { useTourStore } from '@/store';
 
 const Joyride = dynamic(() => import('react-joyride'), { ssr: false });
 
 function TrashBookmarkTourService() {
+  const { open } = useDialog();
   const router = useRouter();
   const { setRole } = useUserUtils();
   const { isTour, cachingRole, endTour } = useTourStore();
@@ -40,11 +43,14 @@ function TrashBookmarkTourService() {
     },
   ];
 
-  const handleJoyrideCallback = (data: CallBackProps) => {
+  const handleJoyrideCallback = async (data: CallBackProps) => {
     const { status } = data;
 
     if (status !== 'finished') return;
     if (cachingRole === null) return;
+
+    const isConfirm = await open(EndTourDialog, {});
+    if (!isConfirm) return;
 
     setRole(cachingRole);
     endTour();

@@ -28,6 +28,8 @@ export { Select, SelectContent, SelectGroup, SelectItem, SelectSeparator, Select
 
 export { Skeleton } from './Skeleton';
 
+export { Checkbox } from './Checkbox';
+
 export {
   type ToastProps,
   type ToastActionElement,
@@ -53,6 +55,7 @@ export {
   DialogProvider,
   DialogTitle,
   DialogTrigger,
+  DialogNoCloseButtonContent,
 } from './Dialog';
 
 export {
