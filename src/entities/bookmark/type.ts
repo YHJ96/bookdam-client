@@ -12,4 +12,4 @@ export type CreateBookmark = Omit<Bookmark, 'id' | 'image' | 'createdAt'>;
 
 export type UpdateBookmark = Omit<Bookmark, 'url' | 'image' | 'createdAt'>;
 
-export type OgTag = Omit<Bookmark, 'id' | 'createdAt' | 'tags'>;
+export type OgTag = Omit<Bookmark, 'id' | 'createdAt'>;

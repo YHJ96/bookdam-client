@@ -17,7 +17,8 @@ import {
 import { useUser } from '@/entities/user';
 import { BookmarkTourService, useBookmarkService, useTagService } from '@/services';
 import { useFilterBookmark } from '@/shared/hooks';
-import { IfElse } from '@/shared/utils/react';
+import { Hide, IfElse } from '@/shared/utils/react';
+import { useBookmarkSkeletonStore } from '@/store';
 
 const LazyBookmarkTourService = dynamic(() => Promise.resolve(BookmarkTourService), {
   ssr: false,
@@ -29,7 +30,7 @@ function Home() {
   const { tags, selectedTags, toggleTag } = useTagService(role);
   const [search, setSearch] = useState('');
   const [order, setOrder] = useState<'asc' | 'desc'>('asc');
-
+  const { isSkeleton } = useBookmarkSkeletonStore();
   const filteredBookmarks = useFilterBookmark(bookmarks, search, selectedTags, order);
 
   return (
@@ -44,7 +45,7 @@ function Home() {
           condition={Boolean(bookmarks.length)}
           then={
             <div id="bookmark-list" className="grid grid-cols-1 gap-2 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
-              <BookmarkSkeleton />
+              <Hide condition={!isSkeleton} component={<BookmarkSkeleton />} />
               {filteredBookmarks.map((bookmark) => (
                 <Bookmark
                   key={bookmark.id}

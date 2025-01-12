@@ -1,12 +1,11 @@
 import { useEffect, useState } from 'react';
 
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { AxiosError } from 'axios';
 
 import { useTagUtils } from '@/entities/tag';
 import { useUser } from '@/entities/user';
 import { checkUrl, randomId, revalidate } from '@/shared/utils';
-import { useBookmarkStore } from '@/store';
+import { useBookmarkSkeletonStore, useBookmarkStore } from '@/store';
 
 import { useTrashBookmarkUtils } from '../trash-bookmark';
 import { createBookmarkApi, createOgTagApi, getBookmarksApi, removeBookmarkApi, updateBookmarkApi } from './api';
@@ -65,18 +64,6 @@ export const useBookmarkUtils = () => {
   };
 };
 
-type CreateOgContext = {
-  id: number;
-  tags: string[];
-  bookmarks: Bookmark[];
-};
-
-type CreateContext = {
-  id: number;
-  bookmarks: Bookmark[];
-  tags: string[];
-};
-
 type RemoveContext = {
   bookmarks: Bookmark[];
   trashBookmarks: Bookmark[];
@@ -102,39 +89,23 @@ export const useBookmark = () => {
 };
 
 export const useCreateBookmark = () => {
-  const { addBookmark, getBookmarks, setBookmarks, updateBookmark } = useBookmarkUtils();
-  const { getUniqueTags, setTags, getTags } = useTagUtils();
+  const { addBookmark } = useBookmarkUtils();
+  const { setSkeleton } = useBookmarkSkeletonStore();
 
-  const { mutate } = useMutation<Bookmark, AxiosError<{ message: string }>, CreateBookmark, CreateContext>({
+  const { mutate } = useMutation<Bookmark, Error, CreateBookmark>({
     mutationFn: createBookmarkApi,
 
-    onMutate: (createBookmark) => {
-      const prevBookmark = getBookmarks();
-      const prevTags = getTags();
-      const id = randomId();
-
-      const bookmark = {
-        ...createBookmark,
-        id,
-        createdAt: new Date().toISOString(),
-        image: process.env.NEXT_PUBLIC_EMPTY_IMAGE,
-      };
-
-      addBookmark(bookmark);
-      setTags(getUniqueTags());
-
-      return { id, bookmarks: prevBookmark, tags: prevTags };
+    onMutate: () => {
+      setSkeleton(true);
     },
 
-    onSuccess: (bookmark, _, context) => {
-      updateBookmark(bookmark, context.id);
+    onSuccess: (bookmark) => {
+      addBookmark(bookmark);
       revalidate(['bookmark', 'tag']);
     },
 
-    onError: (_, __, context) => {
-      if (context === undefined) return;
-      setBookmarks(context.bookmarks);
-      setTags(context.tags);
+    onSettled: () => {
+      setSkeleton(false);
     },
   });
 
@@ -142,42 +113,27 @@ export const useCreateBookmark = () => {
 };
 
 export const useCreateOgTag = () => {
-  const {
-    bookmarks,
-    createBookmark: _createBookmark,
-    setBookmark,
-    updateBookmark: _updateBookmark,
-  } = useBookmarkStore();
-  const { mutate } = useMutation<OgTag, AxiosError<{ message: string }>, CreateBookmark, CreateOgContext>({
+  const { setSkeleton } = useBookmarkSkeletonStore();
+  const { createBookmark } = useBookmarkStore();
+
+  const { mutate } = useMutation<OgTag, Error, CreateBookmark>({
     mutationFn: createOgTagApi,
-    onMutate: (createBookmark) => {
-      const prevBookmarks = structuredClone(bookmarks);
-      const id = randomId();
+    onMutate: () => {
+      setSkeleton(true);
+    },
 
+    onSuccess: (og) => {
       const bookmark = {
-        ...createBookmark,
-        id,
+        ...og,
+        id: randomId(),
         createdAt: new Date().toISOString(),
-        image: process.env.NEXT_PUBLIC_EMPTY_IMAGE,
       };
 
-      _createBookmark(bookmark);
-      return { id, tags: createBookmark.tags, bookmarks: prevBookmarks };
+      createBookmark(bookmark);
     },
 
-    onSuccess: (data, _, context) => {
-      const bookmark = {
-        id: context.id,
-        tags: [],
-        ...data,
-      };
-
-      _updateBookmark(bookmark);
-    },
-
-    onError: (_, __, context) => {
-      if (context === undefined) return;
-      setBookmark(context.bookmarks);
+    onSettled: () => {
+      setSkeleton(false);
     },
   });
 
