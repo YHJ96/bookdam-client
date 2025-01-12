@@ -17,7 +17,7 @@ type FloatingButtonProps = {
 };
 
 function FloatingButton({ isAnimate, createBookmark }: FloatingButtonProps) {
-  const open = useDialog();
+  const { open } = useDialog();
 
   const handleOnClick = async () => {
     const bookmark = await open(BookmarkCreateDialog, {

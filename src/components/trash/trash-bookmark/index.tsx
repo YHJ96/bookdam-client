@@ -19,7 +19,7 @@ type TrashBookmarkProps = {
 function TrashBookmark({ bookmark, redoBookmark, undoBookmark }: TrashBookmarkProps) {
   const { id, title, description, url, image } = bookmark;
 
-  const open = useDialog();
+  const { open } = useDialog();
 
   const handleRedoOnSelect = async () => {
     const isConfirm = await open(Confirm, {
