@@ -33,7 +33,7 @@ const meta = {
     },
   },
   render: (args: OpenDialog) => {
-    const open = useDialog();
+    const { open } = useDialog();
 
     return <button onClick={() => open(args[0], args[1])}>열기</button>;
   },

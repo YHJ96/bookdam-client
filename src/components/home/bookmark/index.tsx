@@ -18,7 +18,7 @@ type BookmarkProps = {
 };
 
 function Bookmark({ bookmark, updateBookmark, removeBookmark }: BookmarkProps) {
-  const open = useDialog();
+  const { open } = useDialog();
   const { id, title, description, url, image } = bookmark;
 
   const handleUpdateOnSelect = async () => {

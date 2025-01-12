@@ -1,11 +1,10 @@
 'use client';
 
 import { useBookmarkForm } from '@/entities/bookmark-form';
-import { useDialog } from '@/shared/hooks';
 import {
   Button,
-  Confirm,
   Dialog,
+  DialogClose,
   DialogContent,
   DialogDescription,
   DialogHeader,
@@ -24,12 +23,9 @@ interface BookmarkUpdateDialogProps {
 
 function BookmarkUpdateDialog({ bookmark, resolve }: BookmarkUpdateDialogProps) {
   const { tags, addTag, deleteTag } = useBookmarkDialogTag(bookmark.tags);
-  const open = useDialog();
   const form = useBookmarkForm(bookmark);
 
   const handleOnSumbit = async () => {
-    const isConfirm = await open(Confirm, { title: '북마크 수정', description: '북마크를 수정하시겠습니까?' });
-    if (!isConfirm) return;
     resolve({ ...form.getValues(), tags });
   };
 
@@ -58,9 +54,11 @@ function BookmarkUpdateDialog({ bookmark, resolve }: BookmarkUpdateDialogProps) 
             <BookmarkFormInput form={form} name="url" label="URL" placeholder="https://example.com" disabled={true} />
             <BookmarkTagForm tags={tags} addTag={addTag} deleteTag={deleteTag} />
 
-            <Button type="submit" className="w-full">
-              북마크 수정
-            </Button>
+            <DialogClose asChild>
+              <Button type="submit" className="w-full">
+                북마크 수정
+              </Button>
+            </DialogClose>
           </form>
         </Form>
       </DialogContent>
