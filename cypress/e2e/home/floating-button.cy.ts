@@ -24,6 +24,7 @@ describe('비로그인 플로팅 버튼 기능 테스트', () => {
       title: '쿠팡',
       description: '로켓배송',
       url: 'https://www.coupang.com',
+      tags: [],
     }).as('createOgTag');
 
     cy.visit('/').should('exist');
@@ -36,7 +37,6 @@ describe('비로그인 플로팅 버튼 기능 테스트', () => {
     cy.findByLabelText('내용').type('로켓배송');
     cy.findByLabelText('URL').type('https://www.coupang.com');
     cy.findByRole('button', { name: '북마크 추가' }).click();
-    cy.findByRole('button', { name: '확인' }).click();
 
     cy.wait('@createOgTag');
 
@@ -90,7 +90,6 @@ describe('비로그인 플로팅 버튼 기능 테스트', () => {
     cy.findByLabelText('내용').type('로켓배송');
     cy.findByLabelText('URL').type('https://www.coupang.com');
     cy.findByRole('button', { name: '북마크 추가' }).click();
-    cy.findByRole('button', { name: '확인' }).click();
 
     cy.wait('@createOgTag');
 
@@ -130,7 +129,6 @@ describe('로그인 플로팅 버튼 기능 테스트', () => {
     cy.findByLabelText('내용').type('로켓배송');
     cy.findByLabelText('URL').type('https://www.coupang.com');
     cy.findByRole('button', { name: '북마크 추가' }).click();
-    cy.findByRole('button', { name: '확인' }).click();
 
     cy.wait('@createBookmark');
 
@@ -154,7 +152,6 @@ describe('로그인 플로팅 버튼 기능 테스트', () => {
     cy.findByLabelText('내용').type('로켓배송');
     cy.findByLabelText('URL').type('https://www.coupang.com');
     cy.findByRole('button', { name: '북마크 추가' }).click();
-    cy.findByRole('button', { name: '확인' }).click();
 
     cy.wait('@createBookmark');
 

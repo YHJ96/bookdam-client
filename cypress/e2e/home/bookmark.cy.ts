@@ -52,7 +52,6 @@ describe('홈 비로그인 기능 테스트', () => {
     cy.findByRole('dialog').should('exist');
     cy.findByLabelText('제목').should('exist').type('구글');
     cy.findByRole('button', { name: '북마크 수정' }).click();
-    cy.findByRole('button', { name: '확인' }).click();
 
     cy.findByText('Google').should('not.exist');
     cy.findByText('구글').should('exist');
@@ -120,7 +119,6 @@ describe('홈 로그인 기능 테스트', () => {
 
     cy.findByLabelText('제목').should('exist').type('구글');
     cy.findByRole('button', { name: '북마크 수정' }).click();
-    cy.findByRole('button', { name: '확인' }).click();
 
     cy.wait('@updateBookmark');
 
@@ -141,7 +139,6 @@ describe('홈 로그인 기능 테스트', () => {
 
     cy.findByLabelText('제목').should('exist').type('구글');
     cy.findByRole('button', { name: '북마크 수정' }).click();
-    cy.findByRole('button', { name: '확인' }).click();
 
     cy.wait('@updateBookmark');
 
