@@ -52,7 +52,7 @@ function StartTourDialog() {
 
         <div className="py-4">
           <div className="flex items-center space-x-2">
-            <Checkbox id="isChecked" onCheckedChange={handleOnCheckedChange} />
+            <Checkbox id="isChecked" onCheckedChange={handleOnCheckedChange} aria-label="일주일 동안 다시 묻지 않기" />
             <label
               htmlFor="isChecked"
               className="cursor-pointer select-none text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"

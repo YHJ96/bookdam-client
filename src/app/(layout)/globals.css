@@ -58,8 +58,8 @@
 
     --background: var(--neutral-0);
     --foreground: var(--neutral-950);
-    --badge: var(--neutral-300);
-    --badge-selected: var(--neutral-200);
+    --badge: var(--neutral-200);
+    --badge-selected: var(--neutral-400);
     --card: var(--neutral-0);
     --card-foreground: var(--neutral-950);
     --popover: var(--neutral-0);
@@ -91,7 +91,7 @@
     --background: var(--neutral-950);
     --foreground: var(--neutral-50);
     --badge: var(--neutral-800);
-    --badge-selected: var(--neutral-700);
+    --badge-selected: var(--neutral-500);
     --card: var(--neutral-950);
     --card-foreground: var(--neutral-50);
     --popover: var(--neutral-950);

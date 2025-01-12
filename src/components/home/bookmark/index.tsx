@@ -47,9 +47,9 @@ function Bookmark({ bookmark, updateBookmark, removeBookmark }: BookmarkProps) {
             <Image src={image} alt={title} priority={true} fill={true} sizes="56px" />
           </div>
           <div className="min-w-0 flex-grow">
-            <h3 className="truncate text-sm font-medium text-blue-600">{title}</h3>
-            <p className="mt-1 truncate text-xs text-gray-600">{description}</p>
-            <div className="mt-1 flex items-center text-xs text-gray-500">
+            <h3 className="truncate text-sm font-medium text-blue-600 dark:text-blue-500">{title}</h3>
+            <p className="mt-1 truncate text-xs text-gray-600 dark:text-gray-300">{description}</p>
+            <div className="mt-1 flex items-center text-xs text-gray-500 dark:text-gray-400">
               <ExternalLink className="mr-1 h-3 w-3" />
               <span className="truncate">{url}</span>
             </div>
