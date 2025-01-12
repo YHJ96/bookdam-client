@@ -45,7 +45,7 @@ describe('Excel 테스트', () => {
     if (Cypress.platform === 'darwin') {
       cy.readFile('cypress/downloads/북마크.csv').should('exist');
     } else {
-      cy.readFile('cypress/downloads/북마크.xlsx').should('exist');
+      cy.readFile('cypress/downloads/북마크.xls').should('exist');
     }
   });
 
@@ -57,7 +57,7 @@ describe('Excel 테스트', () => {
         .should('include', '네이버,네이버 메인에서 다양한 정보와 유용한 컨텐츠를 만나 보세요,https://naver.com')
         .and('include', 'Google,,https://google.com');
     } else {
-      cy.readFile('cypress/downloads/북마크.xlsx')
+      cy.readFile('cypress/downloads/북마크.xls')
         .should('include', '네이버,네이버 메인에서 다양한 정보와 유용한 컨텐츠를 만나 보세요,https://naver.com')
         .and('include', 'Google,,https://google.com');
     }
