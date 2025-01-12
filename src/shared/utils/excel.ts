@@ -20,7 +20,7 @@ export const excel = (bookmarks: Bookmark[]) => {
   const mac = navigator.userAgent.includes('Mac');
   const ios = navigator.userAgent.includes('iOS');
 
-  link.download = '북마크.xlsx';
+  link.download = '북마크.xls';
   if (mac || ios) link.download = '북마크.csv';
   link.href = URL.createObjectURL(blob);
   link.click();
