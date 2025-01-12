@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useMemo, useRef } from 'react';
+import React, { useRef } from 'react';
 import type { CallBackProps, Step, StoreHelpers } from 'react-joyride';
 
 import dynamic from 'next/dynamic';
@@ -18,7 +18,6 @@ function TrashBookmarkTourService() {
   const { setRole } = useUserUtils();
   const { isTour, cachingRole, endTour } = useTourStore();
   const helperRef = useRef<StoreHelpers>();
-  const timerRef = useRef<ReturnType<typeof setTimeout>>();
 
   const steps: Step[] = [
     {
@@ -35,65 +34,21 @@ function TrashBookmarkTourService() {
     },
     {
       target: '#trash-bookmark-options-trigger',
-      content: '옵션을 클릭해보세요.',
+      content: '휴지통 북마크 옵션으로 복구와 영구 삭제를 할 수 있습니다.',
       placement: 'bottom',
-      disableBeacon: true,
-      spotlightClicks: true,
-      hideFooter: true,
-    },
-    {
-      target: '#trash-bookmark-options-content',
-      content: '복구 버튼을 눌러 북마크를 복구합니다.',
-      placement: 'right',
-      disableBeacon: true,
-    },
-    {
-      target: '#trash-bookmark-options-content',
-      content: '영구 삭제 버튼을 눌러 북마크를 영구 삭제합니다.',
-      placement: 'right',
       disableBeacon: true,
     },
   ];
 
-  const domEvent = useMemo(() => {
-    const handleDismissEvent = () => {
-      timerRef.current = setTimeout(() => helperRef.current?.next(), 300);
-      document.addEventListener('pointerdown', domEvent.preventDismiss, true);
-      document.addEventListener('focusin', domEvent.preventDismiss, true);
-    };
-
-    const preventDismiss = (e: Event) => {
-      e.stopPropagation();
-      e.preventDefault();
-    };
-
-    return { handleDismissEvent, preventDismiss };
-  }, []);
-
   const handleJoyrideCallback = (data: CallBackProps) => {
-    const { index, type, status } = data;
-    const $button = document.querySelector<HTMLButtonElement>('button[aria-haspopup="menu"]');
+    const { status } = data;
 
-    if (index === 2 && type === 'tooltip') {
-      $button?.addEventListener('pointerdown', domEvent.handleDismissEvent);
-    }
+    if (status !== 'finished') return;
+    if (cachingRole === null) return;
 
-    if (status === 'finished') {
-      document.removeEventListener('pointerdown', domEvent.preventDismiss, true);
-      document.removeEventListener('focusin', domEvent.preventDismiss, true);
-      $button?.removeEventListener('pointerdown', domEvent.handleDismissEvent);
-      clearTimeout(timerRef.current);
-      if (cachingRole === null) return;
-      setRole(cachingRole);
-      endTour();
-
-      router.push('/');
-
-      queueMicrotask(() => {
-        const pointerEvent = new PointerEvent('pointerdown');
-        document.dispatchEvent(pointerEvent);
-      });
-    }
+    setRole(cachingRole);
+    endTour();
+    router.push('/');
   };
 
   return (
