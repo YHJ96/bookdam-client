@@ -10,7 +10,7 @@ function BookmarkSelectOrder({ order, setOrder }: BookmarkSelectOrderProps) {
 
   return (
     <Select value={order} onValueChange={handleOnChange}>
-      <SelectTrigger id="bookmark-select-order" className="w-[180px]">
+      <SelectTrigger id="bookmark-select-order" className="w-[180px]" aria-label="북마크 정렬 기준">
         <SelectValue />
       </SelectTrigger>
       <SelectContent>
