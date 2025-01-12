@@ -1,5 +1,9 @@
 import '@testing-library/cypress/add-commands';
 
+beforeEach(() => {
+  cy.setCookie('tutorial', 'false');
+});
+
 afterEach(() => {
   cy.clearLocalStorage();
   cy.clearCookies();
