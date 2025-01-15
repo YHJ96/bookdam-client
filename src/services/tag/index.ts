@@ -1,6 +1,7 @@
 import { useState } from 'react';
 
 import { Role } from '@/shared/types';
+import { uppercase } from '@/shared/utils';
 
 import { useGuestTagStrategy } from './useGuestTagStrategy';
 import { useTouristTagStrategy } from './useTouristTagStrategy';
@@ -12,9 +13,9 @@ export interface TagService {
 
 export const useTagService = (role: Role) => {
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
-  const useUserTag = useUserTagStrategy();
-  const useGuestTag = useGuestTagStrategy();
-  const useTouristTag = useTouristTagStrategy();
+  const userTags = useUserTagStrategy().tags;
+  const guestTags = useGuestTagStrategy().tags;
+  const touristTags = useTouristTagStrategy().tags;
 
   const filterSelectedTags = (tags: string[], tag: string) => {
     return tags.filter((_tag) => _tag !== tag);
@@ -31,11 +32,11 @@ export const useTagService = (role: Role) => {
 
   switch (role) {
     case 'user':
-      return { ...useUserTag, selectedTags, toggleTag };
+      return { tags: uppercase(userTags), selectedTags, toggleTag };
     case 'guest':
-      return { ...useGuestTag, selectedTags, toggleTag };
+      return { tags: uppercase(guestTags), selectedTags, toggleTag };
     case 'tourist':
-      return { ...useTouristTag, selectedTags, toggleTag };
+      return { tags: uppercase(touristTags), selectedTags, toggleTag };
     default:
       throw new Error(`해당 역할이 없습니다. : ${role}`);
   }

@@ -1,5 +1,7 @@
 import { useState } from 'react';
 
+import { uppercase } from '@/shared/utils';
+
 export const useBookmarkDialogTag = (initialTags: string[] = []) => {
   const [tags, setTags] = useState<string[]>(initialTags);
 
@@ -13,5 +15,5 @@ export const useBookmarkDialogTag = (initialTags: string[] = []) => {
     setTags((prev) => prev.filter((_tag) => _tag !== tag));
   };
 
-  return { tags, addTag, deleteTag };
+  return { tags: uppercase(tags), addTag, deleteTag };
 };
