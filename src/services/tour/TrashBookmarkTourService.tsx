@@ -3,6 +3,7 @@
 import React, { useRef } from 'react';
 import type { CallBackProps, Step, StoreHelpers } from 'react-joyride';
 
+import { useTheme } from 'next-themes';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/navigation';
 
@@ -16,12 +17,12 @@ import { useTourStore } from '@/store';
 const Joyride = dynamic(() => import('react-joyride'), { ssr: false });
 
 function TrashBookmarkTourService() {
+  const { theme } = useTheme();
   const { open } = useDialog();
   const router = useRouter();
   const { setRole } = useUserUtils();
   const { isTour, cachingRole, endTour } = useTourStore();
   const helperRef = useRef<StoreHelpers>();
-
   const steps: Step[] = [
     {
       target: '#trash-bookmark-list',
@@ -71,7 +72,7 @@ function TrashBookmarkTourService() {
       styles={{
         options: {
           overlayColor: '#000000CC',
-          arrowColor: window.matchMedia('(prefers-color-scheme: dark)').matches ? 'hsl(0 0% 3.9%)' : 'hsl(0 0% 100%)',
+          arrowColor: theme === 'dark' ? 'hsl(0 0% 3.9%)' : 'hsl(0 0% 100%)',
         },
       }}
     />

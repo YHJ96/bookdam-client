@@ -3,6 +3,7 @@
 import React from 'react';
 import type { CallBackProps, Step } from 'react-joyride';
 
+import { useTheme } from 'next-themes';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/navigation';
 
@@ -13,6 +14,7 @@ import { useTourStore } from '@/store';
 const Joyride = dynamic(() => import('react-joyride'), { ssr: false });
 
 function BookmarkTourService() {
+  const { theme } = useTheme();
   const { isTour } = useTourStore();
   const router = useRouter();
 
@@ -86,7 +88,7 @@ function BookmarkTourService() {
       styles={{
         options: {
           overlayColor: '#000000CC',
-          arrowColor: window.matchMedia('(prefers-color-scheme: dark)').matches ? 'hsl(0 0% 3.9%)' : 'hsl(0 0% 100%)',
+          arrowColor: theme === 'dark' ? 'hsl(0 0% 3.9%)' : 'hsl(0 0% 100%)',
         },
       }}
     />
