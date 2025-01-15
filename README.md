@@ -1,38 +1,83 @@
-# Bookdam-Client
+# 북담
 
-## Folder Structure
+## 프로젝트 구조
 
-- providers: Provider & HOC
-- views (pages): Page Components
-- templates: Layout & Page Components Template (DI)
-  - Domain: Component Imports And Packaging
-  - \*.index.tsx: UI
-  - \*.test.tsx: Integration Test
-- components: Role Components
-  - Role : Comopnents
-    - hooks: Hooks
-    - actions: Non-Hooks Function
-    - types: Types
-    - \*.index.tsx: UI
-    - \*.stories.tsx: StoryBook
-    - \*.test.tsx: Unit Test
-- entities:
-  - apis: API
-  - query: React Query
-  - types: Interface Types
-- shared: Global
-  - ui: Global Components
-  - types: Global Types
-  - utils: Global Utils
-  - libs: Global Library Instance
-  - hooks: Global Hooks
+### 1-1. 기술 스택
 
-## Git Commit Message
+- **기술**: NextJS, TypeScript, React-Query, TailwindCSS, Zustand, Storybook, Cypress
+- **코드 스타일**: Prettier, ESLint
+- **배포 환경**: Vercel
+- **노드 버전**: 20.16.0 이상
 
-feat : 새로운 기능 추가
-fix : 버그 수정
-docs : 문서 수정
-style : CSS 수정 및 UI 개선
-refactor : 코드 리펙토링
-test : 테스트 코드, 리펙토링 테스트 코드 추가
-chore : 빌드 업무 수정, 패키지 매니저 수정
+### 1-2. 폴더 구조
+
+| Type       | Description                                                 |
+| ---------- | ----------------------------------------------------------- |
+| app        | Next.js App Router 기반의 라우팅과 레이아웃을 포함하는 폴더 |
+| components | 페이지에 종속되어 이용되는 컴포넌트들을 포함하는 폴더       |
+| entities   | 도메인 모델과 관련된 타입, 스키마 등을 포함하는 폴더        |
+| providers  | 앱 전역에서 사용되는 Context Provider들을 포함하는 폴더     |
+| services   | 비즈니스 로직을 추상화 하는 폴더                            |
+| shared     | 공통으로 사용되는 UI, 유틸리티, 타입 등을 포함하는 폴더     |
+| store      | 전역 상태 관리 로직을 포함하는 폴더                         |
+| views      | 페이지 단위의 컴포넌트를 포함하는 폴더                      |
+
+### 1-3. 스토리북
+
+[스토리북 바로가기](https://bookdam-client.vercel.app/)
+
+- 스토리북 테마 변경 기능 제공
+- 스토리북 모바일 뷰 제공
+
+## 서비스 소개
+
+크롬 브라우저의 북마크는 구글 계정과 연동되어 있어, 회사 계정과 개인 계정을 오가며 사용할 때 불편함이 있습니다. 특히 회사에서는 업무용 구글 계정을 사용해야 하는데, 이때 저장한 북마크들을 개인 계정에서 접근하기 위해서는 계정을 전환해야 하는 불편함이 있어서 한 아이디로 북마크를 관리하는 서비스가 필요하다고 생각했습니다. 이런 문제를 해결하기 위해 "북담(BookDam)"을 개발하게 되었습니다.
+
+### 2-1. 주요 기능
+
+**북마크 관리**
+
+- 북마크 검색 기능을 제공합니다.
+- 북마크 추가/수정/삭제 기능을 제공합니다.
+- 제목, 설명 등을 사용자가 직접 편집할 수 있습니다.
+- 엑셀 파일로 북마크를 내보내고 가져올 수 있습니다.
+- 생성 날짜 순으로 정렬기능을 제공합니다.
+
+**태그 기반 분류**
+
+- 북마크에 다중 태그를 지정하여 체계적으로 분류할 수 있습니다.
+- 태그 기반 필터링으로 원하는 북마크를 쉽게 찾을 수 있습니다.
+
+**휴지통 기능**
+
+- 실수로 삭제한 북마크를 복구할 수 있습니다.
+- 완전 삭제 전까지 휴지통에서 관리됩니다.
+
+**소셜 로그인**
+
+- 구글/카카오 계정으로 간편하게 로그인할 수 있습니다.
+
+**사용자 관리**
+
+- 소셜 로그인 (카카오, 구글)
+- 게스트 모드 지원 (로컬 스토리지 기반)
+- 다크/라이트 테마 지원
+
+**튜토리얼**
+
+- 초기 사용자를 위한 북마크 사용법 튜토리얼 제공
+- 단계별 기능 설명
+
+## 커밋 컨벤션
+
+| Type     | Description                                         |
+| -------- | --------------------------------------------------- |
+| feat     | 새로운 기능 추가                                    |
+| fix      | 버그 수정 또는 typo                                 |
+| refactor | 리팩토링                                            |
+| comment  | 필요한 주석 추가 및 변경                            |
+| style    | CSS 등 사용자 UI 디자인 변경                        |
+| test     | 테스트(테스트 코드 추가/수정/삭제), 테스트 리팩토링 |
+| rename   | 파일 혹은 폴더명을 수정하거나 옮기는 경우           |
+| remove   | 파일을 삭제하는 작업만 수행하는 경우                |
+| docs     | 문서 작업, 수정                                     |

@@ -1,0 +1,11 @@
+{
+  /* Chai Overriding */
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "noEmit": false,
+    "composite": true,
+    "types": ["vitest/globals"]
+  },
+  "include": ["src", "setupTests.ts", "env.d.ts", "query.d.ts"],
+  "exclude": ["**/*.stories.tsx"]
+}
