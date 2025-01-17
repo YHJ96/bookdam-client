@@ -91,6 +91,7 @@ export const useBookmark = () => {
 export const useCreateBookmark = () => {
   const { addBookmark } = useBookmarkUtils();
   const { setSkeleton } = useBookmarkSkeletonStore();
+  const { getUniqueTags, setTags } = useTagUtils();
 
   const { mutate } = useMutation<Bookmark, Error, CreateBookmark>({
     mutationFn: createBookmarkApi,
@@ -101,6 +102,7 @@ export const useCreateBookmark = () => {
 
     onSuccess: (bookmark) => {
       addBookmark(bookmark);
+      setTags(getUniqueTags());
       revalidate(['bookmark', 'tag']);
     },
 

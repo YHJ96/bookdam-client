@@ -15,6 +15,7 @@ function EndTourDialog({ resolve }: EndTourDialogProps) {
         id="bookmark-create-dialog"
         className="sm:max-w-[425px]"
         onInteractOutside={(e) => e.preventDefault()}
+        onEscapeKeyDown={(e) => e.preventDefault()}
       >
         <DialogHeader>
           <DialogTitle>시작 가이드 완료!</DialogTitle>

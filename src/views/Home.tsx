@@ -17,7 +17,7 @@ import {
 import { useUser } from '@/entities/user';
 import { BookmarkTourService, useBookmarkService, useTagService } from '@/services';
 import { useFilterBookmark } from '@/shared/hooks';
-import { Hide, IfElse } from '@/shared/utils/react';
+import { Hide } from '@/shared/utils/react';
 import { useBookmarkSkeletonStore } from '@/store';
 
 const LazyBookmarkTourService = dynamic(() => Promise.resolve(BookmarkTourService), {
@@ -41,26 +41,21 @@ function Home() {
           <BookmarkSelectOrder order={order} setOrder={setOrder} />
         </div>
         <BookmarkTagFilter tags={tags} selectedTags={selectedTags} toggleTag={toggleTag} />
-        <IfElse
-          condition={Boolean(bookmarks.length)}
-          then={
-            <div id="bookmark-list" className="grid grid-cols-1 gap-2 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
-              <Hide condition={!isSkeleton} component={<BookmarkSkeleton />} />
-              {filteredBookmarks.map((bookmark) => (
-                <Bookmark
-                  key={bookmark.id}
-                  bookmark={bookmark}
-                  updateBookmark={updateBookmark}
-                  removeBookmark={removeBookmark}
-                />
-              ))}
-            </div>
-          }
-          other={
-            <div className="flex-1">
-              <BookmarkEmpty isCSR={role === 'guest'} />
-            </div>
-          }
+        <div id="bookmark-list" className="grid grid-cols-1 gap-2 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
+          <Hide condition={!isSkeleton} component={<BookmarkSkeleton />} />
+          {filteredBookmarks.map((bookmark) => (
+            <Bookmark
+              key={bookmark.id}
+              bookmark={bookmark}
+              updateBookmark={updateBookmark}
+              removeBookmark={removeBookmark}
+            />
+          ))}
+        </div>
+
+        <Hide
+          condition={Boolean(bookmarks.length) || isSkeleton}
+          component={<BookmarkEmpty isCSR={role === 'guest'} />}
         />
         <FloatingButton isAnimate={!Boolean(bookmarks.length)} createBookmark={createBookmark} />
       </div>
