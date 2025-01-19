@@ -12,11 +12,13 @@ export const metadata: Metadata = {
   icons: '/favicon.ico',
   manifest: '/manifest.json',
   keywords: ['북마크', '북담', '북마크 관리', '웹 북마크', 'bookmark'],
-  robots: 'index, follow',
+  alternates: {
+    canonical: process.env.NEXT_PUBLIC_CLIENT_URL,
+  },
   openGraph: {
     title: '북담',
     description: '북마크를 쉽게 관리하세요.',
-    url: 'https://bookdam.com',
+    url: process.env.NEXT_PUBLIC_CLIENT_URL,
     siteName: '북담',
     images: {
       url: '/og-image.png',
